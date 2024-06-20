@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension", "HmExtension\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtensionTest", "HmExtensionTest\HmExtensionTest.csproj", "{539B2E46-9F79-4FA7-9861-8AF3B746555A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Pay", "HmExtension.Pay\HmExtension.Pay.csproj", "{94AE4363-B65B-417D-AAEB-410DCBF5B53A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{539B2E46-9F79-4FA7-9861-8AF3B746555A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{539B2E46-9F79-4FA7-9861-8AF3B746555A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{539B2E46-9F79-4FA7-9861-8AF3B746555A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94AE4363-B65B-417D-AAEB-410DCBF5B53A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AE4363-B65B-417D-AAEB-410DCBF5B53A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94AE4363-B65B-417D-AAEB-410DCBF5B53A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AE4363-B65B-417D-AAEB-410DCBF5B53A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

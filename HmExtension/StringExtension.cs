@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 using Newtonsoft.Json;
+using static QRCoder.QRCodeGenerator;
 
 namespace HmExtension;
 
@@ -509,5 +511,69 @@ public static class StringExtension
     public static T FromJson<T>(this string value, params JsonConverter[] converters)
     {
         return JsonConvert.DeserializeObject<T>(value, converters);
+    }
+
+
+
+    /// <summary>
+    /// 将字符串转换为QRCode二维码
+    /// <example>
+    /// <code>
+    /// // 将字符串转换为二维码
+    /// Bitmap bitmap = "http://www.baidu.com".ToQRCode();
+    /// // 生成一个绿色的二维码,背景色为白色
+    /// Bitmap bitmap = "http://www.baidu.com".ToQRCode(Color.Green, Color.White);
+    /// // 生成一个带有LOGO的二维码
+    /// Bitmap bitmap = "http://www.baidu.com".ToQRCode(icon: new Bitmap("logo.png"));
+    /// </code>
+    /// </example>
+    /// </summary>
+    /// <param name="value">当前字符串</param>
+    /// <param name="darkColor">暗色 二维码像素方块的颜色 一般设置为Color.Black 黑色</param>
+    /// <param name="lightColor">亮色 二维码的背景色 一般设置为Color.White  白色</param>
+    /// <param name="pixelsPerModule">生成二维码图片的像素大小,默认为5</param>
+    /// <param name="level">容错等级
+    ///     <list type="bullet">
+    ///         <item>
+    ///             <term>ECCLevel.L: </term>
+    ///             <description>大约 7% 的错误更正能力</description>
+    ///         </item>
+    ///         <item>
+    ///             <term>ECCLevel.M: </term>
+    ///             <description>大约 15% 的错误更正能力。</description>
+    ///         </item>
+    ///         <item>
+    ///             <term>ECCLevel.Q: </term>
+    ///             <description>大约 25% 的错误更正能力。</description>
+    ///         </item>
+    ///         <item>
+    ///             <term>ECCLevel.H: </term>
+    ///             <description>大约 30% 的错误更正能力。</description>
+    ///         </item>
+    ///     </list>
+    /// </param>
+    /// <param name="drawQuietZones">静止区，位于二维码某一边的空白边界,用来阻止读者获取与正在浏览的二维码无关的信息 即是否绘画二维码的空白边框区域 默认为true</param>
+    /// <param name="icon">二维码水印图标 默认为NULL ，加上这个二维码中间会显示一个图标</param>
+    /// <param name="iconSizePercent">水印图标的大小比例 ，可根据自己的喜好设置 </param>
+    /// <param name="iconBorderWidth">水印图标的边框</param>
+    /// <param name="iconBackgroundColor">水印图标的背景色</param>
+    /// <returns>二维码图片</returns>
+    public static Bitmap ToQRCode(this string value,
+        Color? darkColor = null, Color? lightColor = null, int pixelsPerModule = 5,
+        ECCLevel level = ECCLevel.Q,
+        bool drawQuietZones = true,
+        Bitmap icon = null,
+        int iconSizePercent = 15,
+        int iconBorderWidth = 0,
+        Color? iconBackgroundColor = null
+    )
+    {
+        darkColor ??= Color.Black;
+        lightColor ??= Color.White;
+        var generator = new QRCoder.QRCodeGenerator();
+        var codeData = generator.CreateQrCode(value, level);
+        var qrCode = new QRCoder.QRCode(codeData);
+        return qrCode.GetGraphic(pixelsPerModule, (Color)darkColor, (Color)lightColor, icon, iconSizePercent,
+            iconBorderWidth, drawQuietZones, iconBackgroundColor);
     }
 }
