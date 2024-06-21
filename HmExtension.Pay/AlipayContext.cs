@@ -11,15 +11,6 @@ namespace HmExtension.Pay;
 /// </summary>
 public class AlipayContext
 {
-    // IAopClient client = new
-    // DefaultAopClient(
-    // "https://openapi.alipay.com/gateway.do",
-    // APPID, APP_PRIVATE_KEY,
-    // "json", "1.0",
-    // "RSA2",
-    // ALIPAY_PUBLIC_KEY,
-    // CHARSET,
-    // false);
     private static IAopClient _client;
 
     /// <summary>
@@ -90,7 +81,12 @@ public class AlipayContext
         return _client.Execute(request);
     }
 
-
+    /// <summary>
+    /// 异常检查,用于检查支付宝响应是否有错误,如果有错误则抛出异常
+    /// </summary>
+    /// <typeparam name="T">响应类型</typeparam>
+    /// <param name="response">响应对象</param>
+    /// <exception cref="Exception"></exception>
     public static void Execption<T>(T response) where T : AopResponse
     {
         if (response.IsError)

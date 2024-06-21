@@ -44,6 +44,12 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.8.5.2\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="HmExtension, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\hongmao.HmExtension.1.0.0.2\lib\net40\HmExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="HmExtension.Pay, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\hongmao.HmExtension.Pay.1.0.0.1\lib\net461\HmExtension.Pay.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\AlipaySDKNet.Standard.4.9.171\lib\netstandard2.0\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
@@ -422,16 +428,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HmExtension.Pay\HmExtension.Pay.csproj">
-      <Project>{94ae4363-b65b-417d-aaeb-410dcbf5b53a}</Project>
-      <Name>HmExtension.Pay</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HmExtension\HmExtension.csproj">
-      <Project>{815903c8-b5de-4e79-aadf-dc4fe1bb226c}</Project>
-      <Name>HmExtension</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

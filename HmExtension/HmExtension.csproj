@@ -35,6 +35,7 @@
     <LangVersion>latest</LangVersion>
     <DocumentationFile>bin\Release\HmExtension.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>logo.ico</ApplicationIcon>
@@ -60,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTypeExtension.cs" />
+    <Compile Include="BitmapExtension.cs" />
     <Compile Include="ByteArrayExtension.cs" />
     <Compile Include="CollectionExtension.cs" />
+    <Compile Include="StreamExtension.cs" />
     <Compile Include="ObjectExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtension.cs" />
@@ -71,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />

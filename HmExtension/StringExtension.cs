@@ -489,6 +489,7 @@ public static class StringExtension
         return string.Format(value, args);
     }
 
+
     /// <summary>
     /// 将JSON字符串转换为对象
     /// <example >
@@ -512,7 +513,6 @@ public static class StringExtension
     {
         return JsonConvert.DeserializeObject<T>(value, converters);
     }
-
 
 
     /// <summary>
@@ -575,5 +575,41 @@ public static class StringExtension
         var qrCode = new QRCoder.QRCode(codeData);
         return qrCode.GetGraphic(pixelsPerModule, (Color)darkColor, (Color)lightColor, icon, iconSizePercent,
             iconBorderWidth, drawQuietZones, iconBackgroundColor);
+    }
+
+    /// <summary>
+    /// 检查字符串是否是DataUrl字符串
+    /// </summary>
+    /// <param name="value">当前字符串</param>
+    /// <returns>true or false</returns>
+    public static bool IsDataUrl(this string value)
+    {
+        return value.StartsWith("data:image");
+    }
+    /// <summary>
+    /// 将Base64字符串转换为字节数组
+    /// </summary>
+    /// <param name="value">当前字符串</param>
+    /// <returns>字节数组</returns>
+    public static byte[] FromBase64ToBytes(this string value)
+    {
+        return Convert.FromBase64String(value);
+    }
+    /// <summary>
+    /// 将DataUrl字符串转换为图片
+    /// </summary>
+    /// <param name="value">当前字符串</param>
+    /// <returns>图片</returns>
+    /// <exception cref="ArgumentException">如果字符串不是DataURL则抛出该异常</exception>
+    public static Bitmap FromBitmap(this string value)
+    {
+        // 检查字符串是否是DataUrl字符串
+        if (!value.IsDataUrl()) throw new ArgumentException("不是DataUrl字符串");
+        // 获取图片的Base64字符串
+        var base64 = value.Split(',')[1];
+        // 将Base64字符串转换为字节数组
+        var bytes = base64.FromBase64ToBytes();
+        // 将字节数组转换为图片
+        return bytes.ToBitmap();
     }
 }

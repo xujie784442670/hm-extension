@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -313,5 +315,36 @@ public static class ByteArrayExtension
     {
         encoder ??= Encoding.Default;
         return encoder.GetString(value);
+    }
+    /// <summary>
+    /// 将字节数组转换为MD5(v1.0.0.3)
+    /// </summary>
+    /// <param name="value">当前字节数组</param>
+    /// <returns>MD5字节数组</returns>
+    public static byte[] ToMd5(this byte[] value)
+    {
+        using var md5 = System.Security.Cryptography.MD5.Create();
+        return md5.ComputeHash(value);
+    }
+
+    /// <summary>
+    /// 将字节数组转换为Base64字符串
+    /// </summary>
+    /// <param name="value">当前字节数组</param>
+    /// <returns>Base64字符串</returns>
+    public static string ToBase64(this byte[] value)
+    {
+        return Convert.ToBase64String(value);
+    }
+
+    /// <summary>
+    /// 将字节数组转换为Bitmap
+    /// </summary>
+    /// <param name="value">当前字节数组</param>
+    /// <returns>Bitmap</returns>
+    public static Bitmap ToBitmap(this byte[] value)
+    {
+        using var stream = new MemoryStream(value);
+        return new Bitmap(stream);
     }
 }

@@ -8,9 +8,9 @@ using Aop.Api.Response;
 
 namespace HmExtension.Pay;
 
-/**
- * 支付宝当面付API服务
- */
+/// <summary>
+/// 支付宝当面付API服务
+/// </summary>
 public class PayInPersonApi
 {
     private static readonly Dictionary<string, string> _payScene = new Dictionary<string, string>
@@ -274,7 +274,28 @@ public class PayInPersonApi
     }
 
     /// <summary>
-    /// <a href="https://opendocs.alipay.com/open/f540afd8_alipay.trade.precreate?pathHash=d3c84596&amp;ref=api&amp;scene=19"></a>alipay.trade.precreate(统一收单线下交易预创建)</a>
+    /// <a href="https://opendocs.alipay.com/open/f540afd8_alipay.trade.precreate?pathHash=d3c84596&amp;ref=api&amp;scene=19">alipay.trade.precreate(统一收单线下交易预创建)</a>
+    /// <example>
+    /// <code>
+    /// // 创建当面付API实例
+    /// PayInPersonApi payInPersonApi = new PayInPersonApi();
+    /// // 生成订单号
+    /// var outTradeNo = Guid.NewGuid().ToString();
+    /// // 执行API
+    /// var task = payInPersonApi.Precreate(outTradeNo,"预创建订单",1000);
+    /// task.ContinueWith(t =&gt;
+    /// {
+    ///     // 获取返回的二维码内容
+    ///     if (t.Result.IsSuccess())
+    ///     {
+    ///         // 得到二维码内容
+    ///         var qrCode = t.Result.QrCode;
+    ///         // 将二维码内容转换为二维码图片并保存
+    ///         qrCode.ToQRCode().Save("test.png");
+    ///     }
+    /// });
+    /// </code>
+    /// </example>
     /// </summary>
     /// <param name="outTradeNo">商户订单号</param>
     /// <param name="subject">订单标题</param>
@@ -290,7 +311,7 @@ public class PayInPersonApi
     /// <param name="extendParams">业务扩展参数</param>
     /// <param name="businessParams">商户传入业务信息，具体值要和支付宝约定，应用于安全，营销等参数直传场景</param>
     /// <param name="goodsDetails">订单包含的商品列表信息</param>
-    /// <returns></returns>
+    /// <returns>异步任务</returns>
     public Task<AlipayTradePrecreateResponse> Precreate(
         string outTradeNo,
         string subject,

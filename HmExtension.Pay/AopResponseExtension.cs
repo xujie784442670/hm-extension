@@ -9,8 +9,8 @@ public static class AopResponseExtension
     /// <summary>
     /// 是否成功
     /// </summary>
-    /// <param name="response"></param>
-    /// <returns></returns>
+    /// <param name="response">响应对象</param>
+    /// <returns>true or false</returns>
     public static bool IsSuccess(this AopResponse response)
     {
         return !response.IsError;
