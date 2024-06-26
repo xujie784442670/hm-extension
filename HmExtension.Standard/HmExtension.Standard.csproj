@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>虹猫通用扩展包</Title>
+    <Company>虹猫信息科技有限公司</Company>
+    <Authors>Jason</Authors>
+    <Description>该扩展包是虹猫系统的通用扩展包，提供了一些常用类的扩展方法，以及一些常用的工具类。
+</Description>
+    <PackageProjectUrl>https://github.com/xujie784442670/hm-extension</PackageProjectUrl>
+    <PackageIcon>虹猫LOGO.jpg</PackageIcon>
+    <PackageReadmeFile></PackageReadmeFile>
+    <RepositoryUrl>https://github.com/xujie784442670/hm-extension</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>master</PackageTags>
+    <PackAsTool>False</PackAsTool>
+    <NeutralLanguage>zh</NeutralLanguage>
+    <AssemblyVersion>1.0.0.4</AssemblyVersion>
+    <FileVersion>1.0.0.4</FileVersion>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <LangVersion>latest</LangVersion>
+    <Version>1.0.0.4</Version>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="E:\资料\虹猫\虹猫LOGO.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="QRCoder" Version="1.5.1" />
+    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="V8.Net" Version="1.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Windows.Forms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

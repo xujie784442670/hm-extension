@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>虹猫通用支付包</Title>
+    <Authors>Jason</Authors>
+    <Company>虹猫信息科技有限公司</Company>
+    <Description>该包主要用于简化支付宝API的调用过程
+</Description>
+    <PackageProjectUrl>https://github.com/xujie784442670/hm-extension</PackageProjectUrl>
+    <PackageIcon>虹猫LOGO.jpg</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/xujie784442670/hm-extension</RepositoryUrl>
+    <PackageTags>master</PackageTags>
+    <PackAsTool>False</PackAsTool>
+    <NeutralLanguage>zh</NeutralLanguage>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
+    <IncludeSymbols>True</IncludeSymbols>
+    <LangVersion>latest</LangVersion>
+    <Version>1.0.0.3</Version>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="E:\资料\虹猫\虹猫LOGO.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AlipaySDKNet.Standard" Version="4.9.171" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HmExtension.Standard\HmExtension.Standard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
