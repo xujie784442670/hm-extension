@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// 日志帮助类

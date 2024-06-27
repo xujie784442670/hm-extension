@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// INI文件操作类

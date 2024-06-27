@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// RSA密钥对

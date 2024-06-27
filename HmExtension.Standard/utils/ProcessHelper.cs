@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// 进程工具类

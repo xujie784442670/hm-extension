@@ -8,7 +8,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 // <summary>
 /// 文件合并改变事件

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using HmExtension.Standard.Extensions;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// IP帮助类

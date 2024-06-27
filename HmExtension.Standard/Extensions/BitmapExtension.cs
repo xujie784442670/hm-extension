@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.IO;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.Extensions;
 /// <summary>
 /// 图片扩展类(v1.0.0.3)
 /// </summary>

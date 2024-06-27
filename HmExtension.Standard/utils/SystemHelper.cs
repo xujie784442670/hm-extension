@@ -2,7 +2,7 @@
 using System.Management;
 using System.Runtime.InteropServices;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// 系统辅助类

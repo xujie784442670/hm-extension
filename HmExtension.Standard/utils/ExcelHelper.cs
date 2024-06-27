@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// Excel帮助类

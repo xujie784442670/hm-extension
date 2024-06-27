@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Keys = HmExtension.Standard.Commons.Keys;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// 热键辅助类
@@ -12,10 +13,10 @@ public class HotKeyHelper
     /// <summary>
     /// hook 注册热键
     /// </summary>
-    /// <param name="hWnd">要定义热键的窗口的句柄
-    /// <param name="id">//定义热键ID （不能与其它ID重复）
-    /// <param name="fsModifiers">//标识热键是否在按Alt、Ctrl、Shift、Windows等键时才会生效
-    /// <param name="vk">// 组后 热键的内容
+    /// <param name="hWnd">要定义热键的窗口的句柄</param>
+    /// <param name="id">定义热键ID （不能与其它ID重复）</param>
+    /// <param name="fsModifiers">标识热键是否在按Alt、Ctrl、Shift、Windows等键时才会生效</param>
+    /// <param name="vk">组合 热键的内容</param>
     /// <returns></returns>
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool RegisterHotKey(IntPtr hWnd, int id, KeyModifiers fsModifiers, Keys vk);

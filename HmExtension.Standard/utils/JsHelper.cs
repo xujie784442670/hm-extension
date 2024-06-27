@@ -2,7 +2,7 @@
 using System.Reflection;
 using V8.Net;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// Js帮助类

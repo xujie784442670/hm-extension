@@ -4,6 +4,7 @@ using System.Management;
 using System.Windows.Media;
 using HmExtension;
 using HmExtension.Standard;
+using HmExtension.Standard.Extensions;
 
 // using HmExtension.Pay;
 

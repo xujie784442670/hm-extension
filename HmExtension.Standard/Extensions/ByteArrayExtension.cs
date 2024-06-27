@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.Extensions;
 
 /// <summary>
 /// 字节数组扩展类

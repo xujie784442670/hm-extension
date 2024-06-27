@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HmExtension.Standard;
+using HmExtension.Standard.Events;
+using HmExtension.Standard.Extensions;
+using HmExtension.Standard.utils;
+using HmExtension.Standard.WindowApi;
+using KeyEventArgs = HmExtension.Standard.Events.KeyEventArgs;
+using Keys = HmExtension.Standard.Commons.Keys;
+using MouseEventArgs = HmExtension.Standard.Events.MouseEventArgs;
 
 namespace WindowsFormsApp1
 {
@@ -18,18 +17,28 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
-
+        MouseHook mh;
         private void Form1_Load(object sender, EventArgs e)
         {
-            var intPtr = this.Handle;
-            Task.Run(() =>
-            {
-                while (true)
-                {
-                    var b = WinAPI.GetMessage(out var msg, new IntPtr(), 0, 0);
-                    Console.WriteLine($"GetMessage: {b}, {msg}");
-                }
-            });
+            // mh = new MouseHook();
+            // mh.OnMouse += mh_MouseMoveEvent;
+            // mh.Hook();
+            HotKeyHelper.RegisterHotKey(this.Handle, 1,HotKeyHelper.KeyModifiers.Ctrl,Keys.A);
+
+           MessageHook mh = new MessageHook();
+           mh.OnMessage += MhOnOnMessage;
+           mh.Hook();
+        }
+
+        private void MhOnOnMessage(object sender, MessageEventArgs e)
+        {
+            e.Message.Println();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+            // mh.UnHook();
         }
     }
 }

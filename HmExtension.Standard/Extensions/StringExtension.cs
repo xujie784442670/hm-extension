@@ -5,7 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using static QRCoder.QRCodeGenerator;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.Extensions;
 
 /// <summary>
 /// 字符串扩展类

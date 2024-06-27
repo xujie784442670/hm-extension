@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.Extensions;
 
 /// <summary>
 /// 文件扩展类(v1.0.0.3)

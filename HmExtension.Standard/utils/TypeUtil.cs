@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace HmExtension;
+namespace HmExtension.Standard.utils;
 
 /// <summary>
 /// 反射工具类

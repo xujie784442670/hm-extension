@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.Extensions;
 /// <summary>
 /// 集合扩展类
 /// </summary>

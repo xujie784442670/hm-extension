@@ -5,13 +5,15 @@ using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
+using Keys = HmExtension.Standard.Commons.Keys;
 
 namespace HmExtension.Standard;
 
 /// <summary>
 /// Windows API
 /// </summary>
-public class WinAPI
+public class WinApi
 {
     /// <summary>
     /// 窗口消息
@@ -23,7 +25,7 @@ public class WinAPI
         /// </summary>
         public IntPtr hwnd;
         /// <summary>
-        /// 消息
+        /// 消息的标识符。 应用程序只能使用低字;高字由系统保留。
         /// </summary>
         public int message;
         /// <summary>
@@ -48,7 +50,6 @@ public class WinAPI
     [DllImport("user32.dll", EntryPoint = "FindWindow")]
     private static extern IntPtr FindWindow(string IpClassName, string IpWindowName);
 
-    private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
     /// <summary>
     /// 窗口消息
     /// </summary>
@@ -74,16 +75,29 @@ public class WinAPI
     /// 如果出现错误，则返回值为 -1。 例如，如果 hWnd 是无效的窗口句柄或 lpMsg 是无效的指针，则该函数将失败。 要获得更多的错误信息，请调用 GetLastError。</returns>
     [DllImport("user32.dll", EntryPoint = "GetMessage")]
     public static extern bool GetMessage(out TagMSG lpMsg, IntPtr? hWnd, int wMsgFilterMin, int wMsgFilterMax);
+    /// <summary>
+    /// 确定调用函数时键是向上还是向下，以及上次调用 GetAsyncKeyState 后是否按下了该键。
+    /// </summary>
+    /// <param name="key">虚拟密钥代码。 有关详细信息</param>
+    /// <returns></returns>
+    [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern int GetAsyncKeyState(Keys key);
+    #region 消息钩子
 
-    // [DllImport("kernel32.dll")]
-    // public static extern IntPtr GetModuleHandle(string lpModuleName);
-    //
-    // [DllImport("user32.dll", SetLastError = true)]
-    // static extern IntPtr SetWindowsHookEx(HookType hookType, HookProc lpfn, IntPtr hMod, uint dwThreadId);
-    //
-    // [DllImport("user32.dll")]
-    // static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
+
+    //安装钩子
+    [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern int SetWindowsHookEx(HookType hookType, HookProc lpfn, IntPtr hInstance, int threadId);
+    //卸载钩子
+    [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern bool UnhookWindowsHookEx(int idHook);
+    //调用下一个钩子
+    [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
+    
+    public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+    #endregion
     [DllImport("user32.dll", EntryPoint = "FindWindowEx")]
     private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
@@ -801,13 +815,7 @@ public class WinAPI
     }
 
 
-
-
-
-
-
-
-
+    
 }//end class
 
 
@@ -919,12 +927,24 @@ public class WindowsMessage
     public const int WM_NCMBUTTONUP = 0x00A8; //当用户释放鼠标中键同时光标又在窗口的非客户区时发送此消息 
     public const int WM_NCMBUTTONDBLCLK = 0x00A9; //当用户双击鼠标中键同时光标又在窗口的非客户区时发送此消息 
     public const int WM_KEYFIRST = 0x0100; // 
-    public const int WM_KEYDOWN = 0x0100; //按下一个键 
-    public const int WM_KEYUP = 0x0101; //释放一个键 
+    /// <summary>
+    /// 按下一个键 
+    /// </summary>
+    public const int WM_KEYDOWN = 0x0100;
+    /// <summary>
+    /// 释放一个键 
+    /// </summary>
+    public const int WM_KEYUP = 0x0101;
     public const int WM_CHAR = 0x0102; //按下某键，并已发出WM_KEYDOWN，WM_KEYUP消息 
     public const int WM_DEADCHAR = 0x0103; //当用translatemessage函数翻译WM_KEYUP消息时发送此消息给拥有焦点的窗口 
-    public const int WM_SYSKEYDOWN = 0x0104; //当用户按住ALT键同时按下其它键时提交此消息给拥有焦点的窗口； 
-    public const int WM_SYSKEYUP = 0x0105; //当用户释放一个键同时ALT 键还按着时提交此消息给拥有焦点的窗口 
+    /// <summary>
+    /// 当用户按住ALT键同时按下其它键时提交此消息给拥有焦点的窗口； 
+    /// </summary>
+    public const int WM_SYSKEYDOWN = 0x0104;
+    /// <summary>
+    /// 当用户释放一个键同时ALT 键还按着时提交此消息给拥有焦点的窗口 
+    /// </summary>
+    public const int WM_SYSKEYUP = 0x0105;
     public const int WM_SYSCHAR = 0x0106; //当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后提交此消息给拥有焦点的窗口 
     public const int WM_SYSDEADCHAR = 0x0107; //当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后发送此消息给拥有焦点的窗口 
     public const int WM_KEYLAST = 0x0108; // 
@@ -976,6 +996,30 @@ public class WindowsMessage
     public const int WM_MBUTTONDBLCLK = 0x0209; //双击鼠标中键 
     public const int WM_MOUSEWHEEL = 0x020A; //当鼠标轮子转动时发送此消息个当前有焦点的控件 
     public const int WM_MOUSELAST = 0x020A; // 
+    /// <summary>
+    /// 当光标位于窗口工作区中并且用户按下第一个或第二个 X 按钮时发布。 如果未捕获鼠标，则消息将发布到光标下方的窗口。 否则，消息将发布到捕获了鼠标的窗口。
+    /// </summary>
+    public const int WM_XBUTTONDOWN = 0x020B;
+    /// <summary>
+    /// 当光标位于窗口工作区中并且用户释放第一个或第二个 X 按钮时发布。 如果未捕获鼠标，则消息将发布到光标下方的窗口。 否则，消息将发布到捕获了鼠标的窗口。
+    /// </summary>
+    public const int WM_XBUTTONUP = 0x020C;
+    /// <summary>
+    /// 当光标位于窗口客户端区中并且用户双击第一个或第二个 X 按钮时发布。 如果未捕获鼠标，则消息将发布到光标下方的窗口。 否则，消息将发布到捕获了鼠标的窗口。
+    /// </summary>
+    public const int WM_XBUTTONDBLCLK = 0x020D;
+    /// <summary>
+    ///当光标位于窗口非工作区中并且用户按下第一个或第二个 X 按钮时发布。 此消息将发布到包含光标的窗口。 如果窗口捕获了鼠标，则不会发布此消息。
+    /// </summary>
+    public const int WM_NCXBUTTONDOWN = 0x00AB;
+    /// <summary>
+    /// 当光标位于窗口非工作区中并且用户释放第一个或第二个 X 按钮时发布。 此消息将发布到包含光标的窗口。 如果窗口捕获了鼠标，则不会发布此消息。
+    /// </summary>
+    public const int WM_NCXBUTTONUP = 0x00AC;
+    /// <summary>
+    /// 当光标位于窗口非工作区中并且用户双击第一个或第二个 X 按钮时发布。 此消息将发布到包含光标的窗口。 如果窗口捕获了鼠标，则不会发布此消息。
+    /// </summary>
+    public const int WM_NCXBUTTONDBLCLK = 0x00AD;
     public const int WM_PARENTNOTIFY = 0x0210; //当MDI子窗口被创建或被销毁，或用户按了一下鼠标键而光标在子窗口上时发送此消息给它的父窗口 
     public const int WM_ENTERMENULOOP = 0x0211; //发送此消息通知应用程序的主窗口that已经进入了菜单循环模式 
     public const int WM_EXITMENULOOP = 0x0212; //发送此消息通知应用程序的主窗口that已退出了菜单循环模式 
@@ -1135,22 +1179,84 @@ public class WindowsMessage
     //public const int LBN_SELCHANGE //选择了另一项 
     //public const int LBN_SETFOCUS //列表框获得输入焦点
 }
-
+/// <summary>
+/// 消息键
+/// </summary>
+public class MessageKey
+{
+    /// <summary>
+    /// 按下了 CTRL 键。
+    /// </summary>
+    public const int MK_CONTROL = 0x0008;
+    /// <summary>
+    /// 按下了鼠标左键。
+    /// </summary>
+    public const int MK_LBUTTON = 0x0001;
+    /// <summary>
+    /// 按下了鼠标中键。
+    /// </summary>
+    public const int MK_MBUTTON = 0x0010;
+    /// <summary>
+    /// 按下了鼠标右键。
+    /// </summary>
+    public const int MK_RBUTTON = 0x0002;
+    /// <summary>
+    /// 按下了 SHIFT 键。
+    /// </summary>
+    public const int MK_SHIFT = 0x0004;
+    /// <summary>
+    /// 按下了第一个 X 按钮。(通常是鼠标上的第四个按钮)
+    /// </summary>
+    public const int MK_XBUTTON1 = 0x0020;
+    /// <summary>
+    /// 按下了第二个 X 按钮。(通常是鼠标上的第五个按钮)
+    /// </summary>
+    public const int MK_XBUTTON2 = 0x0040;
+}
+/// <summary>
+/// 鼠标键
+/// </summary>
+public class MouseKey
+{
+    /// <summary>
+    /// 单击了第一个 X 按钮。(通常是鼠标上的第四个按钮)
+    /// </summary>
+    public const int XBUTTON1 = 0x0001;
+    /// <summary>
+    /// 单击了第二个 X 按钮。(通常是鼠标上的第五个按钮)
+    /// </summary>
+    public const int XBUTTON2 = 0x0002;
+}
+/// <summary>
+/// 钩子类型
+/// </summary>
 public enum HookType : int
 {
     WH_JOURNALRECORD = 0,
     WH_JOURNALPLAYBACK = 1,
+    /// <summary>
+    /// 安装监视击键消息的挂钩过程。 有关详细信息，请参阅 KeyboardProc 挂钩过程。
+    /// </summary>
     WH_KEYBOARD = 2,
     WH_GETMESSAGE = 3,
     WH_CALLWNDPROC = 4,
     WH_CBT = 5,
     WH_SYSMSGFILTER = 6,
+    /// <summary>
+    /// 安装监视鼠标消息的挂钩过程。 有关详细信息，请参阅 MouseProc 挂钩过程。
+    /// </summary>
     WH_MOUSE = 7,
     WH_HARDWARE = 8,
     WH_DEBUG = 9,
     WH_SHELL = 10,
     WH_FOREGROUNDIDLE = 11,
     WH_CALLWNDPROCRET = 12,
+    /// <summary>
+    /// 安装监视低级别键盘输入事件的挂钩过程。 有关详细信息，请参阅 LowLevelKeyboardProc 挂钩过程。
+    /// </summary>
     WH_KEYBOARD_LL = 13,
+    /// <summary>
+    /// 安装用于监视低级别鼠标输入事件的挂钩过程。 有关详细信息，请参阅 LowLevelMouseProc 挂钩过程。
+    /// </summary>
     WH_MOUSE_LL = 14
 }

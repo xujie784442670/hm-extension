@@ -1,7 +1,8 @@
 ﻿using System;
+using HmExtension.Standard.utils;
 using Newtonsoft.Json;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.Extensions;
 
 /// <summary>
 /// 对象扩展类

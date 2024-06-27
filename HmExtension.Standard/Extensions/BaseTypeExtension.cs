@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HmExtension.Standard;
+namespace HmExtension.Standard.Extensions;
 /// <summary>
 /// 基础类型扩展类
 /// </summary>
