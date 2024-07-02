@@ -16,24 +16,24 @@ public class ExcelHelper
     /// <summary>
     /// 将数据导出至Excel文件
     /// </summary>
-    /// <param name="Table">DataTable对象
-    /// <param name="ExcelFilePath">Excel文件路径
-    public static bool OutputToExcel(DataTable Table, string ExcelFilePath)
+    /// <param name="table">DataTable对象</param>
+    /// <param name="excelFilePath">Excel文件路径</param>
+    public static bool OutputToExcel(DataTable table, string excelFilePath)
     {
-        if (File.Exists(ExcelFilePath))
+        if (File.Exists(excelFilePath))
         {
             Console.WriteLine("该文件已经存在！");
             return false;
 
         }
 
-        if ((Table.TableName.Trim().Length == 0) || (Table.TableName.ToLower() == "table"))
+        if ((table.TableName.Trim().Length == 0) || (table.TableName.ToLower() == "table"))
         {
-            Table.TableName = "Sheet1";
+            table.TableName = "Sheet1";
         }
 
         //数据表的列数
-        int ColCount = Table.Columns.Count;
+        int ColCount = table.Columns.Count;
 
         //用于记数，实例化参数时的序号
         int i = 0;
@@ -42,10 +42,10 @@ public class ExcelHelper
         OleDbParameter[] para = new OleDbParameter[ColCount];
 
         //创建表结构的SQL语句
-        string TableStructStr = @"Create Table " + Table.TableName + "(";
+        string TableStructStr = @"Create table " + table.TableName + "(";
 
         //连接字符串
-        string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0;";
+        string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + excelFilePath + ";Extended Properties=Excel 8.0;";
         OleDbConnection objConn = new OleDbConnection(connString);
 
         //创建表结构
@@ -61,7 +61,7 @@ public class ExcelHelper
         DataTypeList.Add("System.Single");
 
         //遍历数据表的所有列，用于创建表结构
-        foreach (DataColumn col in Table.Columns)
+        foreach (DataColumn col in table.Columns)
         { //如果列属于数字列，则设置该列的数据类型为double
             if (DataTypeList.IndexOf(col.DataType.ToString()) >= 0)
             {
@@ -114,7 +114,7 @@ public class ExcelHelper
         }
 
         //插入记录的SQL语句
-        string InsertSql_1 = "Insert into " + Table.TableName + " (";
+        string InsertSql_1 = "Insert into " + table.TableName + " (";
         string InsertSql_2 = " Values (";
         string InsertSql = "";
 
@@ -123,30 +123,30 @@ public class ExcelHelper
         {
             if (colID + 1 == ColCount)  //最后一列
             {
-                InsertSql_1 += Table.Columns[colID].ColumnName + ")";
-                InsertSql_2 += "@" + Table.Columns[colID].ColumnName + ")";
+                InsertSql_1 += table.Columns[colID].ColumnName + ")";
+                InsertSql_2 += "@" + table.Columns[colID].ColumnName + ")";
             }
             else
             {
-                InsertSql_1 += Table.Columns[colID].ColumnName + ",";
-                InsertSql_2 += "@" + Table.Columns[colID].ColumnName + ",";
+                InsertSql_1 += table.Columns[colID].ColumnName + ",";
+                InsertSql_2 += "@" + table.Columns[colID].ColumnName + ",";
             }
         }
 
         InsertSql = InsertSql_1 + InsertSql_2;
 
         //遍历数据表的所有数据行
-        for (int rowID = 0; rowID < Table.Rows.Count; rowID++)
+        for (int rowID = 0; rowID < table.Rows.Count; rowID++)
         {
             for (int colID = 0; colID < ColCount; colID++)
             {
-                if (para[colID].DbType == DbType.Double && Table.Rows[rowID][colID].ToString().Trim() == "")
+                if (para[colID].DbType == DbType.Double && table.Rows[rowID][colID].ToString().Trim() == "")
                 {
                     para[colID].Value = 0;
                 }
                 else
                 {
-                    para[colID].Value = Table.Rows[rowID][colID].ToString().Trim();
+                    para[colID].Value = table.Rows[rowID][colID].ToString().Trim();
                 }
             }
             try
@@ -176,12 +176,12 @@ public class ExcelHelper
     /// <summary>
     /// 将数据导出至Excel文件
     /// </summary>
-    /// <param name="Table">DataTable对象
-    /// <param name="Columns">要导出的数据列集合
-    /// <param name="ExcelFilePath">Excel文件路径
-    public static bool OutputToExcel(DataTable Table, ArrayList Columns, string ExcelFilePath)
+    /// <param name="table">DataTable对象</param>
+    /// <param name="columns">要导出的数据列集合</param>
+    /// <param name="excelFilePath">Excel文件路径</param>
+    public static bool OutputToExcel(DataTable table, ArrayList columns, string excelFilePath)
     {
-        if (File.Exists(ExcelFilePath))
+        if (File.Exists(excelFilePath))
         {
             Console.WriteLine("该文件已经存在！");
             return false;
@@ -189,43 +189,43 @@ public class ExcelHelper
         }
 
         //如果数据列数大于表的列数，取数据表的所有列
-        if (Columns.Count > Table.Columns.Count)
+        if (columns.Count > table.Columns.Count)
         {
-            for (int s = Table.Columns.Count + 1; s <= Columns.Count; s++)
+            for (int s = table.Columns.Count + 1; s <= columns.Count; s++)
             {
-                Columns.RemoveAt(s);   //移除数据表列数后的所有列
+                columns.RemoveAt(s);   //移除数据表列数后的所有列
             }
         }
 
         //遍历所有的数据列，如果有数据列的数据类型不是 DataColumn，则将它移除
         DataColumn column = new DataColumn();
-        for (int j = 0; j < Columns.Count; j++)
+        for (int j = 0; j < columns.Count; j++)
         {
             try
             {
-                column = (DataColumn)Columns[j];
+                column = (DataColumn)columns[j];
             }
             catch (Exception)
             {
-                Columns.RemoveAt(j);
+                columns.RemoveAt(j);
             }
         }
-        if ((Table.TableName.Trim().Length == 0) || (Table.TableName.ToLower() == "table"))
+        if ((table.TableName.Trim().Length == 0) || (table.TableName.ToLower() == "table"))
         {
-            Table.TableName = "Sheet1";
+            table.TableName = "Sheet1";
         }
 
         //数据表的列数
-        int ColCount = Columns.Count;
+        int ColCount = columns.Count;
 
         //创建参数
         OleDbParameter[] para = new OleDbParameter[ColCount];
 
         //创建表结构的SQL语句
-        string TableStructStr = @"Create Table " + Table.TableName + "(";
+        string TableStructStr = @"Create table " + table.TableName + "(";
 
         //连接字符串
-        string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0;";
+        string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + excelFilePath + ";Extended Properties=Excel 8.0;";
         OleDbConnection objConn = new OleDbConnection(connString);
 
         //创建表结构
@@ -245,7 +245,7 @@ public class ExcelHelper
         //遍历数据表的所有列，用于创建表结构
         for (int k = 0; k < ColCount; k++)
         {
-            col = (DataColumn)Columns[k];
+            col = (DataColumn)columns[k];
 
             //列的数据类型是数字型
             if (DataTypeList.IndexOf(col.DataType.ToString().Trim()) >= 0)
@@ -298,7 +298,7 @@ public class ExcelHelper
         }
 
         //插入记录的SQL语句
-        string InsertSql_1 = "Insert into " + Table.TableName + " (";
+        string InsertSql_1 = "Insert into " + table.TableName + " (";
         string InsertSql_2 = " Values (";
         string InsertSql = "";
 
@@ -307,13 +307,13 @@ public class ExcelHelper
         {
             if (colID + 1 == ColCount)  //最后一列
             {
-                InsertSql_1 += Columns[colID].ToString().Trim() + ")";
-                InsertSql_2 += "@" + Columns[colID].ToString().Trim() + ")";
+                InsertSql_1 += columns[colID].ToString().Trim() + ")";
+                InsertSql_2 += "@" + columns[colID].ToString().Trim() + ")";
             }
             else
             {
-                InsertSql_1 += Columns[colID].ToString().Trim() + ",";
-                InsertSql_2 += "@" + Columns[colID].ToString().Trim() + ",";
+                InsertSql_1 += columns[colID].ToString().Trim() + ",";
+                InsertSql_2 += "@" + columns[colID].ToString().Trim() + ",";
             }
         }
 
@@ -321,18 +321,18 @@ public class ExcelHelper
 
         //遍历数据表的所有数据行
         DataColumn DataCol = new DataColumn();
-        for (int rowID = 0; rowID < Table.Rows.Count; rowID++)
+        for (int rowID = 0; rowID < table.Rows.Count; rowID++)
         {
             for (int colID = 0; colID < ColCount; colID++)
             { //因为列不连续，所以在取得单元格时不能用行列编号，列需得用列的名称
-                DataCol = (DataColumn)Columns[colID];
-                if (para[colID].DbType == DbType.Double && Table.Rows[rowID][DataCol.Caption].ToString().Trim() == "")
+                DataCol = (DataColumn)columns[colID];
+                if (para[colID].DbType == DbType.Double && table.Rows[rowID][DataCol.Caption].ToString().Trim() == "")
                 {
                     para[colID].Value = 0;
                 }
                 else
                 {
-                    para[colID].Value = Table.Rows[rowID][DataCol.Caption].ToString().Trim();
+                    para[colID].Value = table.Rows[rowID][DataCol.Caption].ToString().Trim();
                 }
             }
             try
@@ -363,18 +363,19 @@ public class ExcelHelper
     /// <summary>
     /// 获取Excel文件数据表列表
     /// </summary>
-    public static ArrayList GetExcelTables(string ExcelFileName)
+    /// <param name="excelFileName">Excel文件名</param>
+    public static ArrayList GetExcelTables(string excelFileName)
     {
         DataTable dt = new DataTable();
         ArrayList TablesList = new ArrayList();
-        if (File.Exists(ExcelFileName))
+        if (File.Exists(excelFileName))
         {
-            using (OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + ExcelFileName))
+            using (OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + excelFileName))
             {
                 try
                 {
                     conn.Open();
-                    dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
+                    dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "table" });
                 }
                 catch (Exception exp)
                 {
@@ -399,27 +400,27 @@ public class ExcelHelper
     /// <summary>
     /// 将Excel文件导出至DataTable(第一行作为表头)
     /// </summary>
-    /// <param name="ExcelFilePath">Excel文件路径
-    /// <param name="TableName">数据表名，如果数据表名错误，默认为第一个数据表名
-    public static DataTable InputFromExcel(string ExcelFilePath, string TableName)
+    /// <param name="excelFilePath">Excel文件路径</param>
+    /// <param name="tableName">数据表名，如果数据表名错误，默认为第一个数据表名</param>
+    public static DataTable InputFromExcel(string excelFilePath, string tableName)
     {
-        if (!File.Exists(ExcelFilePath))
+        if (!File.Exists(excelFilePath))
         {
             throw new Exception("Excel文件不存在！");
         }
 
         //如果数据表名不存在，则数据表名为Excel文件的第一个数据表
         ArrayList TableList = new ArrayList();
-        TableList = GetExcelTables(ExcelFilePath);
+        TableList = GetExcelTables(excelFilePath);
 
-        if (TableList.IndexOf(TableName) < 0)
+        if (TableList.IndexOf(tableName) < 0)
         {
-            TableName = TableList[0].ToString().Trim();
+            tableName = TableList[0].ToString().Trim();
         }
 
         DataTable table = new DataTable();
-        OleDbConnection dbcon = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0");
-        OleDbCommand cmd = new OleDbCommand("select * from [" + TableName + "$]", dbcon);
+        OleDbConnection dbcon = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + excelFilePath + ";Extended Properties=Excel 8.0");
+        OleDbCommand cmd = new OleDbCommand("select * from [" + tableName + "$]", dbcon);
         OleDbDataAdapter adapter = new OleDbDataAdapter(cmd);
 
         try
@@ -447,18 +448,18 @@ public class ExcelHelper
     /// <summary>
     /// 获取Excel文件指定数据表的数据列表
     /// </summary>
-    /// <param name="ExcelFileName">Excel文件名
-    /// <param name="TableName">数据表名
-    public static ArrayList GetExcelTableColumns(string ExcelFileName, string TableName)
+    /// <param name="excelFileName">Excel文件名</param>
+    /// <param name="tableName">数据表名</param>
+    public static ArrayList GetExcelTableColumns(string excelFileName, string tableName)
     {
         DataTable dt = new DataTable();
         ArrayList ColsList = new ArrayList();
-        if (File.Exists(ExcelFileName))
+        if (File.Exists(excelFileName))
         {
-            using (OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + ExcelFileName))
+            using (OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + excelFileName))
             {
                 conn.Open();
-                dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, TableName, null });
+                dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, tableName, null });
 
                 //获取列个数
                 int colcount = dt.Rows.Count;

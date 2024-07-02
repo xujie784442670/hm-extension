@@ -27,6 +27,9 @@ public class FtpHelper
     /// Ftp 指定用户密码
     /// </summary>
     public string Password { get; set; }
+    /// <summary>
+    /// Ftp 端口
+    /// </summary>
     public int Port { get; set; }
     #endregion
 
@@ -36,6 +39,7 @@ public class FtpHelper
     /// 获取一个匿名登录的ftp客户端
     /// </summary>
     /// <param name="serverIp">服务器IP地址</param>
+    /// <param name="point">端口</param>
     /// <returns></returns>
     public FtpHelper(string serverIp, int point = 21)
     {
@@ -54,6 +58,7 @@ public class FtpHelper
     /// 获取一个匿名登录的ftp客户端
     /// </summary>
     /// <param name="serverIp">服务器ip</param>
+    /// <param name="port">端口</param>
     /// <param name="username">用户名</param>
     /// <param name="password">密码</param>
     /// <returns></returns>

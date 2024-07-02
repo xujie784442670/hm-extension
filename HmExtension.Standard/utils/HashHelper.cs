@@ -12,7 +12,7 @@ public static class HashHelper
     /// <summary>
     /// 哈希加密一个字符串
     /// </summary>
-    /// <param name="security">需要加密的字符串
+    /// <param name="security">需要加密的字符串</param>
     /// <returns>加密后的数据</returns>
     public static string HashEncoding(this string security)
     {

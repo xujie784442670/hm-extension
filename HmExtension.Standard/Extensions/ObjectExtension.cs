@@ -144,13 +144,13 @@ public static class ObjectExtension
         {
             var key = match.Groups[1].Value;
             // 使用反射获取属性值,并替换格式化字符串中的占位符
-            if (TypeUtil.HasProperty(value.GetType(), key))
+            if (TypeHelper.HasProperty(value.GetType(), key))
             {
-                result = result.Replace($"{{{key}}}", TypeUtil.GetPropertyValue<object>(value, key)?.ToString());
+                result = result.Replace($"{{{key}}}", TypeHelper.GetPropertyValue<object>(value, key)?.ToString());
             }
-            else if (TypeUtil.HasField(value.GetType(), key))
+            else if (TypeHelper.HasField(value.GetType(), key))
             {
-                result = result.Replace($"{{{key}}}", TypeUtil.GetFieldValue<object>(value, key).ToString());
+                result = result.Replace($"{{{key}}}", TypeHelper.GetFieldValue<object>(value, key).ToString());
             }
             else
             {
@@ -182,7 +182,7 @@ public static class ObjectExtension
     /// <returns></returns>
     public static T GetPropertyValue<T>(this object obj, string propertyName)
     {
-        return TypeUtil.GetPropertyValue<T>(obj, propertyName);
+        return TypeHelper.GetPropertyValue<T>(obj, propertyName);
     }
 
     /// <summary>
@@ -206,7 +206,7 @@ public static class ObjectExtension
     /// <returns></returns>
     public static T GetFieldValue<T>(this object obj, string fieldName)
     {
-        return TypeUtil.GetFieldValue<T>(obj, fieldName);
+        return TypeHelper.GetFieldValue<T>(obj, fieldName);
     }
 
     /// <summary>
@@ -231,12 +231,12 @@ public static class ObjectExtension
     /// <exception cref="ArgumentException">字段或属性不存在时</exception>
     public static T GetPropertyOrFieldValue<T>(this object obj, string name)
     {
-        if (TypeUtil.HasField(obj.GetType(), name))
+        if (TypeHelper.HasField(obj.GetType(), name))
         {
             return obj.GetFieldValue<T>(name);
         }
 
-        if (TypeUtil.HasProperty(obj.GetType(), name))
+        if (TypeHelper.HasProperty(obj.GetType(), name))
         {
             return obj.GetPropertyValue<T>(name);
         }
@@ -252,7 +252,7 @@ public static class ObjectExtension
     /// <param name="value">属性值</param>
     public static void SetPropertyValue(this object obj, string propertyName, object value)
     {
-        TypeUtil.SetPropertyValue(obj, propertyName, value);
+        TypeHelper.SetPropertyValue(obj, propertyName, value);
     }
 
     /// <summary>
@@ -263,7 +263,7 @@ public static class ObjectExtension
     /// <param name="value">字段值</param>
     public static void SetFieldValue(this object obj, string fieldName, object value)
     {
-        TypeUtil.SetFieldValue(obj, fieldName, value);
+        TypeHelper.SetFieldValue(obj, fieldName, value);
     }
 
     /// <summary>
@@ -275,11 +275,11 @@ public static class ObjectExtension
     /// <exception cref="ArgumentException"></exception>
     public static void SetPropertyOrFieldValue(this object obj, string name, object value)
     {
-        if (TypeUtil.HasField(obj.GetType(), name))
+        if (TypeHelper.HasField(obj.GetType(), name))
         {
             obj.SetFieldValue(name, value);
         }
-        else if (TypeUtil.HasProperty(obj.GetType(), name))
+        else if (TypeHelper.HasProperty(obj.GetType(), name))
         {
             obj.SetPropertyValue(name, value);
         }

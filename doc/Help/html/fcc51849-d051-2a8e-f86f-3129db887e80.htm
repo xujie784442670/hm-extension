@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html ><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="shortcut icon" href="../icons/favicon.ico" /><link rel="stylesheet" href="../css/bulma.css" /><link rel="stylesheet" href="../css/font-awesome.min.css" /><link rel="stylesheet" href="../css/presentationStyle.css" /><link rel="stylesheet" href="../css/vs.min.css" /><link rel="stylesheet" href="../css/zh-CN.css" /><script src="../scripts/jquery-3.5.1.min.js"></script><script src="../scripts/clipboard.min.js"></script><script src="../scripts/highlight.min.js"></script><script src="../scripts/presentationStyle.js"></script><title>MultiThreadDownloader 类</title><meta name="Title" content="MultiThreadDownloader" /><meta name="Help.Id" content="T:HmExtension.Standard.utils.MultiThreadDownloader" /><meta name="Help.ContentType" content="Reference" /><meta name="container" content="HmExtension.Standard.utils" /><meta name="guid" content="fcc51849-d051-2a8e-f86f-3129db887e80" /><meta name="Description" content="多线程下载器" /><meta name="tocFile" content="../toc/IDF.xml" /></head><body><div class="fixedLayout"><div id="Header" class="fixedHeader"><div class="pageHeader level mb-0 py-2 px-4"><div id="TitleContainer" class="level-left"><div id="DocumentationTitle" class="level-item">A Sandcastle Documented Class Library</div></div><div id="LangFilterSearchContainer" class="level-right"><div class="level-item"><div class="dropdown is-hoverable"><div class="dropdown-trigger"><button class="button" aria-haspopup="true" aria-controls="dropdown-menu"><span id="CurrentLanguage"></span><span class="icon is-small"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button></div><div class="dropdown-menu" role="menu"><div id="LanguageSelections" class="dropdown-content"><a class="dropdown-item languageFilterItem" data-languageId="cs">C#</a></div></div></div></div><div class="level-item"><form id="SearchForm" action="#" onsubmit="TransferToSearchPage(); return false;"><div class="field"><div class="control has-icons-left"><input id="SearchTerms" class="input" type="text" maxlength="200" placeholder="Search" /><span class="icon is-small is-left"><i class="fa fa-search"></i></span><button id="SearchButton" type="submit" class="is-hidden"></button></div></div></form></div></div></div></div><div class="fixedContent"><nav class="breadcrumb my-1 px-2 border-bottom" role="navigation"><ul id="TopicBreadcrumbs" /></nav><div id="ContentContainer" class="columns pl-5 pr-5 fixedContent"><div id="ShowHideTOCColumn" class="column is-hidden-tablet"><a id="ShowHideTOC">Show/Hide TOC</a></div><div id="TOCColumn" class="column is-hidden-mobile"><nav class="toc"><ul id="TableOfContents" class="toc-menu" /></nav></div><div id="Resizer" class="is-hidden"></div><div id="TopicContent" class="column content is-7"><h1>Multi<wbr />Thread<wbr />Downloader 类</h1><div class="summary">
+            多线程下载器
+            </div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Definition</h2><div id="IDBSection"><strong>命名空间：</strong> <a href="4c700f07-6424-89a1-e87a-55cddcd2966d.htm">HmExtension.Standard.utils</a><br /><strong>程序集：</strong> HmExtension.Standard (在 HmExtension.Standard.dll 中) 版本：1.0.0.4+5d24d1b219f68227cde1bc968a2d9ca10604ff48<div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><span class="buttons"><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></span></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs"><span class="keyword">public</span> <span class="keyword">class</span> <span class="identifier">MultiThreadDownloader</span></code></pre></div></div><dl class="inheritanceHierarchy"><dt>Inheritance</dt><dd><a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>  <span class="icon is-small"><i class="fa fa-arrow-right"></i></span>  <span class="selflink">MultiThreadDownloader</span></dd></dl></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>构造函数</h2><div id="IDAOEASection"><table id="ConstructorList" class="table is-hoverable"><tr><td><a href="7055d724-b106-235e-d4ed-fd470b6c8f65.htm">MultiThreadDownloader(String, Int32)</a></td><td>
+            多线程下载管理器
+            </td></tr><tr><td><a href="99fe9f89-b182-137f-fa0d-e851d5664a34.htm">MultiThreadDownloader(String, String, Int32)</a></td><td>
+            多线程下载管理器
+            </td></tr><tr><td><a href="f4fc3b03-22da-4825-cf2f-19d186c612ff.htm">MultiThreadDownloader(String, String, String, Int32)</a></td><td>
+            多线程下载管理器
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>属性</h2><div id="ID3EASection"><table id="PropertyList" class="table is-hoverable"><tr><td><a href="85b1517e-5e54-4cee-5974-4bbeb0d1df73.htm">FilePath</a></td><td>
+            文件路径
+            </td></tr><tr><td><a href="bd8e7e78-d276-3c75-81ec-b464a7c1354c.htm">NumberOfParts</a></td><td>
+            第几部分
+            </td></tr><tr><td><a href="4d4e9ac7-4e3c-f140-ff02-62801b29cff0.htm">PartialDownloaderList</a></td><td>
+            下载块
+            </td></tr><tr><td><a href="1f782a11-095b-668d-1730-14eab94fbf5f.htm">RangeAllowed</a></td><td>
+            RangeAllowed
+            </td></tr><tr><td><a href="75025728-8f9d-e61f-0611-1e4a33d6a240.htm">Size</a></td><td>
+            文件大小
+            </td></tr><tr><td><a href="ba9bc706-e0f5-e20b-280f-43ede5a15b40.htm">TempFileDirectory</a></td><td>
+            临时文件夹
+            </td></tr><tr><td><a href="ff8687be-22bc-d5c0-e124-67e4e9d635ee.htm">TotalBytesReceived</a></td><td>
+            已接收字节数
+            </td></tr><tr><td><a href="5eab722d-f55a-465e-6591-6168dbe14e7d.htm">TotalProgress</a></td><td>
+            总进度
+            </td></tr><tr><td><a href="d08923ee-706d-306f-3243-0454fe13c4e8.htm">TotalSpeedInBytes</a></td><td>
+            下载速度
+            </td></tr><tr><td><a href="bec1a402-60c6-8f9e-56c9-259269082495.htm">Url</a></td><td>
+            url地址
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>方法</h2><div id="IDPEASection"><table id="MethodList" class="table is-hoverable"><tr><td><a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)" target="_blank" rel="noopener noreferrer">Equals</a></td><td><br />(继承自 <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>。)</td></tr><tr><td><a href="https://learn.microsoft.com/dotnet/api/system.object.finalize" target="_blank" rel="noopener noreferrer">Finalize</a></td><td><br />(继承自 <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>。)</td></tr><tr><td><a href="c765c50c-9fb2-a532-ef69-23edf1543857.htm">GetContentLength</a></td><td>
+            获取内容长度
+            </td></tr><tr><td><a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode" target="_blank" rel="noopener noreferrer">GetHashCode</a></td><td><br />(继承自 <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>。)</td></tr><tr><td><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype" target="_blank" rel="noopener noreferrer">GetType</a></td><td><br />(继承自 <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>。)</td></tr><tr><td><a href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone" target="_blank" rel="noopener noreferrer">MemberwiseClone</a></td><td><br />(继承自 <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>。)</td></tr><tr><td><a href="d4e0c180-ed32-cd8f-1544-ac0f463a6dc8.htm">OrderByRemaining</a></td><td>
+            按剩余时间排序
+            </td></tr><tr><td><a href="daab9d0e-185a-9f76-f578-315e9a0532df.htm">Pause</a></td><td>
+            暂停下载
+            </td></tr><tr><td><a href="e48d678b-9460-161d-48d4-d9185e36d205.htm">Resume</a></td><td>
+            唤醒下载
+            </td></tr><tr><td><a href="9af5c6f4-4a0d-fb29-f553-ec9370127454.htm">SortPDsByFrom</a></td><td>
+            Sorts the downloader by From property to merge the parts
+            </td></tr><tr><td><a href="bc3897be-42d8-31b1-d848-463ed0222bcd.htm">Start</a></td><td>
+            开始下载
+            </td></tr><tr><td><a href="https://learn.microsoft.com/dotnet/api/system.object.tostring" target="_blank" rel="noopener noreferrer">ToString</a></td><td><br />(继承自 <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>。)</td></tr><tr><td><a href="31845bb8-d087-d64e-578c-c5a4fb12d5c0.htm">WaitOrResumeAll</a></td><td>
+            暂停或继续
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>事件</h2><div id="IDMEASection"><table id="EventList" class="table is-hoverable"><tr><td><a href="0dcc8ae7-1df6-759e-9013-48aa74b79fb5.htm">FileMergeProgressChanged</a></td><td>
+            文件合并事件
+            </td></tr><tr><td><a href="e4c2a2cb-a027-4de5-851c-9a72cc4504a2.htm">TotalProgressChanged</a></td><td>
+            总下载进度更新事件
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>扩展方法</h2><div id="IDAEASection"><table id="ExtensionList" class="table is-hoverable"><tr><td><a href="16496cbf-818a-5f21-a300-4c241091c285.htm">FormatPatten</a></td><td>
+            将当前对象作为参数,并使用指定的格式化字符串格式化
+            <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBGAEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">// 第一种使用方式: 将当前对象作为参数,并使用指定的格式化字符串格式化
+var obj = 10;
+obj.FormatPatten("value:{}").Println(); // value:10
+obj.FormatPatten("value:{} - {}").Println(); // value:10 - 10
+obj.FormatPatten("{} value: {}").Println(); // 10 value: 10
+// 第二种使用方式: 将当前对象中的字段或属性作为参数,并使用指定的格式化字符串格式化
+class Student{
+    public string Name { get; set; }
+    public int Age;
+}
+var stu = new Student{Name="张三",Age=20};
+stu.FormatPatten("name:{Name} age:{Age}").Println(); // name:张三</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="b330d874-b7eb-3ef8-f7c0-a267204206d8.htm">GetFieldValue<span id="LST26DD6177_0" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|fs=&lt;'|nu=("></span>T<span id="LST26DD6177_1" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|fs=&gt;|nu=)"></span></a></td><td>
+             获取对象的字段值
+             <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBHBEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">class Student{
+    public string Name ;
+    public int Age ;
+}
+
+var stu = new Student{Name="张三",Age=20};
+stu.GetFieldValue&lt;string&gt;("Name").Println(); // 控制台输出: 张三
+stu.GetFieldValue&lt;int&gt;("Age").Println(); // 控制台输出: 20</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="f67fb20b-8e10-72fe-c5d9-481badc92e24.htm">GetPropertyOrFieldValue<span id="LST26DD6177_2" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|fs=&lt;'|nu=("></span>T<span id="LST26DD6177_3" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|fs=&gt;|nu=)"></span></a></td><td>
+             获取对象的属性或字段值
+             <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBHCEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">class Student{
+    public string Name {get;set;}
+    public int Age ;
+}
+
+var stu = new Student{Name="张三",Age=20};
+stu.GetPropertyOrFieldValue&lt;string&gt;("Name").Println(); // 控制台输出: 张三
+stu.GetPropertyOrFieldValue&lt;int&gt;("Age").Println(); // 控制台输出: 20</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="ef4b38e0-a6a6-d763-9a68-64b811de4fc8.htm">GetPropertyValue<span id="LST26DD6177_4" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|fs=&lt;'|nu=("></span>T<span id="LST26DD6177_5" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|fs=&gt;|nu=)"></span></a></td><td>
+             获取对象的属性值
+             <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBHDEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">class Student{
+    public string Name { get; set; }
+    public int Age { get; set; }
+}
+
+var stu = new Student{Name="张三",Age=20};
+stu.GetPropertyValue&lt;string&gt;("Name").Println(); // 控制台输出: 张三
+stu.GetPropertyValue&lt;int&gt;("Age").Println(); // 控制台输出: 20</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="778d7865-2c1a-b1ba-ad07-91928d4ec94b.htm">Print</a></td><td>
+            将对象打印到控制台
+            <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBEEEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">object obj = new object();
+obj.Print(); // System.Object</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="17239861-3f34-918f-e7a0-77937bde93ca.htm">Print</a></td><td>
+            将对象打印到控制台
+            <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBFFEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">object obj = new object();
+obj.Print("prefix: ","suffix"); // prefix: System.Objectsuffix
+obj.Print("prefix: "); // prefix: System.Object</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="e3bbefc8-1c74-fb3e-f3b4-45a5f681699e.htm">Println</a></td><td>
+            将对象打印到控制台,并在末尾添加换行符
+            <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBEGEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">object obj = new object();
+obj.Print(); // System.Object\r\n</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="607cf92f-cb2c-26d7-f0bc-85917648f35f.htm">Println</a></td><td>
+            将对象打印到控制台,并在末尾添加换行符
+            <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBFHEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">object obj = new object();
+obj.Println("prefix: ","suffix"); // prefix: System.Objectsuffix\r\n
+obj.Println("prefix: "); // prefix: System.Object\r\n</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="d66d0ac7-fe73-640f-0712-105ac95358e5.htm">SetFieldValue</a></td><td>
+            设置对象的字段值
+            <br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="6ca51eac-950d-f973-eaca-65eb4aa234ba.htm">SetPropertyOrFieldValue</a></td><td>
+            设置对象的属性或字段值
+            <br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="b7bc697a-3ae2-d6c6-f451-09677756c92b.htm">SetPropertyValue</a></td><td>
+            设置对象的属性值
+            <br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr><tr><td><a href="71de3caa-dcf4-17cb-58e7-a34124f0ee30.htm">ToJson</a></td><td>
+             将对象转换为Json字符串
+             <h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>示例</h2><div id="IDBGLEASection"><div class="codeSnippet"><div class="codeHeader"><span class="codeHeaderTitle">C#</span><button class="button is-small is-light copyCode" title="复制"><span class="icon is-small"><i class="fa fa-copy"></i></span><span>复制</span></button></div><div class="codePanel hljs"><pre xml:space="preserve"><code class="language-cs">class Student{
+    public string Name { get; set; }
+    public int age {get; set; }
+}
+
+var stu = new Student{
+    Name = "张三",
+    Age = 20
+}
+stu.ToJson().Println(); // {"Name":"张三","Age":20}
+stu.ToJson(Formatting.Indented).Println();
+/*
+{
+    "Name": "张三",
+    "Age": 20
+}
+*/
+stu.ToJson(converters: new JsonConverter[]{new StringEnumConverter()}).Println();
+// {"Name":"张三","Age":20}</code></pre></div></div></div><br />(由 <a href="68764822-d195-55b2-8875-310cc4493afa.htm">ObjectExtension</a> 定义。)</td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>参见</h2><div id="seeAlsoSection"><h4>引用</h4><div><a href="4c700f07-6424-89a1-e87a-55cddcd2966d.htm">HmExtension.Standard.utils 命名空间</a></div></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">Definition</a></li><li><a class="quickLink">构造函数</a></li><li><a class="quickLink">属性</a></li><li><a class="quickLink">方法</a></li><li><a class="quickLink">事件</a></li><li><a class="quickLink">扩展方法</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">示例</a></li><li><a class="quickLink">参见</a></li></ul></nav></div></div></div></div><script>$(function(){
+SetDefaultLanguage("cs");
+LoadTocFile(null, null);
+InitializeQuickLinks();
+
+$(".toggleSection" ).click(function () {
+    SectionExpandCollapse(this);
+});
+
+$(".toggleSection").keypress(function () {
+    SectionExpandCollapseCheckKey(this, event)
+});
+hljs.highlightAll();
+});</script></body></html>

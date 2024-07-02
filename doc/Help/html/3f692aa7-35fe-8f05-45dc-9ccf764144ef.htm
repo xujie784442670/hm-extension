@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html ><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="shortcut icon" href="../icons/favicon.ico" /><link rel="stylesheet" href="../css/bulma.css" /><link rel="stylesheet" href="../css/font-awesome.min.css" /><link rel="stylesheet" href="../css/presentationStyle.css" /><link rel="stylesheet" href="../css/vs.min.css" /><link rel="stylesheet" href="../css/zh-CN.css" /><script src="../scripts/jquery-3.5.1.min.js"></script><script src="../scripts/clipboard.min.js"></script><script src="../scripts/highlight.min.js"></script><script src="../scripts/presentationStyle.js"></script><title>MsllHookStruct 字段</title><meta name="Title" content="字段" /><meta name="Help.Id" content="Fields.T:HmExtension.Standard.WindowApi.MouseHook.MsllHookStruct" /><meta name="Help.ContentType" content="Reference" /><meta name="container" content="HmExtension.Standard.WindowApi" /><meta name="guid" content="3f692aa7-35fe-8f05-45dc-9ccf764144ef" /><meta name="tocFile" content="../toc/IDKG.xml" /></head><body><div class="fixedLayout"><div id="Header" class="fixedHeader"><div class="pageHeader level mb-0 py-2 px-4"><div id="TitleContainer" class="level-left"><div id="DocumentationTitle" class="level-item">A Sandcastle Documented Class Library</div></div><div id="LangFilterSearchContainer" class="level-right"><div class="level-item"><div class="dropdown is-hoverable"><div class="dropdown-trigger"><button class="button" aria-haspopup="true" aria-controls="dropdown-menu"><span id="CurrentLanguage"></span><span class="icon is-small"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button></div><div class="dropdown-menu" role="menu"><div id="LanguageSelections" class="dropdown-content"><a class="dropdown-item languageFilterItem" data-languageId="cs">C#</a></div></div></div></div><div class="level-item"><form id="SearchForm" action="#" onsubmit="TransferToSearchPage(); return false;"><div class="field"><div class="control has-icons-left"><input id="SearchTerms" class="input" type="text" maxlength="200" placeholder="Search" /><span class="icon is-small is-left"><i class="fa fa-search"></i></span><button id="SearchButton" type="submit" class="is-hidden"></button></div></div></form></div></div></div></div><div class="fixedContent"><nav class="breadcrumb my-1 px-2 border-bottom" role="navigation"><ul id="TopicBreadcrumbs" /></nav><div id="ContentContainer" class="columns pl-5 pr-5 fixedContent"><div id="ShowHideTOCColumn" class="column is-hidden-tablet"><a id="ShowHideTOC">Show/Hide TOC</a></div><div id="TOCColumn" class="column is-hidden-mobile"><nav class="toc"><ul id="TableOfContents" class="toc-menu" /></nav></div><div id="Resizer" class="is-hidden"></div><div id="TopicContent" class="column content is-7"><h1>Msll<wbr />Hook<wbr />Struct 字段</h1><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>字段</h2><div id="IDADASection"><table id="FieldList" class="table is-hoverable"><tr><td><a href="34f3c8db-73d7-27e4-c72e-70564065910d.htm">dwExtraInfo</a></td><td>
+            与消息关联的其他信息。
+            </td></tr><tr><td><a href="fb30fb3f-5303-6dc5-222f-690b4e5aaf44.htm">flags</a></td><td>
+            事件注入的标志。 应用程序可以使用以下值来测试标志。 测试<a href="b7309562-c41a-7001-e4cf-7f476987908a.htm">LLMHF_INJECTED</a> 将告知是否已注入事件。 如果是，则测试<a href="a2539330-6b63-7d48-dfd1-a8f6f389a3b1.htm">LLMHF_LOWER_IL_INJECTED</a> 将告诉你事件是否是从以较低完整性级别运行的进程注入的。
+            </td></tr><tr><td><a href="d9356631-7a08-c1b6-42a0-6761fa66cdee.htm">mouseData</a></td><td>
+            如果消息 <a href="85fe0c6e-7cb9-9a71-44e4-48f2ffbdccea.htm">WM_MOUSEWHEEL</a>，则此成员的高序字是滚轮增量。 保留低序字。 正值表示滚轮向前旋转（远离用户）；负值表示滚轮向后旋转（朝向用户）。 一键滚轮定义为 WHEEL_DELTA，即 120。
+            如果消息
+            <a href="c91520ae-7330-7d97-8377-739a70c47892.htm">WM_XBUTTONDOWN</a>、
+            <a href="c7a9cb90-632f-3ba1-ba28-691787fa076d.htm">WM_XBUTTONUP</a>、
+            <a href="bcf1944e-0acf-c3cb-a5fc-c3ba30a81fe6.htm">WM_XBUTTONDBLCLK</a>、
+            <a href="e033e8b0-2e9c-370e-00d4-aa01c6ac948a.htm">WM_NCXBUTTONDOWN</a>、
+            <a href="8a24526f-51f3-3169-f334-23e1966f14ea.htm">WM_NCXBUTTONUP</a>或
+            <a href="7ffbab6a-10eb-5df3-fd06-50b96c887e00.htm">WM_NCXBUTTONDBLCLK</a>，则高序单词指定按下或释放的 X 按钮，并且保留低序字。 此值可以是以下一个或多个值。 否则，不使用 mouseData 。
+            </td></tr><tr><td><a href="8b4b9715-ef10-b6bf-3b3c-6806686200c9.htm">pt</a></td><td>
+            光标的 x 和 y 坐标，按 <a href="https://learn.microsoft.com/zh-cn/windows/win32/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">监视器感知</a> 的屏幕坐标。
+            </td></tr><tr><td><a href="1cfa1dc7-c034-88db-2ab0-6d7b3fe16793.htm">time</a></td><td>
+            此消息的时间戳。
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>参见</h2><div id="seeAlsoSection"><h4>引用</h4><div><a href="2939d0b4-7d88-ece7-48fb-21bddb6a4e42.htm">MouseHook<span id="LSTDF175203_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MsllHookStruct 类</a></div><div><a href="c64b55b9-bd36-bb51-5ccb-8244bb147857.htm">HmExtension.Standard.WindowApi 命名空间</a></div></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">字段</a></li><li><a class="quickLink">参见</a></li></ul></nav></div></div></div></div><script>$(function(){
+SetDefaultLanguage("cs");
+LoadTocFile(null, null);
+InitializeQuickLinks();
+
+$(".toggleSection" ).click(function () {
+    SectionExpandCollapse(this);
+});
+
+$(".toggleSection").keypress(function () {
+    SectionExpandCollapseCheckKey(this, event)
+});
+});</script></body></html>

@@ -310,6 +310,10 @@ public class SystemHelper
     }
 
 
+    /// <summary>
+    /// 获取操作系统的版本
+    /// </summary>
+    /// <returns></returns>
     public string GetOsVersion()
     {
         string strQuery = "select *from win32_OperatingSystem";
@@ -403,11 +407,26 @@ public class SystemHelper
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     static extern int ChangeDisplaySettings([In] ref DEVMODE lpDevMode, int dwFlags);
 
+    /// <summary>
+    /// 显示方向
+    /// </summary>
     public enum DMDO
     {
+        /// <summary>
+        /// 默认
+        /// </summary>
         DEFAULT = 0,
+        /// <summary>
+        /// 90度
+        /// </summary>
         D90 = 1,
+        /// <summary>
+        /// 180度
+        /// </summary>
         D180 = 2,
+        /// <summary>
+        /// 270度
+        /// </summary>
         D270 = 3
     }
 
@@ -462,20 +481,21 @@ public class SystemHelper
     /// <summary>
     /// 更改分辨率
     /// </summary>
-    /// <param name="width">宽度
-    /// <param name="height">高度
-    /// <param name="displayFrequency">刷新频率 60，75，85，100
+    /// <param name="width">宽度</param>
+    /// <param name="height">高度</param>
+    /// <param name="displayFrequency">刷新频率 60，75，85，100</param>
     public static void ChangeDisplaySettings(int width, int height, int displayFrequency = 60)
     {
-        long RetVal = 0;
-        DEVMODE dm = new DEVMODE();
-        dm.dmSize = (short)Marshal.SizeOf(typeof(DEVMODE));
-        dm.dmPelsWidth = width; //宽
-        dm.dmPelsHeight = height; //高
-        dm.dmDisplayFrequency = displayFrequency; //刷新率
-        dm.dmFields = DEVMODE.DM_PELSWIDTH | DEVMODE.DM_PELSHEIGHT | DEVMODE.DM_DISPLAYFREQUENCY |
-                      DEVMODE.DM_BITSPERPEL;
-        RetVal = ChangeDisplaySettings(ref dm, 0);
+        DEVMODE dm = new DEVMODE
+        {
+            dmSize = (short)Marshal.SizeOf(typeof(DEVMODE)),
+            dmPelsWidth = width, //宽
+            dmPelsHeight = height, //高
+            dmDisplayFrequency = displayFrequency, //刷新率
+            dmFields = DEVMODE.DM_PELSWIDTH | DEVMODE.DM_PELSHEIGHT | DEVMODE.DM_DISPLAYFREQUENCY |
+                       DEVMODE.DM_BITSPERPEL
+        };
+        ChangeDisplaySettings(ref dm, 0);
     }
 
     #endregion
@@ -483,16 +503,16 @@ public class SystemHelper
     /// <summary>
     /// 判断指定端口号是否被占用 占用返回true
     /// </summary>
-    /// <param name="port">
+    /// <param name="port">端口</param>
     /// <returns></returns>
     internal static bool IsPort(Int32 port)
     {
         bool result = false;
         try
         {
-            System.Net.NetworkInformation.IPGlobalProperties iproperties =
+            System.Net.NetworkInformation.IPGlobalProperties properties =
                 System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties();
-            System.Net.IPEndPoint[] ipEndPoints = iproperties.GetActiveTcpListeners();
+            System.Net.IPEndPoint[] ipEndPoints = properties.GetActiveTcpListeners();
             foreach (var item in ipEndPoints)
             {
                 if (item.Port == port)
@@ -513,96 +533,58 @@ public class SystemHelper
     /// <summary>
     /// 判断操作系统是否为Windows98
     /// </summary>
-    public bool IsWindows98
-    {
-        get
-        {
-            return (Environment.OSVersion.Platform == PlatformID.Win32Windows) &&
-                   (Environment.OSVersion.Version.Minor == 10) &&
-                   (Environment.OSVersion.Version.Revision.ToString() != "2222A");
-        }
-    }
+    public bool IsWindows98 =>
+        (Environment.OSVersion.Platform == PlatformID.Win32Windows) &&
+        (Environment.OSVersion.Version.Minor == 10) &&
+        (Environment.OSVersion.Version.Revision.ToString() != "2222A");
 
     /// <summary>
     /// 判断操作系统是否为Windows98第二版
     /// </summary>
-    public bool IsWindows98Second
-    {
-        get
-        {
-            return (Environment.OSVersion.Platform == PlatformID.Win32Windows) &&
-                   (Environment.OSVersion.Version.Minor == 10) &&
-                   (Environment.OSVersion.Version.Revision.ToString() == "2222A");
-        }
-    }
+    public bool IsWindows98Second =>
+        (Environment.OSVersion.Platform == PlatformID.Win32Windows) &&
+        (Environment.OSVersion.Version.Minor == 10) &&
+        (Environment.OSVersion.Version.Revision.ToString() == "2222A");
 
     /// <summary>
     /// 判断操作系统是否为Windows2000
     /// </summary>
-    public bool IsWindows2000
-    {
-        get
-        {
-            return (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
-                   (Environment.OSVersion.Version.Major == 5) && (Environment.OSVersion.Version.Minor == 0);
-        }
-    }
+    public bool IsWindows2000 =>
+        (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
+        (Environment.OSVersion.Version.Major == 5) && (Environment.OSVersion.Version.Minor == 0);
 
     /// <summary>
     /// 判断操作系统是否为WindowsXP
     /// </summary>
-    public bool IsWindowsXP
-    {
-        get
-        {
-            return (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
-                   (Environment.OSVersion.Version.Major == 5) && (Environment.OSVersion.Version.Minor == 1);
-        }
-    }
+    public bool IsWindowsXP =>
+        (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
+        (Environment.OSVersion.Version.Major == 5) && (Environment.OSVersion.Version.Minor == 1);
 
     /// <summary>
     /// 判断操作系统是否为Windows2003
     /// </summary>
-    public bool IsWindows2003
-    {
-        get
-        {
-            return (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
-                   (Environment.OSVersion.Version.Major == 5) && (Environment.OSVersion.Version.Minor == 2);
-        }
-    }
+    public bool IsWindows2003 =>
+        (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
+        (Environment.OSVersion.Version.Major == 5) && (Environment.OSVersion.Version.Minor == 2);
 
     /// <summary>
     /// 判断操作系统是否为WindowsVista
     /// </summary>
-    public bool IsWindowsVista
-    {
-        get
-        {
-            return (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
-                   (Environment.OSVersion.Version.Major == 6) && (Environment.OSVersion.Version.Minor == 0);
-        }
-    }
+    public bool IsWindowsVista =>
+        (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
+        (Environment.OSVersion.Version.Major == 6) && (Environment.OSVersion.Version.Minor == 0);
 
     /// <summary>
     /// 判断操作系统是否为Windows7
     /// </summary>
-    public bool IsWindows7
-    {
-        get
-        {
-            return (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
-                   (Environment.OSVersion.Version.Major == 6) && (Environment.OSVersion.Version.Minor == 1);
-        }
-    }
+    public bool IsWindows7 =>
+        (Environment.OSVersion.Platform == PlatformID.Win32NT) &&
+        (Environment.OSVersion.Version.Major == 6) && (Environment.OSVersion.Version.Minor == 1);
 
     /// <summary>
     /// 判断操作系统是否为Unix
     /// </summary>
-    public bool IsUnix
-    {
-        get { return Environment.OSVersion.Platform == PlatformID.Unix; }
-    }
+    public bool IsUnix => Environment.OSVersion.Platform == PlatformID.Unix;
 
     /// <summary>
     /// 是否是64位 false 为32位
@@ -610,8 +592,7 @@ public class SystemHelper
     /// <returns></returns>
     public bool Is64System()
     {
-        bool type;
-        type = Environment.Is64BitOperatingSystem;
+        var type = Environment.Is64BitOperatingSystem;
         return type;
     }
 }

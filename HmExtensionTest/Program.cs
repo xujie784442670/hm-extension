@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Management;
 using System.Windows.Media;
 using HmExtension;
@@ -52,16 +53,23 @@ namespace HmExtensionTest
             //     "MIIEogIBAAKCAQEAghlsSlbNhTspVTEBXvQMVyiqgS4SNq8N5UFU59hFnrTvPHKO+8dAdxsHt+gKO8CPcm3guDIuQhugW3ttxUWFm336xYCJ1nV3eZIppHLrmIAr6mwK4tka1wuN998ZWHh5p1OFzBhua6UMRUWk5Z+pyOz9CGOAAlmXhMRaV+KFt7/iyte0ovBheCWRnI0qprc1hnODl8TM7FItrrDUSZFcQGAf/eH0644gPQLOy38AHZXRG69SdVK3N0+LQ2J2npvER/fte667hQ0nOMBj3mwb/JhonPpsu9M/JZqwN2kQzQjGUW/kwDYXU/fecqjEUvfEKF4zxXfXqenx8MmUiRV/DwIDAQABAoIBAAMg6WHARKD3kz7hNs85vzI5YCBLI1T9ULA6qfgJU2NFppslhhq35+z1UXIyukxFjS2LRuQnEMW2NFz+0tzzlwruNKGbPbVSjdT2ltnFibTZIDU68+gQoHybYoabbtiZzRMhBw6pZ75e8bSYwCZleIfEazFQczubO/GNZz7Fy8FnaxW65OzF7SuIEgQG7YIyzkfLOT4nUR5WS5hzrIsdINcFciI8Xpn/uD+JhKJazA9bHQnNfQIFI0Xjev19V+5JSTLwyATuU/MaYXpBOUPw0VWV+IlCB84hVDvRYyFTFv6j77P8y1ObaBbGelV3AjRfMSN9BYL4BiEs/U3Ix4GuHIECgYEAxpn5uG5ii+u4JGxW5pJY7Dd4TPmDIFRSA7LBSrBMmQWoZU2f2DqjqjYcpqu2hfjufIplj9i/tphqprDOvHhSvxUgwb/OFKNwyeWT+INmvYvCVx8t/rLAsaAlukNd97WKin6jCgjAZQi3ULA1cG7w+vBgZlxhz7KZ6kdRTDl1g7kCgYEAp7MlBqe+5jSCnedJgkWyrPJ5GIGTqROMMfwN6fVC0iY0SvvfNvIpxWqsTS4rfv3NmfEKRz1c3Qr0WBHfhEff2FROPkxjwfAtKeRHIwtp31mO5rvB3HdYV2f0e1xKuKX2DlqEMbeqYBJOqwHoVfDLaeuexuoi2P1NrYvklJTijQcCgYB5/+5yiITLFWOKJG+BtpcfjLe++Wu+uW2kTfQFcKWtPteCW5v81ZDip9kT3doDFLdUFCRtqCWlAp5JhcWJ65RRQ6ZavvvWm8xWikxK1lWPzMH2iPXVR3Ot6gYjFO0tlPzlNQPszxF5P1B1Jbm+NricPnvJhaikUT/RtjvPymBRKQKBgE7C+JTTm/kKmH4I7qFckrpfdzhnQy6Zm7KuKurC4gtJHi5JdWCdA7lQjHQDRzJxiWrPpoAm9cJrLq9eVZgPGbbEgasIvaGMZ+nQ6QgwiBz6Nv9vF3GwK7GBhXWatw1aBOJg6M1g8YgFkSUH1FLosOCiZQQPWyaGcUEc/tI5yt1pAoGAG0M5xbuJmVvPOgKaW85zmq+wqVjFcAHMj+VilLERmTFqrYmVEPsu49kAMfKqfKeAshLCv0xHTJRh8SfNGls12aLe9v7/k4+DHwGG2SmWhvyS4xpVECOuQHhxTdwqOEkV+CDHbMb0/Alb9Wy5no6czvrrRfi8x3DXKGI+06+YXVc=",
             //     "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh8Sd5tdieTWMgZ+K52kEGHS4exwlD4aRwc82yi1P2HQpH4vhz3ddpBdaZMPMvSpN0uv2NJZo07g8MEYfCiQlWQHay8t6/8mIMERomMPcCOPBbUe49uTyVQt/9eMCXpgEzL9O7Kr4trQbSoAEggmi2jRfjEgB+3bN94B2BEt1dd0OwFHtouvVOYowDjfq9TMAv2/2+0UWBMSGizta/Q+Qq1jBhximX4pALnd+6iwvodbvEPZmCRrO8CwwDeFSgHk5+TdvNaclNbTf/W9l/3fmoYIqsI6zC19XQzfPh0Fedvn7+al8GBVT0NT/g6GxRcLMlUmHrDGul4fWcuZM4znASwIDAQAB");
             // PayInPersonTest();
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMedia");
-            var collection = searcher.Get();
-            foreach (var o in collection)
-            {
-                var properties = o.Properties;
-                foreach (PropertyData pd in properties)
-                {
-                    pd.FormatPatten("Name:{Name} Value: {Value} IsLocal: {IsLocal} IsArray:{IsArray}").Println();
-                }
-            }
+            // ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMedia");
+            // var collection = searcher.Get();
+            // foreach (var o in collection)
+            // {
+            //     var properties = o.Properties;
+            //     foreach (PropertyData pd in properties)
+            //     {
+            //         pd.FormatPatten("Name:{Name} Value: {Value} IsLocal: {IsLocal} IsArray:{IsArray}").Println();
+            //     }
+            // }
+            // Console.ReadKey();
+
+
+            ushort a = 10;
+            var bytes = a.ToByte();
+            bytes.Join().Println();
+            bytes.Reverse().Reverse().ToUShort().Println();
             Console.ReadKey();
         }
 

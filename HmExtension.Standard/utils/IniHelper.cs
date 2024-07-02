@@ -9,20 +9,23 @@ namespace HmExtension.Standard.utils;
 /// </summary>
 public class IniHelper
 {
-    private string FilePath;
+    private string _filePath;
 
+    /// <summary>
+    /// 文件路径
+    /// </summary>
     public string Path
     {
-        get { return this.FilePath; }
+        get => this._filePath;
         set
         {
-            if (value.Substring(0, 1) == "\\" || value.Substring(0, 1) == "/")
+            if (value[..1] == "\\" || value[..1] == "/")
             {
-                this.FilePath = AppDomain.CurrentDomain + value;
+                this._filePath = AppDomain.CurrentDomain + value;
             }
             else
             {
-                this.FilePath = value;
+                this._filePath = value;
             }
         }
     }
@@ -37,34 +40,34 @@ public class IniHelper
     /// <summary>
     /// 文件路径
     /// </summary>
-    /// <param name="_Path">首个字符为\\或/则自动前面加路径
-    public IniHelper(string _Path)
+    /// <param name="path">首个字符为\\或/则自动前面加路径</param>
+    public IniHelper(string path)
     {
-        this.Path = _Path;
+        this.Path = path;
     }
 
     /// <summary>
     /// 写入INI文件指定KEY的值
     /// </summary>
-    /// <param name="Section">Section
-    /// <param name="Key">Key
-    /// <param name="Value">Value
-    public void WriteValue(string Section, string Key, string Value)
+    /// <param name="section">Section</param>
+    /// <param name="key">Key</param>
+    /// <param name="value">Value</param>
+    public void WriteValue(string section, string key, string value)
     {
-        WritePrivateProfileString(Section, Key, Value, this.FilePath);
+        WritePrivateProfileString(section, key, value, this._filePath);
     }
 
     /// <summary>
     /// 读取INI文件指定KEY的值
     /// </summary>
-    /// <param name="Section">Section
-    /// <param name="Key">KEY
-    public string ReadValue(string Section, string Key)
+    /// <param name="section">Section</param>
+    /// <param name="key">KEY</param>
+    public string ReadValue(string section, string key)
     {
         try
         {
             StringBuilder temp = new StringBuilder(204800);
-            int i = GetPrivateProfileString(Section, Key, "", temp, 204800, this.FilePath);
+            int i = GetPrivateProfileString(section, key, "", temp, 204800, this._filePath);
 
             return temp.ToString();
         }
@@ -75,16 +78,16 @@ public class IniHelper
     }
 
     ///   删除指定Section。
-    ///   <param name="Section ">Section
+    ///   <param name="section">section</param>
     ///   <returns> 返回删除是否成功</returns>
-    public bool RemoveSection(string Section)
+    public bool RemoveSection(string section)
     {
-        return WritePrivateProfileString(Section, null, null, this.FilePath);
+        return WritePrivateProfileString(section, null, null, this._filePath);
     }
 
     /// 验证文件是否存在
     public bool Exists()
     {
-        return System.IO.File.Exists(this.FilePath);
+        return System.IO.File.Exists(this._filePath);
     }
 }

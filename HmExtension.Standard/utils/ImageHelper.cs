@@ -45,10 +45,10 @@ public static class ImageHelper
     /// 以图片中心为轴心，截取正方型，然后等比缩放
     /// 用于头像处理
     /// </summary>
-    /// <param name="fromFile">原图Stream对象
-    /// <param name="fileSaveUrl">缩略图存放地址
-    /// <param name="side">指定的边长（正方型）
-    /// <param name="quality">质量（范围0-100）
+    /// <param name="fromFile">原图Stream对象</param>
+    /// <param name="fileSaveUrl">缩略图存放地址</param>
+    /// <param name="side">指定的边长（正方型）</param>
+    /// <param name="quality">质量（范围0-100）</param>
     public static void CutForSquare(this Stream fromFile, string fileSaveUrl, int side, int quality)
     { //创建目录
         string dir = Path.GetDirectoryName(fileSaveUrl);
@@ -158,11 +158,11 @@ public static class ImageHelper
     /// 指定长宽裁剪
     /// 按模版比例最大范围的裁剪图片并缩放至模版尺寸
     /// </summary>
-    /// <param name="fromFile">原图Stream对象
-    /// <param name="fileSaveUrl">保存路径
-    /// <param name="maxWidth">最大宽(单位:px)
-    /// <param name="maxHeight">最大高(单位:px)
-    /// <param name="quality">质量（范围0-100）
+    /// <param name="fromFile">原图Stream对象</param>
+    /// <param name="fileSaveUrl">保存路径</param>
+    /// <param name="maxWidth">最大宽(单位:px)</param>
+    /// <param name="maxHeight">最大高(单位:px)</param>
+    /// <param name="quality">质量（范围0-100）</param>
     public static void CutForCustom(this Stream fromFile, string fileSaveUrl, int maxWidth, int maxHeight, int quality)
     { //从文件获取原始图片，并使用流中嵌入的颜色管理信息
         Image initImage = Image.FromStream(fromFile, true);
@@ -287,12 +287,12 @@ public static class ImageHelper
     /// <summary>
     /// 图片等比缩放
     /// </summary>
-    /// <param name="fromFile">原图Stream对象
-    /// <param name="savePath">缩略图存放地址
-    /// <param name="targetWidth">指定的最大宽度
-    /// <param name="targetHeight">指定的最大高度
-    /// <param name="watermarkText">水印文字(为""表示不使用水印)
-    /// <param name="watermarkImage">水印图片路径(为""表示不使用水印)
+    /// <param name="fromFile">原图Stream对象</param>
+    /// <param name="savePath">缩略图存放地址</param>
+    /// <param name="targetWidth">指定的最大宽度</param>
+    /// <param name="targetHeight">指定的最大高度</param>
+    /// <param name="watermarkText">水印文字(为""表示不使用水印)</param>
+    /// <param name="watermarkImage">水印图片路径(为""表示不使用水印)</param>
     public static void ZoomAuto(this Stream fromFile, string savePath, double targetWidth, double targetHeight, string watermarkText, string watermarkImage = "")
     { //创建目录
         string dir = Path.GetDirectoryName(savePath);
@@ -462,7 +462,7 @@ public static class ImageHelper
     /// 判断文件类型是否为WEB格式图片
     /// (注：JPG,GIF,BMP,PNG)
     /// </summary>
-    /// <param name="contentType">HttpPostedFile.ContentType
+    /// <param name="contentType">HttpPostedFile.ContentType</param>
     /// <returns>是否为WEB格式图片</returns>
     public static bool IsWebImage(string contentType)
     {
@@ -478,8 +478,8 @@ public static class ImageHelper
     /// <summary>
     /// 裁剪图片 -- 用GDI+
     /// </summary>
-    /// <param name="b">原始Bitmap
-    /// <param name="rec">裁剪区域
+    /// <param name="b">原始Bitmap</param>
+    /// <param name="rec">裁剪区域</param>
     /// <returns>剪裁后的Bitmap</returns>
     public static Bitmap CutImage(this Bitmap b, Rectangle rec)
     {
@@ -515,9 +515,9 @@ public static class ImageHelper
     /// <summary>
     ///  Resize图片
     /// </summary>
-    /// <param name="bmp">原始Bitmap
-    /// <param name="newWidth">新的宽度
-    /// <param name="newHeight">新的高度
+    /// <param name="bmp">原始Bitmap</param>
+    /// <param name="newWidth">新的宽度</param>
+    /// <param name="newHeight">新的高度</param>
     /// <returns>处理以后的图片</returns>
     public static Bitmap ResizeImage(this Bitmap bmp, int newWidth, int newHeight)
     {
@@ -544,10 +544,10 @@ public static class ImageHelper
     /// <summary>
     /// 裁剪并缩放
     /// </summary>
-    /// <param name="bmp">原始图片
-    /// <param name="rec">裁剪的矩形区域
-    /// <param name="newWidth">新的宽度
-    /// <param name="newHeight">新的高度
+    /// <param name="bmp">原始图片</param>
+    /// <param name="rec">裁剪的矩形区域</param>
+    /// <param name="newWidth">新的宽度</param>
+    /// <param name="newHeight">新的高度</param>
     /// <returns>处理以后的图片</returns>
     public static Bitmap CutAndResize(this Bitmap bmp, Rectangle rec, int newWidth, int newHeight) => bmp.CutImage(rec).ResizeImage(newWidth, newHeight);
 
@@ -558,11 +558,11 @@ public static class ImageHelper
     /// <summary>
     /// 无损压缩图片
     /// </summary>
-    /// <param name="sFile">原图片地址
-    /// <param name="dFile">压缩后保存图片地址
-    /// <param name="flag">压缩质量（数字越小压缩率越高）1-100
-    /// <param name="size">压缩后图片的最大大小
-    /// <param name="sfsc">是否是第一次调用
+    /// <param name="sFile">原图片地址</param>
+    /// <param name="dFile">压缩后保存图片地址</param>
+    /// <param name="flag">压缩质量（数字越小压缩率越高）1-100</param>
+    /// <param name="size">压缩后图片的最大大小</param>
+    /// <param name="sfsc">是否是第一次调用</param>
     /// <returns></returns>
     public static bool CompressImage(string sFile, string dFile, int flag = 90, int size = 1024, bool sfsc = true)
     { //如果是第一次调用，原始图像的大小小于要压缩的大小，则直接复制文件，并且返回true
@@ -652,11 +652,11 @@ public static class ImageHelper
     /// <summary>
     /// 无损压缩图片
     /// </summary>
-    /// <param name="src">原图片文件流
-    /// <param name="dest">压缩后图片文件流
-    /// <param name="flag">压缩质量（数字越小压缩率越高）1-100
-    /// <param name="size">压缩后图片的最大大小
-    /// <param name="sfsc">是否是第一次调用
+    /// <param name="src">原图片文件流</param>
+    /// <param name="dest">压缩后图片文件流</param>
+    /// <param name="flag">压缩质量（数字越小压缩率越高）1-100</param>
+    /// <param name="size">压缩后图片的最大大小</param>
+    /// <param name="sfsc">是否是第一次调用</param>
     /// <returns></returns>
     public static bool CompressImage(Stream src, Stream dest, int flag = 90, int size = 1024, bool sfsc = true)
     { //如果是第一次调用，原始图像的大小小于要压缩的大小，则直接复制文件，并且返回true
@@ -748,11 +748,11 @@ public static class ImageHelper
     /// <summary>
     /// 生成缩略图
     /// </summary>
-    /// <param name="originalImage">原图
-    /// <param name="thumbnailPath">缩略图路径（物理路径）
-    /// <param name="width">缩略图宽度
-    /// <param name="height">缩略图高度
-    /// <param name="mode">生成缩略图的方式
+    /// <param name="originalImage">原图</param>
+    /// <param name="thumbnailPath">缩略图路径（物理路径）</param>
+    /// <param name="width">缩略图宽度</param>
+    /// <param name="height">缩略图高度</param>
+    /// <param name="mode">生成缩略图的方式</param>
     public static void MakeThumbnail(this Image originalImage, string thumbnailPath, int width, int height, ThumbnailCutMode mode)
     {
         int towidth = width;
@@ -831,10 +831,10 @@ public static class ImageHelper
     /// <summary>
     /// 调整光暗
     /// </summary>
-    /// <param name="mybm">原始图片
-    /// <param name="width">原始图片的长度
-    /// <param name="height">原始图片的高度
-    /// <param name="val">增加或减少的光暗值
+    /// <param name="mybm">原始图片</param>
+    /// <param name="width">原始图片的长度</param>
+    /// <param name="height">原始图片的高度</param>
+    /// <param name="val">增加或减少的光暗值</param>
     public static Bitmap LDPic(this Bitmap mybm, int width, int height, int val)
     {
         Bitmap bm = new Bitmap(width, height); //初始化一个记录经过处理后的图片对象
@@ -861,9 +861,9 @@ public static class ImageHelper
     /// <summary>
     /// 反色处理
     /// </summary>
-    /// <param name="mybm">原始图片
-    /// <param name="width">原始图片的长度
-    /// <param name="height">原始图片的高度
+    /// <param name="mybm">原始图片</param>
+    /// <param name="width">原始图片的长度</param>
+    /// <param name="height">原始图片的高度</param>
     public static Bitmap RePic(this Bitmap mybm, int width, int height)
     {
         Bitmap bm = new Bitmap(width, height); //初始化一个记录处理后的图片的对象
@@ -891,9 +891,9 @@ public static class ImageHelper
     /// <summary>
     /// 浮雕处理
     /// </summary>
-    /// <param name="oldBitmap">原始图片
-    /// <param name="width">原始图片的长度
-    /// <param name="height">原始图片的高度
+    /// <param name="oldBitmap">原始图片</param>
+    /// <param name="width">原始图片的长度</param>
+    /// <param name="height">原始图片的高度</param>
     public static Bitmap Relief(this Bitmap oldBitmap, int width, int height)
     {
         Bitmap newBitmap = new Bitmap(width, height);
@@ -926,9 +926,9 @@ public static class ImageHelper
     /// <summary>
     /// 拉伸图片
     /// </summary>
-    /// <param name="bmp">原始图片
-    /// <param name="newW">新的宽度
-    /// <param name="newH">新的高度
+    /// <param name="bmp">原始图片</param>
+    /// <param name="newW">新的宽度</param>
+    /// <param name="newH">新的高度</param>
     public static async Task<Bitmap> ResizeImageAsync(this Bitmap bmp, int newW, int newH)
     {
         try
@@ -959,9 +959,9 @@ public static class ImageHelper
     /// <summary>
     /// 滤色处理
     /// </summary>
-    /// <param name="mybm">原始图片
-    /// <param name="width">原始图片的长度
-    /// <param name="height">原始图片的高度
+    /// <param name="mybm">原始图片</param>
+    /// <param name="width">原始图片的长度</param>
+    /// <param name="height">原始图片的高度</param>
     public static Bitmap FilPic(this Bitmap mybm, int width, int height)
     {
         using (Bitmap bm = new Bitmap(width, height)) //初始化一个记录滤色效果的图片对象
@@ -988,9 +988,9 @@ public static class ImageHelper
     /// <summary>
     /// 左右翻转
     /// </summary>
-    /// <param name="mybm">原始图片
-    /// <param name="width">原始图片的长度
-    /// <param name="height">原始图片的高度
+    /// <param name="mybm">原始图片</param>
+    /// <param name="width">原始图片的长度</param>
+    /// <param name="height">原始图片的高度</param>
     public static Bitmap RevPicLR(this Bitmap mybm, int width, int height)
     {
         using (Bitmap bm = new Bitmap(width, height))
@@ -1016,9 +1016,9 @@ public static class ImageHelper
     /// <summary>
     /// 上下翻转
     /// </summary>
-    /// <param name="mybm">原始图片
-    /// <param name="width">原始图片的长度
-    /// <param name="height">原始图片的高度
+    /// <param name="mybm">原始图片</param>
+    /// <param name="width">原始图片的长度</param>
+    /// <param name="height">原始图片的高度</param>
     public static Bitmap RevPicUD(this Bitmap mybm, int width, int height)
     {
         Bitmap bm = new Bitmap(width, height);
@@ -1045,8 +1045,8 @@ public static class ImageHelper
     /// <summary>
     /// 压缩到指定尺寸
     /// </summary>
-    /// <param name="img">
-    /// <param name="newfile">新文件
+    /// <param name="img"></param>
+    /// <param name="newfile">新文件</param>
     public static bool Compress(this Image img, string newfile)
     {
         try
@@ -1091,7 +1091,7 @@ public static class ImageHelper
     /// <summary>
     /// 图片灰度化
     /// </summary>
-    /// <param name="c">输入颜色
+    /// <param name="c">输入颜色</param>
     /// <returns>输出颜色</returns>
     public static Color Gray(this Color c)
     {
@@ -1106,9 +1106,9 @@ public static class ImageHelper
     /// <summary>
     /// 转换为黑白图片
     /// </summary>
-    /// <param name="mybm">要进行处理的图片
-    /// <param name="width">图片的长度
-    /// <param name="height">图片的高度
+    /// <param name="mybm">要进行处理的图片</param>
+    /// <param name="width">图片的长度</param>
+    /// <param name="height">图片的高度</param>
     public static Bitmap BWPic(this Bitmap mybm, int width, int height)
     {
         Bitmap bm = new Bitmap(width, height);
@@ -1136,8 +1136,8 @@ public static class ImageHelper
     /// <summary>
     /// 获取图片中的各帧
     /// </summary>
-    /// <param name="gif">源gif
-    /// <param name="pSavedPath">保存路径
+    /// <param name="gif">源gif</param>
+    /// <param name="pSavedPath">保存路径</param>
     public static void GetFrames(this Image gif, string pSavedPath)
     {
         using (gif)
@@ -1158,7 +1158,7 @@ public static class ImageHelper
     /// <summary>
     /// 将dataUri保存为图片
     /// </summary>
-    /// <param name="source">dataUri数据源
+    /// <param name="source">dataUri数据源</param>
     /// <returns></returns>
     /// <exception cref="Exception">操作失败。</exception>
     public static Bitmap SaveDataUriAsImageFile(this string source)

@@ -9,8 +9,14 @@ using Keys = HmExtension.Standard.Commons.Keys;
 
 namespace HmExtension.Standard.WindowApi;
 
+/// <summary>
+/// 按键钩子
+/// </summary>
 public class KeyHook:AbstractHook<KeyHookType>
 {
+    /// <summary>
+    /// 按键事件参数
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public class KBDLLHOOKSTRUCT
     {
@@ -54,8 +60,16 @@ public class KeyHook:AbstractHook<KeyHookType>
 
     private KeyHookType _hookType;
 
+    /// <summary>
+    /// 按键事件
+    /// </summary>
     public event EventHandler<KeyEventArgs> OnKey;
 
+    /// <summary>
+    /// 安装钩子
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public override int Hook(KeyHookType type = KeyHookType.WH_KEYBOARD_LL)
     {
         _hookType = KeyHookType.WH_KEYBOARD_LL;

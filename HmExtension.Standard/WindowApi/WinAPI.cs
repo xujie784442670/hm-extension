@@ -86,54 +86,149 @@ public class WinApi
 
 
 
-    //安装钩子
+    /// <summary>
+    /// 安装钩子
+    /// </summary>
+    /// <param name="hookType"></param>
+    /// <param name="lpfn"></param>
+    /// <param name="hInstance"></param>
+    /// <param name="threadId"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     public static extern int SetWindowsHookEx(HookType hookType, HookProc lpfn, IntPtr hInstance, int threadId);
-    //卸载钩子
+    /// <summary>
+    /// 卸载钩子
+    /// </summary>
+    /// <param name="idHook"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     public static extern bool UnhookWindowsHookEx(int idHook);
-    //调用下一个钩子
+    /// <summary>
+    /// 调用下一个钩子
+    /// </summary>
+    /// <param name="idHook"></param>
+    /// <param name="nCode"></param>
+    /// <param name="wParam"></param>
+    /// <param name="lParam"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
     
+    /// <summary>
+    /// 钩子处理函数委托类型
+    /// </summary>
     public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
     #endregion
     [DllImport("user32.dll", EntryPoint = "FindWindowEx")]
     private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
+    /// <summary>
+    /// 发送消息
+    /// </summary>
+    /// <param name="hwnd">窗口句柄</param>
+    /// <param name="wMsg">消息常量</param>
+    /// <param name="wParam">消息参数</param>
+    /// <param name="lParam">消息参数</param>
+    /// <returns></returns>
     [DllImport("user32.dll ", EntryPoint = "SendMessageA")]
     public static extern int SendMessageA(IntPtr hwnd, uint wMsg, int wParam, string lParam);
 
+    /// <summary>
+    /// 发送消息
+    /// </summary>
+    /// <param name="hwnd"></param>
+    /// <param name="wMsg"></param>
+    /// <param name="wParam"></param>
+    /// <param name="lParam"></param>
+    /// <returns></returns>
     [DllImport("user32.dll ", EntryPoint = "SendMessage")]
     public static extern int SendMessage(IntPtr hwnd, uint wMsg, int wParam, int lParam);
 
+    /// <summary>
+    /// 查找父窗口
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetParent")]
     public static extern IntPtr GetParent(IntPtr hWnd);
 
+    /// <summary>
+    /// 查找窗口
+    /// </summary>
+    /// <param name="pt"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
     public static extern bool GetCursorPos(out Point pt);
 
+    /// <summary>
+    /// 查找窗口
+    /// </summary>
+    /// <param name="pt"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "WindowFromPoint", CharSet = CharSet.Auto, ExactSpelling = true)]
     public static extern IntPtr WindowFromPoint(Point pt);
 
+    /// <summary>
+    /// 根据类名称查找窗口
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <param name="lpClassName"></param>
+    /// <param name="nMaxCount"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
+    /// <summary>
+    /// 根据窗口标题查找窗口
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <param name="lpString"></param>
+    /// <param name="nMaxCount"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern int GetWindowText(IntPtr hWnd, [Out, MarshalAs(UnmanagedType.LPTStr)] StringBuilder lpString, int nMaxCount);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     private static extern int GetWindowRect(IntPtr hwnd, ref Rectangle rc);
 
+    /// <summary>
+    /// 获取窗口位置
+    /// </summary>
+    /// <param name="hwnd"></param>
+    /// <param name="rc"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern int GetClientRect(IntPtr hwnd, ref Rectangle rc);
 
+    /// <summary>
+    /// 移动窗口
+    /// </summary>
+    /// <param name="hwnd"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="nWidth"></param>
+    /// <param name="nHeight"></param>
+    /// <param name="bRepaint"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern bool MoveWindow(IntPtr hwnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
 
+    /// <summary>
+    /// 获取窗口位置
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <param name="rect"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
     public static extern int ScreenToClient(IntPtr hWnd, ref Rectangle rect);
 
+    /// <summary>
+    /// 枚举子窗口
+    /// </summary>
+    /// <param name="hWndParent"></param>
+    /// <param name="lpEnumFunc"></param>
+    /// <param name="lParam"></param>
+    /// <returns></returns>
     [DllImport("user32.dll")]
     public static extern bool EnumChildWindows(IntPtr hWndParent, ChildWindowsProc lpEnumFunc, int lParam);
 
@@ -150,7 +245,7 @@ public class WinApi
     /// 取进程ID
     /// </summary>
     /// <param name="hWndParent">窗口句柄</param>
-    /// <param name="intPtr"> 进程id</param>
+    /// <param name="lpdwProcessId"> 进程id</param>
     /// <returns>拥有窗口的线程的标识符</returns>
     [DllImport("user32.dll")]
     public static extern int GetWindowThreadProcessId(IntPtr hWndParent, ref IntPtr lpdwProcessId);
@@ -226,6 +321,9 @@ public class WinApi
         return SetWindowPos(hWnd, is_top, 0, 0, 0, 0, 1 | 2);
     }
 
+    /// <summary>
+    /// 枚举子窗口委托
+    /// </summary>
     public delegate bool ChildWindowsProc(IntPtr hwnd, int lParam);
 
 
@@ -350,6 +448,11 @@ public class WinApi
     }
 
 
+    /// <summary>
+    /// 输入字符串
+    /// </summary>
+    /// <param name="myIntPtr"></param>
+    /// <param name="Input"></param>
     public static void InputStr(IntPtr myIntPtr, string Input)
     {
         byte[] ch = (ASCIIEncoding.ASCII.GetBytes(Input));
@@ -371,11 +474,12 @@ public class WinApi
 
 
     /// <summary>
-    /// 鼠标点击
+    ///  鼠标点击
     /// </summary>
-    /// <param name="hWnd">句柄</param>
-    /// <param name="lParam">要发送的内容</param>
-    public static void MouseClick(IntPtr hWnd, int _x, int _y)
+    /// <param name="hWnd">窗口句柄</param>
+    /// <param name="x">x坐标</param>
+    /// <param name="y">y坐标</param>
+    public static void MouseClick(IntPtr hWnd, int x, int y)
     {
         SendMessage(hWnd, WindowsMessage.WM_LBUTTONUP, 0, 0);
     }
@@ -455,7 +559,12 @@ public class WinApi
     }
 
 
-    //修改指定窗口标题
+    /// <summary>
+    /// 修改指定窗口标题
+    /// </summary>
+    /// <param name="hWnd">窗口句柄</param>
+    /// <param name="text">标题</param>
+    /// <returns></returns>
     [DllImport("User32.dll", CharSet = CharSet.Auto)]
     public static extern int SetWindowText(IntPtr hWnd, string text);
 
@@ -534,9 +643,9 @@ public class WinApi
 
 
 
-    /// </summary>
-    /// 得到指定窗口类名
     /// <summary>
+    /// 得到指定窗口类名
+    /// </summary>
     /// <param name="hWnd">句柄</param>
     /// <returns>找不到返回""</returns>
     public static string GetClassName(int hWnd)
@@ -544,9 +653,9 @@ public class WinApi
         return GetClassName((IntPtr)hWnd);
     }
 
-    /// </summary>
-    /// 得到指定窗口类名
     /// <summary>
+    /// 得到指定窗口类名
+    /// </summary>
     /// <param name="hWnd">句柄</param>
     /// <returns>找不到返回""</returns>
     public static string GetClassName(IntPtr hWnd)
@@ -577,25 +686,25 @@ public class WinApi
         return (int)formHandle;
     }
 
-    /// </summary>
-    /// 根据标题和类名找句柄
     /// <summary>
-    /// <param name="IpClassName">窗口类名 如果为"" 则只根据标题查找</param>
-    /// <param name="IpClassName">窗口标题 如果为"" 则只根据类名查找</param>
+    /// 根据标题和类名找句柄
+    /// </summary>
+    /// <param name="ipClassName">窗口类名 如果为"" 则只根据标题查找</param>
+    /// <param name="ipTitleName">窗口标题 如果为"" 则只根据类名查找</param>
     /// <returns>找不到则返回0</returns>
-    public static int FindWindowHwnd(string IpClassName, string IpTitleName)
+    public static int FindWindowHwnd(string ipClassName, string ipTitleName)
     {
-        if (IpTitleName == "" && IpClassName != "")
+        if (ipTitleName == "" && ipClassName != "")
         {
-            return (int)FindWindow(IpClassName, null);
+            return (int)FindWindow(ipClassName, null);
         }
-        else if (IpClassName == "" && IpTitleName != "")
+        else if (ipClassName == "" && ipTitleName != "")
         {
-            return (int)FindWindow(null, IpTitleName);
+            return (int)FindWindow(null, ipTitleName);
         }
-        else if (IpClassName != "" && IpTitleName != "")
+        else if (ipClassName != "" && ipTitleName != "")
         {
-            return (int)FindWindow(IpClassName, IpTitleName);
+            return (int)FindWindow(ipClassName, ipTitleName);
         }
         return 0;
     }
@@ -603,14 +712,26 @@ public class WinApi
 
 
 
+    /// <summary>
+    /// 窗口信息结构体
+    /// </summary>
     public struct WindowInfo
     {
+        /// <summary>
+        /// 窗口句柄
+        /// </summary>
         public IntPtr hWnd;
+        /// <summary>
+        /// 窗口标题
+        /// </summary>
         public string szWindowName;
+        /// <summary>
+        /// 窗口类名
+        /// </summary>
         public string szClassName;
     }
     /// <summary>
-    /// 遍历方法 - 返回一个List<WindowInfo> 集合
+    /// 遍历方法 - 返回一个List&lt;WindowInfo&gt; 集合
     /// </summary>
     /// <returns></returns>
     public List<WindowInfo> GetAllDesktopWindows()
@@ -823,18 +944,72 @@ public class WinApi
 
 
 
+/// <summary>
+/// 显示方式
+/// </summary>
 public enum ShowEnum
 {
-    SW_Close = 0,
+    /// <summary>
+    /// 隐藏窗口并激活另一个窗口。
+    /// </summary>
+    SW_HIDE = 0,
+    /// <summary>
+    /// 激活并显示窗口。 如果窗口最小化、最大化或排列，系统会将其还原到其原始大小和位置。 应用程序应在首次显示窗口时指定此标志。
+    /// </summary>
     SW_NORMAL = 1,
-    SW_MINIMIZE = 2,
+    /// <summary>
+    /// 激活并显示窗口。 如果窗口最小化、最大化或排列，系统会将其还原到其原始大小和位置。 应用程序应在首次显示窗口时指定此标志。
+    /// </summary>
+    SW_SHOWNORMAL = 1,
+    /// <summary>
+    /// 激活窗口并将其显示为最小化窗口。
+    /// </summary>
+    SW_SHOWMINIMIZED = 2,
+    /// <summary>
+    /// 激活窗口并显示最大化的窗口。
+    /// </summary>
     SW_MAXIMIZE = 3,
+    /// <summary>
+    /// 激活窗口并显示最大化的窗口。
+    /// </summary>
+    SW_SHOWMAXIMIZED = 3,
+    /// <summary>
+    /// 以最近的大小和位置显示窗口。 此值类似于 SW_SHOWNORMAL，只是窗口未激活
+    /// </summary>
     SW_SHOWNOACTIVATE = 4,
+    /// <summary>
+    /// 激活窗口并以当前大小和位置显示窗口。
+    /// </summary>
     SW_SHOW = 5,
+    /// <summary>
+    /// 最小化指定的窗口，并按 Z 顺序激活下一个顶级窗口。
+    /// </summary>
+    SW_MINIMIZE = 6,
+    /// <summary>
+    /// 将窗口显示为最小化窗口。 此值类似于 SW_SHOWMINIMIZED，但窗口未激活。
+    /// </summary>
+    SW_SHOWMINNOACTIVE = 7,
+    /// <summary>
+    /// 以当前大小和位置显示窗口。 此值类似于 SW_SHOW，只是窗口未激活。
+    /// </summary>
+    SW_SHOWNA = 8,
+    /// <summary>
+    /// 激活并显示窗口。 如果窗口最小化、最大化或排列，系统会将其还原到其原始大小和位置。 还原最小化窗口时，应用程序应指定此标志。
+    /// </summary>
     SW_RESTORE = 9,//还原
-    SW_SHOWDEFAULT = 10
+    /// <summary>
+    /// 根据启动应用程序的程序传递给 CreateProcess 函数的 STARTUPINFO 结构中指定的SW_值设置显示状态。
+    /// </summary>
+    SW_SHOWDEFAULT = 10,
+    /// <summary>
+    /// 最小化窗口，即使拥有窗口的线程没有响应。 仅当最小化不同线程的窗口时，才应使用此标志。
+    /// </summary>
+    SW_FORCEMINIMIZE = 11
 }
 
+/// <summary>
+/// Windows消息
+/// </summary>
 public class WindowsMessage
 {
     public const int WM_NULL = 0x0000; // 
@@ -1232,15 +1407,33 @@ public class MouseKey
 /// </summary>
 public enum HookType : int
 {
+    /// <summary>
+    /// 安装一个挂钩过程，用于记录发布到系统消息队列的输入消息。 此挂钩可用于记录宏。 有关详细信息，请参阅 JournalRecordProc 挂钩过程。
+    /// </summary>
     WH_JOURNALRECORD = 0,
+    /// <summary>
+    /// 安装一个挂钩过程，该过程发布以前由 WH_JOURNALRECORD 挂钩过程记录的消息。 有关详细信息，请参阅 JournalPlaybackProc 挂钩过程。
+    /// </summary>
     WH_JOURNALPLAYBACK = 1,
     /// <summary>
     /// 安装监视击键消息的挂钩过程。 有关详细信息，请参阅 KeyboardProc 挂钩过程。
     /// </summary>
     WH_KEYBOARD = 2,
+    /// <summary>
+    /// 安装用于监视发布到消息队列的消息的挂钩过程。 有关详细信息，请参阅 GetMsgProc 挂钩过程。
+    /// </summary>
     WH_GETMESSAGE = 3,
+    /// <summary>
+    /// 安装一个挂钩过程，用于在系统将消息发送到目标窗口过程之前监视消息。 有关详细信息，请参阅 CallWndProc 挂钩过程。
+    /// </summary>
     WH_CALLWNDPROC = 4,
+    /// <summary>
+    /// 安装用于接收对 CBT 应用程序有用的通知的挂钩过程。 有关详细信息，请参阅 CBTProc 挂钩过程。
+    /// </summary>
     WH_CBT = 5,
+    /// <summary>
+    /// 安装挂钩过程，用于监视由于对话框、消息框、菜单或滚动条中的输入事件而生成的消息。 挂钩过程监视与调用线程位于同一桌面中的所有应用程序的消息。 有关详细信息，请参阅 SysMsgProc 挂钩过程。
+    /// </summary>
     WH_SYSMSGFILTER = 6,
     /// <summary>
     /// 安装监视鼠标消息的挂钩过程。 有关详细信息，请参阅 MouseProc 挂钩过程。

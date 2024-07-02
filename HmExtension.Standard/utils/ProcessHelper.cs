@@ -222,7 +222,6 @@ public class ProcessHelper
     /// <summary>
     /// 通过进程名获得进程路径 不需要后缀
     /// </summary>
-    /// <param name="hwnd">句柄</param>
     /// <param name="prossName">进程名</param>
     /// <returns>返回 进程路径 找不到返回""</returns>
     public static string GetAppRunPath_ByName(string prossName)

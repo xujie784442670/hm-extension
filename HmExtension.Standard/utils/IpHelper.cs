@@ -13,9 +13,9 @@ public class IpHelper
     /// <summary>
     /// 是否为ip
     /// </summary>
-    /// <param name="ip">
+    /// <param name="ip">IP地址</param>
     /// <returns></returns>
-    public static bool IsValidIP(string ip)
+    public static bool IsValidIp(string ip)
     {
         return Regex.IsMatch(ip, "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}");
     }
@@ -45,18 +45,18 @@ public class IpHelper
     /// <summary>
     /// 校验IP地址的正确性，同时支持IPv4和IPv6
     /// </summary>
-    /// <param name="s">源字符串
+    /// <param name="s">源字符串</param>
     /// <returns>是否匹配成功</returns>
     public static bool MatchInetAddress(string s)
     {
         MatchInetAddress(s, out bool success);
         return success;
     }
-    // <summary>
+    /// <summary>
     /// 校验IP地址的正确性，同时支持IPv4和IPv6
     /// </summary>
-    /// <param name="s">源字符串
-    /// <param name="isMatch">是否匹配成功，若返回true，则会得到一个Match对象，否则为null
+    /// <param name="s">源字符串</param>
+    /// <param name="isMatch">是否匹配成功，若返回true，则会得到一个Match对象，否则为null</param>
     /// <returns>匹配对象</returns>
     public static Match MatchInetAddress(string s, out bool isMatch)
     {

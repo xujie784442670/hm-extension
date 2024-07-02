@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HmExtension.Standard.utils;
 
-// <summary>
+/// <summary>
 /// 文件合并改变事件
 /// </summary>
 /// <param name="sender"></param>

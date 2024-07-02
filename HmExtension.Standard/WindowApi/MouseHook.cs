@@ -20,6 +20,9 @@ public class MouseHook : AbstractHook<MouseHookType>
     /// </summary>
     public const int LLMHF_LOWER_IL_INJECTED = 0x00000002;
 
+    /// <summary>
+    /// 鼠标事件参数
+    /// </summary>
     public enum MouseHookType
     {
         /// <summary>
@@ -33,6 +36,9 @@ public class MouseHook : AbstractHook<MouseHookType>
         WH_MOUSE_LL = 14
     }
 
+    /// <summary>
+    /// 鼠标事件参数
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public class MouseHookStruct
     {
@@ -57,6 +63,9 @@ public class MouseHook : AbstractHook<MouseHookType>
         public uint dwExtraInfo;
     }
 
+    /// <summary>
+    /// 鼠标事件参数
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public class MsllHookStruct
     {
@@ -93,9 +102,18 @@ public class MouseHook : AbstractHook<MouseHookType>
         public uint dwExtraInfo;
     }
 
+    /// <summary>
+    /// 鼠标事件
+    /// </summary>
     public event EventHandler<MouseEventArgs> OnMouse;
 
     private MouseHookType _hookType;
+    /// <summary>
+    /// 钩子
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public override int Hook(MouseHookType type = MouseHookType.WH_MOUSE_LL)
     {
         _hookType = type;

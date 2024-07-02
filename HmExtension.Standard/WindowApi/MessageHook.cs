@@ -9,12 +9,26 @@ namespace HmExtension.Standard.WindowApi;
 /// </summary>
 public class MessageHook:AbstractHook<MessageHookType>
 {
+    /// <summary>
+    /// 消息事件参数
+    /// </summary>
     public event EventHandler<MessageEventArgs> OnMessage; 
+    /// <summary>
+    /// 消息钩子类型
+    /// </summary>
     public enum MessageHookType
     {
+       /// <summary>
+       /// 安装一个挂钩过程，该挂钩过程监视消息在消息队列中的所有消息。有关详细信息，请参阅 GetMsgProc 挂钩过程。
+       /// </summary>
        GETMESSAGE = HookType.WH_GETMESSAGE
     }
 
+    /// <summary>
+    /// 钩子
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public override int Hook(MessageHookType type = MessageHookType.GETMESSAGE)
     {
         return Hook((HookType)type, Handler, IntPtr.Zero, 0);

@@ -28,7 +28,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 2)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,则补0
+            value = value.Concat(new byte[2 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToInt16(value, startIndex);
@@ -52,7 +53,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 4)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,则补0
+            value = value.Concat(new byte[4 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToInt32(value, startIndex);
@@ -76,7 +78,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 8)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,前面补0
+            value = value.Concat(new byte[8 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToInt64(value, startIndex);
@@ -100,7 +103,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 4)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,前面补0
+            value = value.Concat(new byte[4 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToSingle(value, startIndex);
@@ -124,7 +128,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 8)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,则补0
+            value = value.Concat(new byte[8 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToDouble(value, startIndex);
@@ -148,7 +153,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 2)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,则补0
+            value = value.Concat(new byte[2 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToUInt16(value, startIndex);
@@ -172,7 +178,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 4)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,则补0
+            value = value.Concat(new byte[4 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToUInt32(value, startIndex);
@@ -196,7 +203,8 @@ public static class ByteArrayExtension
         // 检查字节数组长度是否足够
         if (value.Length < startIndex + 8)
         {
-            throw new ArgumentException("字节数组长度不足");
+            // 字节数组长度不足,则补0
+            value = value.Concat(new byte[8 - value.Length + startIndex]).Reverse().ToArray();
         }
 
         return BitConverter.ToUInt64(value, startIndex);
@@ -251,6 +259,23 @@ public static class ByteArrayExtension
     {
         ushort crc = GetModbusCRC(value);
         return BitConverter.GetBytes(crc);
+    }
+    /// <summary>
+    /// 使用当前数组进行CRC校验
+    /// </summary>
+    /// <param name="value">待校验数组</param>
+    /// <returns></returns>
+    public static bool CheckModbusCrc(this byte[] value)
+    {
+        if (value.Length < 2)
+        {
+            return false;
+        }
+        byte[] data = value.Take(value.Length - 2).ToArray();
+        byte[] crc = value.Skip(value.Length - 2).ToArray();
+        ushort crcValue = data.GetModbusCRC();
+        byte[] crcBytes = crcValue.ToByte();
+        return crc.SequenceEqual(crcBytes);
     }
 
     /// <summary>

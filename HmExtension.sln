@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension", "HmExtension\HmExtension.csproj", "{815903C8-B5DE-4E79-AADF-DC4FE1BB226C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtensionTest", "HmExtensionTest\HmExtensionTest.csproj", "{539B2E46-9F79-4FA7-9861-8AF3B746555A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Pay", "HmExtension.Pay\HmExtension.Pay.csproj", "{94AE4363-B65B-417D-AAEB-410DCBF5B53A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HmExtension.Standard", "HmExtension.Standard\HmExtension.Standard.csproj", "{9D14322C-583B-4465-98D4-1C6C17F60540}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HmExtension.Standard.Pay", "HmExtension.Standard.Pay\HmExtension.Standard.Pay.csproj", "{39F6CA24-D71D-49F7-9712-C69D874CF553}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{8C318758-4A52-440A-8774-29CF28A5A155}"
 EndProject
@@ -21,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{815903C8-B5DE-4E79-AADF-DC4FE1BB226C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{815903C8-B5DE-4E79-AADF-DC4FE1BB226C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{815903C8-B5DE-4E79-AADF-DC4FE1BB226C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{815903C8-B5DE-4E79-AADF-DC4FE1BB226C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{539B2E46-9F79-4FA7-9861-8AF3B746555A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{539B2E46-9F79-4FA7-9861-8AF3B746555A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{539B2E46-9F79-4FA7-9861-8AF3B746555A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,10 +29,6 @@ Global
 		{9D14322C-583B-4465-98D4-1C6C17F60540}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D14322C-583B-4465-98D4-1C6C17F60540}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D14322C-583B-4465-98D4-1C6C17F60540}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39F6CA24-D71D-49F7-9712-C69D874CF553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39F6CA24-D71D-49F7-9712-C69D874CF553}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39F6CA24-D71D-49F7-9712-C69D874CF553}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39F6CA24-D71D-49F7-9712-C69D874CF553}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C318758-4A52-440A-8774-29CF28A5A155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C318758-4A52-440A-8774-29CF28A5A155}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C318758-4A52-440A-8774-29CF28A5A155}.Release|Any CPU.ActiveCfg = Release|Any CPU

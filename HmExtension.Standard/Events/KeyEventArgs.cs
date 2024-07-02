@@ -36,6 +36,11 @@ public class KeyEventArgs
     /// </summary>
     public int ScanCode;
 
+    /// <summary>
+    /// 按键事件
+    /// </summary>
+    /// <param name="eventType"></param>
+    /// <param name="hookStruct"></param>
     public KeyEventArgs(KeyEventType eventType, KeyHook.KBDLLHOOKSTRUCT hookStruct)
     {
         EventType = eventType;
@@ -46,7 +51,11 @@ public class KeyEventArgs
         Code = hookStruct.vkCode;
         ScanCode = hookStruct.scanCode;
     }
-
+    /// <summary>
+    /// 按键事件
+    /// </summary>
+    /// <param name="code"></param>
+    /// <param name="hookStruct"></param>
     public KeyEventArgs(int code, int hookStruct)
     {
         EventType = ((hookStruct >> 31) & 1) == 1 ? KeyEventType.KEYUP: KeyEventType.KEYDOWN;
@@ -104,6 +113,10 @@ public class KeyEventArgs
     /// </summary>
     public static bool IsApps { get; internal set; }
 
+    /// <summary>
+    /// 输出字符串
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return $"Code:{Code} ScanCode:{ScanCode} IsExtend:{IsExtend} IsUp:{IsUp} IsDown:{IsDown} IsLeftAlt:{IsLeftAlt} IsRightAlt:{IsRightAlt} IsAlt:{IsAlt} IsLeftCtrl:{IsLeftCtrl} IsRightCtrl:{IsRightCtrl} IsCtrl:{IsCtrl} IsLeftShift:{IsLeftShift} IsRightShift:{IsRightShift} IsShift:{IsShift} IsWin:{IsWin} IsApps:{IsApps}";

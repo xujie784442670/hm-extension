@@ -1,5 +1,7 @@
 ﻿namespace HmExtension.Standard.Commons;
-
+/// <summary>
+/// 虚拟按键枚举
+/// </summary>
 public enum Keys
 {
     KeyCode = 65535, // 0x0000FFFF

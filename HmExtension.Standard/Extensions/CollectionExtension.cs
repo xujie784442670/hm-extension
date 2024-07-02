@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace HmExtension.Standard.Extensions;
+
 /// <summary>
 /// 集合扩展类
 /// </summary>
@@ -29,6 +30,7 @@ public static class CollectionExtension
             collection.Remove(item);
         }
     }
+
     /// <summary>
     /// 将指定的集合添加到当前集合中
     /// <example>
@@ -50,6 +52,7 @@ public static class CollectionExtension
             collection.Add(item);
         }
     }
+
     /// <summary>
     /// 将指定的集合添加到当前集合中
     /// </summary>
@@ -96,5 +99,96 @@ public static class CollectionExtension
     public static string Join<T>(this IEnumerable<T> collection, string separator = ",")
     {
         return string.Join(separator, collection.ToArray());
+    }
+
+
+    /// <summary>
+    /// 将集合中的元素转换为short
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static short ToShort(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToShort();
+    }
+
+    /// <summary>
+    /// 将集合中的元素转换为ushort
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static ushort ToUShort(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToUShort();
+    }
+
+    /// <summary>
+    /// 将集合中的元素转换为int
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static int ToInt(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToInt();
+    }
+
+    /// <summary>
+    /// 将集合中的元素转换为uint
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static uint ToUInt(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToUInt();
+    }
+
+    /// <summary>
+    /// 将集合中的元素转换为long
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static long ToLong(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToLong();
+    }
+
+    /// <summary>
+    /// 将集合中的元素转换为ulong
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static ulong ToULong(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToULong();
+    }
+
+    /// <summary>
+    /// 将集合中的元素转换为float
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static float ToFloat(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToFloat();
+    }
+
+    /// <summary>
+    /// 将集合中的元素转换为double
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <returns></returns>
+    public static double ToDouble(this IEnumerable<byte> collection)
+    {
+        return collection.ToArray().ToDouble();
+    }
+
+    /// <summary>
+    /// 将集合中的元素打印到控制台
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="collection"></param>
+    public static void Println<T>(this IEnumerable<T> collection)
+    {
+        collection.Join().Println();
     }
 }

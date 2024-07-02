@@ -26,7 +26,11 @@ public class MessageEventArgs
     /// 发布消息时的光标位置（以屏幕坐标表示）。
     /// </summary>
     public Point<int> Point;
-
+    /// <summary>
+    /// 系统消息事件
+    /// </summary>
+    /// <param name="msg"></param>
+    /// <param name="isDelete"></param>
     public MessageEventArgs(WinApi.TagMSG msg,bool isDelete)
     {
         IsDelete = isDelete;

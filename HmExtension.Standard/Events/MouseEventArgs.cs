@@ -142,11 +142,11 @@ public class MouseEventArgs
     {
         return type switch
         {
-            MouseEventType.LBUTTONDBLCLK => 2,
-            MouseEventType.RBUTTONDBLCLK => 2,
-            MouseEventType.MBUTTONDBLCLK => 2,
-            MouseEventType.XBUTTONDBLCLK => 2,
-            MouseEventType.NCXBUTTONDBLCLK => 2,
+            MouseEventType.LButtondblclk => 2,
+            MouseEventType.RButtondblclk => 2,
+            MouseEventType.MButtondblclk => 2,
+            MouseEventType.XButtondblclk => 2,
+            MouseEventType.NcxButtondblclk => 2,
             _ => 1
         };
     }
@@ -209,55 +209,129 @@ public class MouseEventArgs
     {
         return msgType switch
         {
-            WindowsMessage.WM_LBUTTONDOWN => MouseEventType.LBUTTONDOWN,
-            WindowsMessage.WM_LBUTTONUP => MouseEventType.LBUTTONUP,
-            WindowsMessage.WM_LBUTTONDBLCLK => MouseEventType.LBUTTONDBLCLK,
-            WindowsMessage.WM_RBUTTONDOWN => MouseEventType.RBUTTONDOWN,
-            WindowsMessage.WM_RBUTTONUP => MouseEventType.RBUTTONUP,
-            WindowsMessage.WM_RBUTTONDBLCLK => MouseEventType.RBUTTONDBLCLK,
-            WindowsMessage.WM_MBUTTONDOWN => MouseEventType.MBUTTONDOWN,
-            WindowsMessage.WM_MBUTTONUP => MouseEventType.MBUTTONUP,
-            WindowsMessage.WM_MBUTTONDBLCLK => MouseEventType.MBUTTONDBLCLK,
-            WindowsMessage.WM_MOUSEWHEEL => MouseEventType.MOUSEWHEEL,
-            WindowsMessage.WM_XBUTTONDOWN => MouseEventType.XBUTTONDOWN,
-            WindowsMessage.WM_XBUTTONUP => MouseEventType.XBUTTONUP,
-            WindowsMessage.WM_XBUTTONDBLCLK => MouseEventType.XBUTTONDBLCLK,
-            WindowsMessage.WM_NCXBUTTONDBLCLK => MouseEventType.NCXBUTTONDBLCLK,
-            WindowsMessage.WM_NCXBUTTONDOWN => MouseEventType.NCXBUTTONDOWN,
-            WindowsMessage.WM_NCXBUTTONUP => MouseEventType.NCXBUTTONUP,
-            _ => MouseEventType.MOUSEMOVE
+            WindowsMessage.WM_LBUTTONDOWN => MouseEventType.LButtonDown,
+            WindowsMessage.WM_LBUTTONUP => MouseEventType.LButtonUp,
+            WindowsMessage.WM_LBUTTONDBLCLK => MouseEventType.LButtondblclk,
+            WindowsMessage.WM_RBUTTONDOWN => MouseEventType.RButtonDown,
+            WindowsMessage.WM_RBUTTONUP => MouseEventType.RButtonUp,
+            WindowsMessage.WM_RBUTTONDBLCLK => MouseEventType.RButtondblclk,
+            WindowsMessage.WM_MBUTTONDOWN => MouseEventType.MButtonDown,
+            WindowsMessage.WM_MBUTTONUP => MouseEventType.MButtonUp,
+            WindowsMessage.WM_MBUTTONDBLCLK => MouseEventType.MButtondblclk,
+            WindowsMessage.WM_MOUSEWHEEL => MouseEventType.Mousewheel,
+            WindowsMessage.WM_XBUTTONDOWN => MouseEventType.XButtonDown,
+            WindowsMessage.WM_XBUTTONUP => MouseEventType.XButtonUp,
+            WindowsMessage.WM_XBUTTONDBLCLK => MouseEventType.XButtondblclk,
+            WindowsMessage.WM_NCXBUTTONDBLCLK => MouseEventType.NcxButtondblclk,
+            WindowsMessage.WM_NCXBUTTONDOWN => MouseEventType.NcxButtonDown,
+            WindowsMessage.WM_NCXBUTTONUP => MouseEventType.NcxButtonUp,
+            _ => MouseEventType.Mousemove
         };
     }
 }
-
+/// <summary>
+/// 鼠标事件类型
+/// </summary>
 public enum MouseEventType
 {
-    MOUSEMOVE,
-    LBUTTONDOWN,
-    LBUTTONUP,
-    LBUTTONDBLCLK,
-    RBUTTONDOWN,
-    RBUTTONUP,
-    RBUTTONDBLCLK,
-    MBUTTONDOWN,
-    MBUTTONUP,
-    MBUTTONDBLCLK,
-    MOUSEWHEEL,
-    XBUTTONDOWN,
-    XBUTTONUP,
-    XBUTTONDBLCLK,
-    NCXBUTTONDBLCLK,
-    NCXBUTTONDOWN,
-    NCXBUTTONUP
+    /// <summary>
+    /// 鼠标移动
+    /// </summary>
+    Mousemove,
+    /// <summary>
+    /// 鼠标左键按下
+    /// </summary>
+    LButtonDown,
+    /// <summary>
+    /// 鼠标左键弹起
+    /// </summary>
+    LButtonUp,
+    /// <summary>
+    /// 鼠标左键双击
+    /// </summary>
+    LButtondblclk,
+    /// <summary>
+    /// 鼠标右键按下
+    /// </summary>
+    RButtonDown,
+    /// <summary>
+    /// 鼠标右键弹起
+    /// </summary>
+    RButtonUp,
+    /// <summary>
+    /// 鼠标右键双击
+    /// </summary>
+    RButtondblclk,
+    /// <summary>
+    /// 鼠标中键按下
+    /// </summary>
+    MButtonDown,
+    /// <summary>
+    /// 鼠标中键弹起
+    /// </summary>
+    MButtonUp,
+    /// <summary>
+    /// 鼠标中键双击
+    /// </summary>
+    MButtondblclk,
+    /// <summary>
+    /// 鼠标滚轮滚动
+    /// </summary>
+    Mousewheel,
+    /// <summary>
+    /// 鼠标X键按下
+    /// </summary>
+    XButtonDown,
+    /// <summary>
+    /// 鼠标X键弹起
+    /// </summary>
+    XButtonUp,
+    /// <summary>
+    /// 鼠标X键双击
+    /// </summary>
+    XButtondblclk,
+    /// <summary>
+    /// 鼠标非客户区按下
+    /// </summary>
+    NcxButtondblclk,
+    /// <summary>
+    /// 鼠标非客户区按下
+    /// </summary>
+    NcxButtonDown,
+    /// <summary>
+    /// 鼠标非客户区弹起
+    /// </summary>
+    NcxButtonUp
 }
 
+/// <summary>
+/// 鼠标按钮
+/// </summary>
 public enum MouseButton
 {
+    /// <summary>
+    /// 无
+    /// </summary>
     NONE,
+    /// <summary>
+    /// X键2
+    /// </summary>
     XBUTTON2,
+    /// <summary>
+    /// X键1
+    /// </summary>
     XBUTTON1,
+    /// <summary>
+    /// 鼠标左键
+    /// </summary>
     LEFT,
+    /// <summary>
+    /// 鼠标右键
+    /// </summary>
     RIGHT,
+    /// <summary>
+    /// 鼠标中键
+    /// </summary>
     MIDDLE
 }
 /// <summary>
