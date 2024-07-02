@@ -10,11 +10,34 @@ namespace HmExtension.Standard.Extensions;
 public static class CollectionExtension
 {
     /// <summary>
+    /// 从集合中移除满足条件的元素(注意: 此方法不会修改原集合,而是返回一个新的集合)
+    /// <example>
+    /// <code>
+    /// List&lt;int&gt; list = new List&lt;int&gt; {1, 2, 3, 4, 5};
+    /// list = list.Remove(x => x % 2 == 0); // 移除偶数
+    /// // list: {1, 3, 5}
+    /// </code>
+    /// </example>
+    /// </summary>
+    /// <typeparam name="T">集合泛型</typeparam>
+    /// <param name="collection">当前集合</param>
+    /// <param name="predicate">删除条件</param>
+    public static IEnumerable<T> Remove<T>(this IEnumerable<T> collection, Func<T, bool> predicate)
+    {
+        foreach (var item in collection)
+        {
+            if(!predicate(item))
+            {
+                yield return item;
+            }
+        }
+    }
+    /// <summary>
     /// 从集合中移除满足条件的元素
     /// <example>
     /// <code>
     /// List&lt;int&gt; list = new List&lt;int&gt; {1, 2, 3, 4, 5};
-    /// list.Remove(x => x % 2 == 0); // 移除偶数
+    /// list = list.Remove(x => x % 2 == 0); // 移除偶数
     /// // list: {1, 3, 5}
     /// </code>
     /// </example>
@@ -24,10 +47,12 @@ public static class CollectionExtension
     /// <param name="predicate">删除条件</param>
     public static void Remove<T>(this ICollection<T> collection, Func<T, bool> predicate)
     {
-        var items = collection.Where(predicate).ToList();
-        foreach (var item in items)
+        foreach (var item in collection)
         {
-            collection.Remove(item);
+            if(predicate(item))
+            {
+                collection.Remove(item);
+            }
         }
     }
 
@@ -191,4 +216,38 @@ public static class CollectionExtension
     {
         collection.Join().Println();
     }
+
+    /// <summary>
+    /// 将集合转换为字典
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <param name="keySelector">集合的Key的计算方式</param>
+    /// <param name="valueSelector">集合值的计算方式</param>
+    /// <typeparam name="TK">字典Key的类型</typeparam>
+    /// <typeparam name="TV">字典Value的类型</typeparam>
+    /// <typeparam name="TS">集合值类型</typeparam>
+    /// <returns></returns>
+    public static Dictionary<TK,TV> ToDictionary<TK,TV,TS>(this IEnumerable<TS> collection, Func<TS,TK> keySelector, Func<TS,TV> valueSelector) => collection.ToDictionary(keySelector, valueSelector);
+
+    /// <summary>
+    /// 将集合转换为字典,将集合中元素作为字典的Value
+    /// </summary>
+    /// <param name="collection">集合</param>
+    /// <param name="keySelector">集合的Key的计算方式</param>
+    /// <typeparam name="TK">字典Key的类型</typeparam>
+    /// <typeparam name="TV">字典Value的类型</typeparam>
+    /// <returns></returns>
+    public static Dictionary<TK, TV>
+        ToDictionary<TK, TV>(this IEnumerable<TV> collection, Func<TV, TK> keySelector) =>
+        ToDictionary(collection, keySelector, s => s);
+    /// <summary>
+    /// 将集合转换为字典,将集合中元素作为字典的Value,Key为元素的指定属性值
+    /// </summary>
+    /// <typeparam name="TK">字典Key的类型</typeparam>
+    /// <typeparam name="TV">字典Value的类型</typeparam>
+    /// <param name="collection">集合</param>
+    /// <param name="propertyName">属性名称</param>
+    /// <returns></returns>
+    public static Dictionary<TK, TV> ToDictionary<TK, TV>(this IEnumerable<TV> collection,string propertyName) =>
+        collection.ToDictionary(s => s.GetPropertyValue<TK>(propertyName));
 }
