@@ -41,6 +41,9 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -57,11 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HmExtension.Standard\HmExtension.Standard.csproj">
-      <Project>{9d14322c-583b-4465-98d4-1c6c17f60540}</Project>
-      <Name>HmExtension.Standard</Name>
+    <ProjectReference Include="..\HmExtension\HmExtension.csproj">
+      <Project>{6caee561-9b16-4e70-9ac8-e3e3984c3444}</Project>
+      <Name>HmExtension</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Management;
+using System.Security.Policy;
 using System.Windows.Media;
+using Gma.QrCodeNet.Encoding;
 using HmExtension;
-using HmExtension.Standard;
-using HmExtension.Standard.Extensions;
+using HmExtension.Extensions;
+using Color = System.Drawing.Color;
 
 // using HmExtension.Pay;
 
@@ -66,10 +69,12 @@ namespace HmExtensionTest
             // Console.ReadKey();
 
 
-            ushort a = 10;
-            var bytes = a.ToByte();
-            bytes.Join().Println();
-            bytes.Reverse().Reverse().ToUShort().Println();
+            // ushort a = 10;
+            // var bytes = a.ToByte();
+            // bytes.Join().Println();
+            // bytes.Reverse().Reverse().ToUShort().Println();
+            "1234".ToQRCode(darkColor:Color.Red,
+                icon:new Bitmap("")).Save($"{Environment.CurrentDirectory}/1.jpg");
             Console.ReadKey();
         }
 
