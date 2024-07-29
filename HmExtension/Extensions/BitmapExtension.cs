@@ -2,7 +2,6 @@
 using System.Drawing.Imaging;
 using System.IO;
 using HmExtension.Commons.Extensions;
-using ZXing;
 
 namespace HmExtension.Extensions;
 /// <summary>
@@ -30,18 +29,5 @@ public static class BitmapExtension
     public static string ToDataUrl(this Bitmap bitmap)
     {
         return $"data:image/png;base64,{bitmap.ToByte().ToBase64()}";
-    }
-
-    /// <summary>
-    /// 解析二维码
-    /// </summary>
-    /// <param name="barcodeBitmap"></param>
-    /// <returns></returns>
-    public static string DecodeQrCode(this Bitmap barcodeBitmap)
-    {
-        BarcodeReader reader = new BarcodeReader();
-        reader.Options.CharacterSet = "UTF-8";
-        Result result = reader.Decode(barcodeBitmap);
-        return result == null ? "" : result.Text;
     }
 }
