@@ -24,7 +24,10 @@
     <LangVersion>latest</LangVersion>
     <Version>1.0.0.4</Version>
     <ApplicationIcon>logo.ico</ApplicationIcon>
-  </PropertyGroup>
+    <BaseOutputPath>bin\</BaseOutputPath>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+  
+</PropertyGroup>
 
   <ItemGroup>
     <Content Include="logo.ico" />
@@ -39,17 +42,12 @@
 
   <ItemGroup>
     <PackageReference Include="IndexRange" Version="1.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="QRCoder" Version="1.6.0" />
-    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
     <PackageReference Include="System.Management" Version="8.0.0" />
-    <PackageReference Include="V8.Net" Version="1.1.8" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Windows.Forms">
-      <HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Windows.Forms.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\HmExtension.Commons\HmExtension.Commons.csproj" />
   </ItemGroup>
 
   <ItemGroup>

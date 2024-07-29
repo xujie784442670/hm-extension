@@ -518,8 +518,9 @@ public static class ImageHelper
     /// <param name="bmp">原始Bitmap</param>
     /// <param name="newWidth">新的宽度</param>
     /// <param name="newHeight">新的高度</param>
+    /// <param name="proportion">是否按比例缩放</param>
     /// <returns>处理以后的图片</returns>
-    public static Bitmap ResizeImage(this Bitmap bmp, int newWidth, int newHeight)
+    public static Bitmap ResizeImage(this Bitmap bmp, int newWidth, int newHeight, bool proportion = false)
     {
         try
         {
@@ -527,7 +528,28 @@ public static class ImageHelper
             Graphics g = Graphics.FromImage(b);
             // 插值算法的质量
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.DrawImage(bmp, new Rectangle(0, 0, newWidth, newHeight), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
+            var rectangle = new Rectangle(0, 0, newWidth, newHeight);
+            if (proportion)
+            {
+                // 按比例缩放
+                int w = bmp.Width;
+                int h = bmp.Height;
+                if ((w * newHeight) > (h * newWidth))
+                {
+                    rectangle.Width = newWidth;
+                    rectangle.Height = (newWidth * h) / w;
+                    // 计算居中位置
+                    rectangle.Y = (newHeight - rectangle.Height) / 2;
+                }
+                else
+                {
+                    rectangle.Height = newHeight;
+                    rectangle.Width = (newHeight * w) / h;
+                    // 计算居中位置
+                    rectangle.X = (newWidth - rectangle.Width) / 2;
+                }
+            }
+            g.DrawImage(bmp, rectangle, new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
             g.Dispose();
             return b;
         }

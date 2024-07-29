@@ -1,5 +1,9 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using HmExtension.Commons.Extensions;
+using ZXing;
+using ZXing.QrCode;
 
 namespace HmExtension.Standard.Extensions;
 /// <summary>
@@ -16,7 +20,7 @@ public static class BitmapExtension
     public static byte[] ToByte(this Bitmap bitmap)
     {
         using var stream = new MemoryStream();
-        bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+        bitmap.Save(stream, ImageFormat.Png);
         return stream.ToArray();
     }
     /// <summary>
