@@ -84,6 +84,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HmExtension.Commons\HmExtension.Commons.csproj">
+      <Project>{92157dc8-6144-4143-8052-301f7ebfd386}</Project>
+      <Name>HmExtension.Commons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HmExtension.Standard\HmExtension.Standard.csproj">
       <Project>{9d14322c-583b-4465-98d4-1c6c17f60540}</Project>
       <Name>HmExtension.Standard</Name>

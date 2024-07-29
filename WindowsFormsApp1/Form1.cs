@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 using HmExtension.Standard;
-using HmExtension.Standard.Events;
-using HmExtension.Standard.Extensions;
+using HmExtension.Commons.Events;
+using HmExtension.Commons.Extensions;
+using HmExtension.Commons.utils;
 using HmExtension.Standard.utils;
-using HmExtension.Standard.WindowApi;
-using KeyEventArgs = HmExtension.Standard.Events.KeyEventArgs;
-using Keys = HmExtension.Standard.Commons.Keys;
-using MouseEventArgs = HmExtension.Standard.Events.MouseEventArgs;
+using HmExtension.Commons.WindowApi;
+using KeyEventArgs = HmExtension.Commons.Events.KeyEventArgs;
+using Keys = HmExtension.Commons.Commons.Keys;
+using MouseEventArgs = HmExtension.Commons.Events.MouseEventArgs;
 
 namespace WindowsFormsApp1
 {
