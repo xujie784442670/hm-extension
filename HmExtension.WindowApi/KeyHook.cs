@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using HmExtension.Commons;
+using HmExtension.Commons.Commons;
 using HmExtension.Commons.Events;
-using HmExtension.Commons.Extensions;
-using static HmExtension.Commons.WindowApi.KeyHook;
-using KeyEventArgs = HmExtension.Commons.Events.KeyEventArgs;
-using Keys = HmExtension.Commons.Commons.Keys;
 
-namespace HmExtension.Commons.WindowApi;
+namespace HmExtension.WindowApi;
 
 /// <summary>
 /// 按键钩子
 /// </summary>
-public class KeyHook:AbstractHook<KeyHookType>
+public class KeyHook:AbstractHook<KeyHook.KeyHookType>
 {
     /// <summary>
     /// 按键事件参数

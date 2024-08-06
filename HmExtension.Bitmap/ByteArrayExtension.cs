@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using System.IO;
+﻿using System.IO;
 
-namespace HmExtension.Extensions;
+namespace HmExtension.Drawing;
 
 /// <summary>
 /// 字节数组扩展类
@@ -13,9 +12,9 @@ public static class ByteArrayExtension
     /// </summary>
     /// <param name="value">当前字节数组</param>
     /// <returns>Bitmap</returns>
-    public static Bitmap ToBitmap(this byte[] value)
+    public static System.Drawing.Bitmap ToBitmap(this byte[] value)
     {
         using var stream = new MemoryStream(value);
-        return new Bitmap(stream);
+        return new System.Drawing.Bitmap(stream);
     }
 }

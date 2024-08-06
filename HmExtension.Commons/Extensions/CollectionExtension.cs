@@ -26,12 +26,13 @@ public static class CollectionExtension
     {
         foreach (var item in collection)
         {
-            if(!predicate(item))
+            if (!predicate(item))
             {
                 yield return item;
             }
         }
     }
+
     /// <summary>
     /// 从集合中移除满足条件的元素
     /// <example>
@@ -49,7 +50,7 @@ public static class CollectionExtension
     {
         foreach (var item in collection)
         {
-            if(predicate(item))
+            if (predicate(item))
             {
                 collection.Remove(item);
             }
@@ -227,7 +228,8 @@ public static class CollectionExtension
     /// <typeparam name="TV">字典Value的类型</typeparam>
     /// <typeparam name="TS">集合值类型</typeparam>
     /// <returns></returns>
-    public static Dictionary<TK,TV> ToDictionary<TK,TV,TS>(this IEnumerable<TS> collection, Func<TS,TK> keySelector, Func<TS,TV> valueSelector) => collection.ToDictionary(keySelector, valueSelector);
+    public static Dictionary<TK, TV> ToDictionary<TK, TV, TS>(this IEnumerable<TS> collection, Func<TS, TK> keySelector,
+        Func<TS, TV> valueSelector) => collection.ToDictionary(keySelector, valueSelector);
 
     /// <summary>
     /// 将集合转换为字典,将集合中元素作为字典的Value
@@ -240,6 +242,7 @@ public static class CollectionExtension
     public static Dictionary<TK, TV>
         ToDictionary<TK, TV>(this IEnumerable<TV> collection, Func<TV, TK> keySelector) =>
         ToDictionary(collection, keySelector, s => s);
+
     /// <summary>
     /// 将集合转换为字典,将集合中元素作为字典的Value,Key为元素的指定属性值
     /// </summary>
@@ -248,6 +251,23 @@ public static class CollectionExtension
     /// <param name="collection">集合</param>
     /// <param name="propertyName">属性名称</param>
     /// <returns></returns>
-    public static Dictionary<TK, TV> ToDictionary<TK, TV>(this IEnumerable<TV> collection,string propertyName) =>
+    public static Dictionary<TK, TV> ToDictionary<TK, TV>(this IEnumerable<TV> collection, string propertyName) =>
         collection.ToDictionary(s => s.GetPropertyValue<TK>(propertyName));
+
+    /// <summary>
+    /// 合并两个字典
+    /// </summary>
+    /// <typeparam name="TK"></typeparam>
+    /// <typeparam name="TV"></typeparam>
+    /// <param name="dictionary"></param>
+    /// <param name="items"></param>
+    /// <returns></returns>
+    public static Dictionary<TK, TV> AddAll<TK, TV>(this Dictionary<TK, TV> dictionary, Dictionary<TK, TV> items)
+    {
+        foreach (var kv in items)
+        {
+            dictionary[kv.Key] = kv.Value;
+        }
+        return dictionary;
+    }
 }

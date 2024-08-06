@@ -1,13 +1,8 @@
 ﻿#nullable enable
 using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Text;
 using HmExtension.Commons.Extensions;
 
-namespace HmExtension.Extensions;
+namespace HmExtension.Drawing;
 
 /// <summary>
 /// 字符串扩展类
@@ -20,7 +15,7 @@ public static class StringExtension
     /// <param name="value">当前字符串</param>
     /// <returns>图片</returns>
     /// <exception cref="ArgumentException">如果字符串不是DataURL则抛出该异常</exception>
-    public static Bitmap FromBitmap(this string value)
+    public static System.Drawing.Bitmap FromBitmap(this string value)
     {
         // 检查字符串是否是DataUrl字符串
         if (!value.IsDataUrl()) throw new ArgumentException("不是DataUrl字符串");

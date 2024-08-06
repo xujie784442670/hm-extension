@@ -6,32 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HmExtension.utils;
+namespace HmExtension.Drawing;
 
-/// <summary>
-/// 图像裁剪模式
-/// </summary>
-public enum ThumbnailCutMode
-{ /// <summary>
-  /// 锁定高度
-  /// </summary>
-    LockHeight,
 
-    /// <summary>
-    /// 锁定宽度
-    /// </summary>
-    LockWidth,
-
-    /// <summary>
-    /// 固定宽高
-    /// </summary>
-    Fixed,
-
-    /// <summary>
-    /// 裁剪
-    /// </summary>
-    Cut
-}
 
 /// <summary>
 /// 图片处理
@@ -79,7 +56,7 @@ public static class ImageHelper
                 //宽大于高的横图
                 if (initWidth > initHeight)
                 { //对象实例化
-                    pickedImage = new Bitmap(initHeight, initHeight);
+                    pickedImage = new System.Drawing.Bitmap(initHeight, initHeight);
                     pickedG = Graphics.FromImage(pickedImage);
                     //设置质量
                     pickedG.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -95,7 +72,7 @@ public static class ImageHelper
                 //高大于宽的竖图
                 else
                 { //对象实例化
-                    pickedImage = new Bitmap(initWidth, initWidth);
+                    pickedImage = new System.Drawing.Bitmap(initWidth, initWidth);
                     pickedG = Graphics.FromImage(pickedImage);
                     //设置质量
                     pickedG.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -117,7 +94,7 @@ public static class ImageHelper
             }
 
             //缩略图对象
-            Image resultImage = new Bitmap(side, side);
+            Image resultImage = new System.Drawing.Bitmap(side, side);
             Graphics resultG = Graphics.FromImage(resultImage);
             //设置质量
             resultG.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -181,7 +158,7 @@ public static class ImageHelper
             //原图与模版比例相等，直接缩放
             if (templateRate == initRate)
             { //按模版大小生成最终图片
-                Image templateImage = new Bitmap(maxWidth, maxHeight);
+                Image templateImage = new System.Drawing.Bitmap(maxWidth, maxHeight);
                 Graphics templateG = Graphics.FromImage(templateImage);
                 templateG.InterpolationMode = InterpolationMode.High;
                 templateG.SmoothingMode = SmoothingMode.HighQuality;
@@ -202,7 +179,7 @@ public static class ImageHelper
                 //宽为标准进行裁剪
                 if (templateRate > initRate)
                 { //裁剪对象实例化
-                    pickedImage = new Bitmap(initImage.Width, (int)Math.Floor(initImage.Width / templateRate));
+                    pickedImage = new System.Drawing.Bitmap(initImage.Width, (int)Math.Floor(initImage.Width / templateRate));
                     pickedG = Graphics.FromImage(pickedImage);
 
                     //裁剪源定位
@@ -220,7 +197,7 @@ public static class ImageHelper
                 //高为标准进行裁剪
                 else
                 {
-                    pickedImage = new Bitmap((int)Math.Floor(initImage.Height * templateRate), initImage.Height);
+                    pickedImage = new System.Drawing.Bitmap((int)Math.Floor(initImage.Height * templateRate), initImage.Height);
                     pickedG = Graphics.FromImage(pickedImage);
 
                     fromR.X = (int)Math.Floor((initImage.Width - initImage.Height * templateRate) / 2);
@@ -242,7 +219,7 @@ public static class ImageHelper
                 pickedG.DrawImage(initImage, toR, fromR, GraphicsUnit.Pixel);
 
                 //按模版大小生成最终图片
-                Image templateImage = new Bitmap(maxWidth, maxHeight);
+                Image templateImage = new System.Drawing.Bitmap(maxWidth, maxHeight);
                 Graphics templateG = Graphics.FromImage(templateImage);
                 templateG.InterpolationMode = InterpolationMode.High;
                 templateG.SmoothingMode = SmoothingMode.HighQuality;
@@ -383,7 +360,7 @@ public static class ImageHelper
 
             //生成新图
             //新建一个bmp图片
-            Image newImage = new Bitmap((int)newWidth, (int)newHeight);
+            Image newImage = new System.Drawing.Bitmap((int)newWidth, (int)newHeight);
             //新建一个画板
             Graphics newG = Graphics.FromImage(newImage);
 
@@ -478,10 +455,10 @@ public static class ImageHelper
     /// <summary>
     /// 裁剪图片 -- 用GDI+
     /// </summary>
-    /// <param name="b">原始Bitmap</param>
+    /// <param name="b">原始System.Drawing.Bitmap</param>
     /// <param name="rec">裁剪区域</param>
-    /// <returns>剪裁后的Bitmap</returns>
-    public static Bitmap CutImage(this Bitmap b, Rectangle rec)
+    /// <returns>剪裁后的System.Drawing.Bitmap</returns>
+    public static System.Drawing.Bitmap CutImage(this System.Drawing.Bitmap b, Rectangle rec)
     {
         int w = b.Width;
         int h = b.Height;
@@ -496,7 +473,7 @@ public static class ImageHelper
             rec.Height = h - rec.Y;
         try
         {
-            Bitmap bmpOut = new Bitmap(rec.Width, rec.Height, PixelFormat.Format24bppRgb);
+            System.Drawing.Bitmap bmpOut = new System.Drawing.Bitmap(rec.Width, rec.Height, PixelFormat.Format24bppRgb);
             Graphics g = Graphics.FromImage(bmpOut);
             g.DrawImage(b, new Rectangle(0, 0, rec.Width, rec.Height), new Rectangle(rec.X, rec.Y, rec.Width, rec.Height), GraphicsUnit.Pixel);
             g.Dispose();
@@ -515,16 +492,16 @@ public static class ImageHelper
     /// <summary>
     ///  Resize图片
     /// </summary>
-    /// <param name="bmp">原始Bitmap</param>
+    /// <param name="bmp">原始System.Drawing.Bitmap</param>
     /// <param name="newWidth">新的宽度</param>
     /// <param name="newHeight">新的高度</param>
     /// <param name="proportion">是否按比例缩放</param>
     /// <returns>处理以后的图片</returns>
-    public static Bitmap ResizeImage(this Bitmap bmp, int newWidth, int newHeight,bool proportion=false)
+    public static System.Drawing.Bitmap ResizeImage(this System.Drawing.Bitmap bmp, int newWidth, int newHeight,bool proportion=false)
     {
         try
         {
-            Bitmap b = new Bitmap(newWidth, newHeight);
+            System.Drawing.Bitmap b = new System.Drawing.Bitmap(newWidth, newHeight);
             Graphics g = Graphics.FromImage(b);
             // 插值算法的质量
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -571,7 +548,7 @@ public static class ImageHelper
     /// <param name="newWidth">新的宽度</param>
     /// <param name="newHeight">新的高度</param>
     /// <returns>处理以后的图片</returns>
-    public static Bitmap CutAndResize(this Bitmap bmp, Rectangle rec, int newWidth, int newHeight) => bmp.CutImage(rec).ResizeImage(newWidth, newHeight);
+    public static System.Drawing.Bitmap CutAndResize(this System.Drawing.Bitmap bmp, Rectangle rec, int newWidth, int newHeight) => bmp.CutImage(rec).ResizeImage(newWidth, newHeight);
 
     #endregion
 
@@ -622,7 +599,7 @@ public static class ImageHelper
                 sH = temSize.Height;
             }
 
-            using (Bitmap bmp = new Bitmap(dWidth, dHeight))
+            using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(dWidth, dHeight))
             {
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
@@ -715,7 +692,7 @@ public static class ImageHelper
                 sH = temSize.Height;
             }
 
-            using (Bitmap bmp = new Bitmap(dWidth, dHeight))
+            using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(dWidth, dHeight))
             {
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
@@ -814,7 +791,7 @@ public static class ImageHelper
         }
 
         //新建一个bmp图片
-        Image bitmap = new Bitmap(towidth, toheight);
+        Image bitmap = new System.Drawing.Bitmap(towidth, toheight);
 
         //新建一个画板
         Graphics g = Graphics.FromImage(bitmap);
@@ -857,9 +834,9 @@ public static class ImageHelper
     /// <param name="width">原始图片的长度</param>
     /// <param name="height">原始图片的高度</param>
     /// <param name="val">增加或减少的光暗值</param>
-    public static Bitmap LDPic(this Bitmap mybm, int width, int height, int val)
+    public static System.Drawing.Bitmap LDPic(this System.Drawing.Bitmap mybm, int width, int height, int val)
     {
-        Bitmap bm = new Bitmap(width, height); //初始化一个记录经过处理后的图片对象
+        System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height); //初始化一个记录经过处理后的图片对象
         int x, y; //x、y是循环次数，后面三个是记录红绿蓝三个值的
         for (x = 0; x < width; x++)
         {
@@ -886,9 +863,9 @@ public static class ImageHelper
     /// <param name="mybm">原始图片</param>
     /// <param name="width">原始图片的长度</param>
     /// <param name="height">原始图片的高度</param>
-    public static Bitmap RePic(this Bitmap mybm, int width, int height)
+    public static System.Drawing.Bitmap RePic(this System.Drawing.Bitmap mybm, int width, int height)
     {
-        Bitmap bm = new Bitmap(width, height); //初始化一个记录处理后的图片的对象
+        System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height); //初始化一个记录处理后的图片的对象
         int x, y, resultR, resultG, resultB;
         Color pixel;
         for (x = 0; x < width; x++)
@@ -916,9 +893,9 @@ public static class ImageHelper
     /// <param name="oldBitmap">原始图片</param>
     /// <param name="width">原始图片的长度</param>
     /// <param name="height">原始图片的高度</param>
-    public static Bitmap Relief(this Bitmap oldBitmap, int width, int height)
+    public static System.Drawing.Bitmap Relief(this System.Drawing.Bitmap oldBitmap, int width, int height)
     {
-        Bitmap newBitmap = new Bitmap(width, height);
+        System.Drawing.Bitmap newBitmap = new System.Drawing.Bitmap(width, height);
         for (int x = 0; x < width - 1; x++)
         {
             for (int y = 0; y < height - 1; y++)
@@ -951,11 +928,11 @@ public static class ImageHelper
     /// <param name="bmp">原始图片</param>
     /// <param name="newW">新的宽度</param>
     /// <param name="newH">新的高度</param>
-    public static async Task<Bitmap> ResizeImageAsync(this Bitmap bmp, int newW, int newH)
+    public static async Task<System.Drawing.Bitmap> ResizeImageAsync(this System.Drawing.Bitmap bmp, int newW, int newH)
     {
         try
         {
-            using (Bitmap bap = new Bitmap(newW, newH))
+            using (System.Drawing.Bitmap bap = new System.Drawing.Bitmap(newW, newH))
             {
                 return await Task.Run(() =>
                 {
@@ -984,9 +961,9 @@ public static class ImageHelper
     /// <param name="mybm">原始图片</param>
     /// <param name="width">原始图片的长度</param>
     /// <param name="height">原始图片的高度</param>
-    public static Bitmap FilPic(this Bitmap mybm, int width, int height)
+    public static System.Drawing.Bitmap FilPic(this System.Drawing.Bitmap mybm, int width, int height)
     {
-        using (Bitmap bm = new Bitmap(width, height)) //初始化一个记录滤色效果的图片对象
+        using (System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height)) //初始化一个记录滤色效果的图片对象
         {
             int x, y;
             Color pixel;
@@ -1013,9 +990,9 @@ public static class ImageHelper
     /// <param name="mybm">原始图片</param>
     /// <param name="width">原始图片的长度</param>
     /// <param name="height">原始图片的高度</param>
-    public static Bitmap RevPicLR(this Bitmap mybm, int width, int height)
+    public static System.Drawing.Bitmap RevPicLR(this System.Drawing.Bitmap mybm, int width, int height)
     {
-        using (Bitmap bm = new Bitmap(width, height))
+        using (System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height))
         {
             int x, y, z; //x,y是循环次数,z是用来记录像素点的x坐标的变化的
             for (y = height - 1; y >= 0; y--)
@@ -1041,9 +1018,9 @@ public static class ImageHelper
     /// <param name="mybm">原始图片</param>
     /// <param name="width">原始图片的长度</param>
     /// <param name="height">原始图片的高度</param>
-    public static Bitmap RevPicUD(this Bitmap mybm, int width, int height)
+    public static System.Drawing.Bitmap RevPicUD(this System.Drawing.Bitmap mybm, int width, int height)
     {
-        Bitmap bm = new Bitmap(width, height);
+        System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height);
         using (bm)
         {
             int x, y, z;
@@ -1074,7 +1051,7 @@ public static class ImageHelper
         try
         {
             Size newSize = new Size(100, 125);
-            Bitmap outBmp = new Bitmap(newSize.Width, newSize.Height);
+            System.Drawing.Bitmap outBmp = new System.Drawing.Bitmap(newSize.Width, newSize.Height);
             Graphics g = Graphics.FromImage(outBmp);
             g.CompositingQuality = CompositingQuality.HighQuality;
             g.SmoothingMode = SmoothingMode.HighQuality;
@@ -1131,9 +1108,9 @@ public static class ImageHelper
     /// <param name="mybm">要进行处理的图片</param>
     /// <param name="width">图片的长度</param>
     /// <param name="height">图片的高度</param>
-    public static Bitmap BWPic(this Bitmap mybm, int width, int height)
+    public static System.Drawing.Bitmap BWPic(this System.Drawing.Bitmap mybm, int width, int height)
     {
-        Bitmap bm = new Bitmap(width, height);
+        System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height);
         using (bm)
         {
             int x, y; //x,y是循环次数
@@ -1183,16 +1160,16 @@ public static class ImageHelper
     /// <param name="source">dataUri数据源</param>
     /// <returns></returns>
     /// <exception cref="Exception">操作失败。</exception>
-    public static Bitmap SaveDataUriAsImageFile(this string source)
+    public static System.Drawing.Bitmap SaveDataUriAsImageFile(this string source)
     {
         string strbase64 = source.Substring(source.IndexOf(',') + 1);
         strbase64 = strbase64.Trim('\0');
-        Bitmap bmp2;
+        System.Drawing.Bitmap bmp2;
         byte[] arr = Convert.FromBase64String(strbase64);
         using var ms = new MemoryStream(arr);
-        var bmp = new Bitmap(ms);
+        var bmp = new System.Drawing.Bitmap(ms);
         //新建第二个bitmap类型的bmp2变量。
-        bmp2 = new Bitmap(bmp, bmp.Width, bmp.Height);
+        bmp2 = new System.Drawing.Bitmap(bmp, bmp.Width, bmp.Height);
         //将第一个bmp拷贝到bmp2中
         Graphics draw = Graphics.FromImage(bmp2);
         using (draw)

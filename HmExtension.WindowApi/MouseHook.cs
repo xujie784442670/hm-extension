@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using HmExtension.Commons;
 using HmExtension.Commons.Events;
-using static HmExtension.Commons.WindowApi.MouseHook;
+using HmExtension.WindowApi.Events;
 
-namespace HmExtension.Commons.WindowApi;
+namespace HmExtension.WindowApi;
 
 /// <summary>
 /// 鼠标钩子
 /// </summary>
-public class MouseHook : AbstractHook<MouseHookType>
+public class MouseHook : AbstractHook<MouseHook.MouseHookType>
 {
     /// <summary>
     /// 从任何进程(标志测试事件注入)

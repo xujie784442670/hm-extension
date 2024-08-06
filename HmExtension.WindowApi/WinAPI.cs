@@ -5,10 +5,10 @@ using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
+using HmExtension.Commons.Commons;
 using Keys = HmExtension.Commons.Commons.Keys;
 
-namespace HmExtension.Commons;
+namespace HmExtension.WindowApi;
 
 /// <summary>
 /// Windows API
@@ -24,27 +24,33 @@ public class WinApi
         /// 窗口句柄
         /// </summary>
         public IntPtr hwnd;
+
         /// <summary>
         /// 消息的标识符。 应用程序只能使用低字;高字由系统保留。
         /// </summary>
         public int message;
+
         /// <summary>
         /// 关于消息的附加信息。 确切含义取决于 消息 成员的值。
         /// </summary>
         public IntPtr wParam;
+
         /// <summary>
         /// 关于消息的附加信息。 确切含义取决于 消息 成员的值。
         /// </summary>
         public IntPtr lParam;
+
         /// <summary>
         /// 消息的发布时间。
         /// </summary>
         public int time;
+
         /// <summary>
         /// 发布消息时的光标位置（以屏幕坐标表示）
         /// </summary>
-        public Point pt;
+        public Point<int> pt;
     }
+
     #region WinodwsAPI
 
     [DllImport("user32.dll", EntryPoint = "FindWindow")]
@@ -75,6 +81,7 @@ public class WinApi
     /// 如果出现错误，则返回值为 -1。 例如，如果 hWnd 是无效的窗口句柄或 lpMsg 是无效的指针，则该函数将失败。 要获得更多的错误信息，请调用 GetLastError。</returns>
     [DllImport("user32.dll", EntryPoint = "GetMessage")]
     public static extern bool GetMessage(out TagMSG lpMsg, IntPtr? hWnd, int wMsgFilterMin, int wMsgFilterMax);
+
     /// <summary>
     /// 确定调用函数时键是向上还是向下，以及上次调用 GetAsyncKeyState 后是否按下了该键。
     /// </summary>
@@ -82,9 +89,8 @@ public class WinApi
     /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     public static extern int GetAsyncKeyState(Keys key);
+
     #region 消息钩子
-
-
 
     /// <summary>
     /// 安装钩子
@@ -96,6 +102,7 @@ public class WinApi
     /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     public static extern int SetWindowsHookEx(HookType hookType, HookProc lpfn, IntPtr hInstance, int threadId);
+
     /// <summary>
     /// 卸载钩子
     /// </summary>
@@ -103,6 +110,7 @@ public class WinApi
     /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     public static extern bool UnhookWindowsHookEx(int idHook);
+
     /// <summary>
     /// 调用下一个钩子
     /// </summary>
@@ -113,14 +121,17 @@ public class WinApi
     /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
-    
+
     /// <summary>
     /// 钩子处理函数委托类型
     /// </summary>
     public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+
     #endregion
+
     [DllImport("user32.dll", EntryPoint = "FindWindowEx")]
-    private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+    private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass,
+        string lpszWindow);
 
     /// <summary>
     /// 发送消息
@@ -151,6 +162,11 @@ public class WinApi
     /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetParent")]
     public static extern IntPtr GetParent(IntPtr hWnd);
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetTopWindow(IntPtr hWnd);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern IntPtr GetWindow(IntPtr hwnd, WindowType windowType);
 
     /// <summary>
     /// 查找窗口
@@ -158,7 +174,7 @@ public class WinApi
     /// <param name="pt"></param>
     /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
-    public static extern bool GetCursorPos(out Point pt);
+    public static extern bool GetCursorPos(out Point<int> pt);
 
     /// <summary>
     /// 查找窗口
@@ -166,10 +182,10 @@ public class WinApi
     /// <param name="pt"></param>
     /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "WindowFromPoint", CharSet = CharSet.Auto, ExactSpelling = true)]
-    public static extern IntPtr WindowFromPoint(Point pt);
+    public static extern IntPtr WindowFromPoint(Point<int> pt);
 
     /// <summary>
-    /// 根据类名称查找窗口
+    /// 获取窗口类名
     /// </summary>
     /// <param name="hWnd"></param>
     /// <param name="lpClassName"></param>
@@ -179,14 +195,15 @@ public class WinApi
     public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
     /// <summary>
-    /// 根据窗口标题查找窗口
+    /// 获取窗口标题
     /// </summary>
     /// <param name="hWnd"></param>
     /// <param name="lpString"></param>
     /// <param name="nMaxCount"></param>
     /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    public static extern int GetWindowText(IntPtr hWnd, [Out, MarshalAs(UnmanagedType.LPTStr)] StringBuilder lpString, int nMaxCount);
+    public static extern int GetWindowText(IntPtr hWnd, [Out, MarshalAs(UnmanagedType.LPTStr)] StringBuilder lpString,
+        int nMaxCount);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     private static extern int GetWindowRect(IntPtr hwnd, ref Rectangle rc);
@@ -271,10 +288,14 @@ public class WinApi
 
     [DllImport("user32.dll")]
     private static extern bool EnumWindows(WNDENUMPROC lpEnumFunc, int lParam);
+
     [DllImport("user32.dll")]
-    private static extern int GetWindowTextW(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpString, int nMaxCount);
+    private static extern int GetWindowTextW(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpString,
+        int nMaxCount);
+
     [DllImport("user32.dll")]
-    private static extern int GetClassNameW(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpString, int nMaxCount);
+    private static extern int GetClassNameW(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpString,
+        int nMaxCount);
 
     /// <summary>
     /// 窗口置顶 或设置大小
@@ -290,11 +311,188 @@ public class WinApi
     [DllImport("user32.dll")]
     public static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
 
+    /// <summary>
+    /// 设置系统光标
+    /// </summary>
+    /// <param name="hcur"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [DllImport("User32.DLL")]
+    public static extern bool SetSystemCursor(IntPtr hcur, OcrType id);
+    /// <summary>
+    /// 检索或设置系统范围参数之一的值。 此函数还可以在设置参数时更新用户配置文件。
+    /// </summary>
+    /// <param name="uiAction">
+    /// 要检索或设置的系统范围参数。 可能的值按以下相关参数表进行组织：
+    /// <list>
+    /// <listheader>
+    /// <term>类型</term>
+    /// <description>枚举</description>
+    /// </listheader>
+    /// <item> <term>辅助功能参数</term> <description><see cref="AccessibilityParameters"/></description> </item>
+    /// <item> <term>桌面参数</term> <description><see cref="DesktopParameters"/></description> </item>
+    /// <item> <term>图标参数</term> <description><see cref="IconParameters"/></description> </item>
+    /// <item> <term>输入参数</term> <description><see cref="InputParameters"/></description> </item>
+    /// <item> <term>菜单参数</term> <description><see cref="MenuParameters"/></description> </item>
+    /// <item> <term>电源参数</term> <description><see cref="PowerParameters"/></description> </item>
+    /// <item> <term>屏幕保护程序参数</term> <description><see cref="ScreenSaverProgramParameters"/></description> </item>
+    /// <item> <term>UI 效果参数</term> <description><see cref="UiEffectParameters"/></description> </item>
+    /// <item> <term>窗口参数</term> <description><see cref="WindowParameters"/></description> </item>
+    /// <item> <term>应用程序和服务的超时参数</term> <description><see cref="TimeoutParametersForApplicationsServices"/></description> </item>
+    /// </list>
+    /// </param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    [DllImport("User32.DLL")]
+    public static extern bool SystemParametersInfo(uint uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni);
+
     #endregion
 
 
-
     #region 封装API方法
+    /// <summary>
+    /// 要检索或设置的应用程序和服务的超时参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(TimeoutParametersForApplicationsServices uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的窗口参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(WindowParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的UI 效果参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(UiEffectParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的屏幕保护程序参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(ScreenSaverProgramParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的电源参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(PowerParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的菜单参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(MenuParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的输入参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(InputParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的图标参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(IconParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的桌面参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(DesktopParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+    /// <summary>
+    /// 要检索或设置的辅助功能参数
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
+    public static bool SystemParametersInfo(AccessibilityParameters uiAction, uint uiParam,
+        IntPtr pvParam, uint fWinIni)
+    {
+        return SystemParametersInfo((uint)uiAction, uiParam, pvParam, fWinIni);
+    }
+
+    /// <summary>
+    /// 重置系统光标
+    /// </summary>
+    /// <returns></returns>
+    public static bool ResetSystemCursor()
+    {
+        return SystemParametersInfo(DesktopParameters.SPI_SETCURSORS, 0, IntPtr.Zero, 2);
+    }
+
 
     private delegate bool WNDENUMPROC(IntPtr hWnd, int lParam);
 
@@ -304,9 +502,10 @@ public class WinApi
     /// <param name="hwnd"></param>
     public static void SetWindosActive(IntPtr hwnd)
     {
-        ShowWindowAsync(hwnd, ShowEnum.SW_NORMAL);//显示
-        SetForegroundWindow(hwnd);//当到最前端
+        ShowWindowAsync(hwnd, ShowEnum.SW_NORMAL); //显示
+        SetForegroundWindow(hwnd); //当到最前端
     }
+
     /// <summary>
     /// 窗口置顶
     /// </summary>
@@ -327,9 +526,6 @@ public class WinApi
     public delegate bool ChildWindowsProc(IntPtr hwnd, int lParam);
 
 
-
-
-
     /// <summary>
     /// 枚举窗口 返回窗口句柄 数组
     /// </summary>
@@ -338,15 +534,13 @@ public class WinApi
     public IntPtr[] GetAllChildControlsHandle(IntPtr phwnd)
     {
         List<IntPtr> child = new List<IntPtr>();
-        EnumChildWindows(phwnd, delegate (IntPtr hWnd, int lParam)
+        EnumChildWindows(phwnd, delegate(IntPtr hWnd, int lParam)
         {
             child.Add(hWnd);
             return true;
         }, 0);
         return child.ToArray();
     }
-
-
 
 
     /// <summary>
@@ -364,8 +558,10 @@ public class WinApi
                 return p.MainWindowHandle;
             }
         }
+
         return IntPtr.Zero;
     }
+
     /// <summary>
     /// 查找句柄
     /// </summary>
@@ -381,7 +577,7 @@ public class WinApi
     /// </summary>
     /// <param name="p">坐标</param>
     /// <returns></returns>
-    public static IntPtr GetHandle(Point p)
+    public static IntPtr GetHandle(Point<int> p)
     {
         return WindowFromPoint(p);
     }
@@ -390,14 +586,15 @@ public class WinApi
     /// 获取鼠标位置的坐标
     /// </summary>
     /// <returns></returns>
-    public static Point GetCursorPosPoint()
+    public static Point<int> GetCursorPosPoint()
     {
-        Point p = new Point();
+        Point<int> p = new Point<int>();
         if (GetCursorPos(out p))
         {
             return p;
         }
-        return default(Point);
+
+        return default;
     }
 
     /// <summary>
@@ -414,6 +611,7 @@ public class WinApi
         {
             Console.WriteLine(ex.Message);
         }
+
         return -1;
     }
 
@@ -439,7 +637,9 @@ public class WinApi
     public static List<IntPtr> FindWindowExList(IntPtr hwndParent, string className)
     {
         List<IntPtr> resultList = new List<IntPtr>();
-        for (IntPtr hwndClient = FindWindowE(hwndParent, IntPtr.Zero, className); hwndClient != IntPtr.Zero; hwndClient = FindWindowE(hwndParent, hwndClient, className))
+        for (IntPtr hwndClient = FindWindowE(hwndParent, IntPtr.Zero, className);
+             hwndClient != IntPtr.Zero;
+             hwndClient = FindWindowE(hwndParent, hwndClient, className))
         {
             resultList.Add(hwndClient);
         }
@@ -461,6 +661,7 @@ public class WinApi
             SendMessageA(myIntPtr, (uint)0X102, int.Parse(ch[i].ToString()), "0");
         }
     }
+
     /// <summary>
     /// 给窗口发送文本内容
     /// </summary>
@@ -468,7 +669,6 @@ public class WinApi
     /// <param name="lParam">要发送的内容</param>
     public static void SendMessageA(IntPtr hWnd, string lParam)
     {
-
         SendMessageA(hWnd, WindowsMessage.WM_SETTEXT, 0, lParam);
     }
 
@@ -555,6 +755,7 @@ public class WinApi
         {
             return true;
         }
+
         return false;
     }
 
@@ -622,13 +823,12 @@ public class WinApi
                 {
                     return false;
                 }
+
                 break;
         }
+
         return true;
-
     }
-
-
 
 
     /// <summary>
@@ -640,7 +840,6 @@ public class WinApi
     {
         return (int)GetParent((IntPtr)ChildHwnd);
     }
-
 
 
     /// <summary>
@@ -665,12 +864,11 @@ public class WinApi
         {
             return "";
         }
+
         return lpClassName.ToString();
     }
 
-
     #endregion
-
 
 
     /// <summary>
@@ -681,8 +879,8 @@ public class WinApi
     /// <returns>找不到返回 0</returns>
     public static int FindPointWindow(int x, int y)
     {
-        Point p = new Point(x, y);
-        IntPtr formHandle = WindowFromPoint(p);//得到窗口句柄
+        Point<int> p = new Point<int>(x, y);
+        IntPtr formHandle = WindowFromPoint(p); //得到窗口句柄
         return (int)formHandle;
     }
 
@@ -706,10 +904,9 @@ public class WinApi
         {
             return (int)FindWindow(ipClassName, ipTitleName);
         }
+
         return 0;
     }
-
-
 
 
     /// <summary>
@@ -721,15 +918,18 @@ public class WinApi
         /// 窗口句柄
         /// </summary>
         public IntPtr hWnd;
+
         /// <summary>
         /// 窗口标题
         /// </summary>
         public string szWindowName;
+
         /// <summary>
         /// 窗口类名
         /// </summary>
         public string szClassName;
     }
+
     /// <summary>
     /// 遍历方法 - 返回一个List&lt;WindowInfo&gt; 集合
     /// </summary>
@@ -739,7 +939,7 @@ public class WinApi
         List<WindowInfo> wndList = new List<WindowInfo>();
 
         //enum all desktop windows
-        EnumWindows(delegate (IntPtr hWnd, int lParam)
+        EnumWindows(delegate(IntPtr hWnd, int lParam)
         {
             WindowInfo wnd = new WindowInfo();
             StringBuilder sb = new StringBuilder(256);
@@ -754,6 +954,7 @@ public class WinApi
 
         return wndList;
     }
+
     /// <summary>
     /// 塞选方法 - 返回满足条件的句柄集合
     /// </summary>
@@ -771,7 +972,8 @@ public class WinApi
         {
             if (textName != "" && textClass != "")
             {
-                if (Compare.IndexOf(wdf.szClassName.ToUpper(), textClass.ToUpper()) > -1 && Compare.IndexOf(wdf.szWindowName.ToUpper(), textName.ToUpper()) > -1)
+                if (Compare.IndexOf(wdf.szClassName.ToUpper(), textClass.ToUpper()) > -1 &&
+                    Compare.IndexOf(wdf.szWindowName.ToUpper(), textName.ToUpper()) > -1)
                 {
                     gethwnd.Add((int)wdf.hWnd);
                 }
@@ -798,6 +1000,7 @@ public class WinApi
                 }
             }
         }
+
         return gethwnd;
     }
 
@@ -819,9 +1022,9 @@ public class WinApi
                 return int.Parse(WindowHwnd);
             }
         }
+
         return 0;
     }
-
 
 
     /// <summary>
@@ -848,10 +1051,12 @@ public class WinApi
                 }
             }
         }
+
         if (WindowHwnd == "")
         {
             return "";
         }
+
         return WindowHwnd;
     }
 
@@ -871,9 +1076,9 @@ public class WinApi
                 return (int)pp[i].MainWindowHandle;
             }
         }
+
         return 0;
     }
-
 
 
     /// <summary>
@@ -899,12 +1104,9 @@ public class WinApi
                 }
             }
         }
+
         return Hwnd;
     }
-
-
-
-
 
 
     /// <summary>
@@ -934,15 +1136,7 @@ public class WinApi
     {
         return MoveWindow((IntPtr)Hwnd, X, Y, Width, Height, true);
     }
-
-
-    
-}//end class
-
-
-
-
-
+} //end class
 
 /// <summary>
 /// 显示方式
@@ -953,54 +1147,67 @@ public enum ShowEnum
     /// 隐藏窗口并激活另一个窗口。
     /// </summary>
     SW_HIDE = 0,
+
     /// <summary>
     /// 激活并显示窗口。 如果窗口最小化、最大化或排列，系统会将其还原到其原始大小和位置。 应用程序应在首次显示窗口时指定此标志。
     /// </summary>
     SW_NORMAL = 1,
+
     /// <summary>
     /// 激活并显示窗口。 如果窗口最小化、最大化或排列，系统会将其还原到其原始大小和位置。 应用程序应在首次显示窗口时指定此标志。
     /// </summary>
     SW_SHOWNORMAL = 1,
+
     /// <summary>
     /// 激活窗口并将其显示为最小化窗口。
     /// </summary>
     SW_SHOWMINIMIZED = 2,
+
     /// <summary>
     /// 激活窗口并显示最大化的窗口。
     /// </summary>
     SW_MAXIMIZE = 3,
+
     /// <summary>
     /// 激活窗口并显示最大化的窗口。
     /// </summary>
     SW_SHOWMAXIMIZED = 3,
+
     /// <summary>
     /// 以最近的大小和位置显示窗口。 此值类似于 SW_SHOWNORMAL，只是窗口未激活
     /// </summary>
     SW_SHOWNOACTIVATE = 4,
+
     /// <summary>
     /// 激活窗口并以当前大小和位置显示窗口。
     /// </summary>
     SW_SHOW = 5,
+
     /// <summary>
     /// 最小化指定的窗口，并按 Z 顺序激活下一个顶级窗口。
     /// </summary>
     SW_MINIMIZE = 6,
+
     /// <summary>
     /// 将窗口显示为最小化窗口。 此值类似于 SW_SHOWMINIMIZED，但窗口未激活。
     /// </summary>
     SW_SHOWMINNOACTIVE = 7,
+
     /// <summary>
     /// 以当前大小和位置显示窗口。 此值类似于 SW_SHOW，只是窗口未激活。
     /// </summary>
     SW_SHOWNA = 8,
+
     /// <summary>
     /// 激活并显示窗口。 如果窗口最小化、最大化或排列，系统会将其还原到其原始大小和位置。 还原最小化窗口时，应用程序应指定此标志。
     /// </summary>
-    SW_RESTORE = 9,//还原
+    SW_RESTORE = 9, //还原
+
     /// <summary>
     /// 根据启动应用程序的程序传递给 CreateProcess 函数的 STARTUPINFO 结构中指定的SW_值设置显示状态。
     /// </summary>
     SW_SHOWDEFAULT = 10,
+
     /// <summary>
     /// 最小化窗口，即使拥有窗口的线程没有响应。 仅当最小化不同线程的窗口时，才应使用此标志。
     /// </summary>
@@ -1049,16 +1256,24 @@ public class WindowsMessage
     public const int WM_NEXTDLGCTL = 0x0028; //发送此消息给一个对话框程序去更改焦点位置 
     public const int WM_SPOOLERSTATUS = 0x002A; //每当打印管理列队增加或减少一条作业时发出此消息 
     public const int WM_DRAWITEM = 0x002B; //当button，combobox，listbox，menu的可视外观改变时发送此消息给这些空件的所有者 
-    public const int WM_MEASUREITEM = 0x002C; //当button, combo box, list box, list view control, or menu item 被创建时发送此消息给控件的所有者 
-    public const int WM_DELETEITEM = 0x002D; // 当the list box 或combo box 被销毁或当某些项被删除通过LB_DELETESTRING, LB_RESETCONTENT, CB_DELETESTRING, or CB_RESETCONTENT 消息 
+
+    public const int
+        WM_MEASUREITEM = 0x002C; //当button, combo box, list box, list view control, or menu item 被创建时发送此消息给控件的所有者 
+
+    public const int
+        WM_DELETEITEM =
+            0x002D; // 当the list box 或combo box 被销毁或当某些项被删除通过LB_DELETESTRING, LB_RESETCONTENT, CB_DELETESTRING, or CB_RESETCONTENT 消息 
+
     public const int WM_VKEYTOITEM = 0x002E; //此消息有一个LBS_WANTKEYBOARDINPUT风格的发出给它的所有者来响应WM_KEYDOWN消息 
     public const int WM_CHARTOITEM = 0x002F; //此消息由一个LBS_WANTKEYBOARDINPUT风格的列表框发送给他的所有者来响应WM_CHAR消息 
     public const int WM_SETFONT = 0x0030; //当绘制文本时程序发送此消息得到控件要用的颜色 
     public const int WM_GETFONT = 0x0031; //应用程序发送此消息得到当前控件绘制文本的字体 
     public const int WM_SETHOTKEY = 0x0032; //应用程序发送此消息让一个窗口与一个热键相关连 
     public const int WM_GETHOTKEY = 0x0033; //应用程序发送此消息来判断热键与某个窗口是否有关联 
+
     public const int WM_QUERYDRAGICON = 0x0037; //此消息发送给最小化窗口，当此窗口将要被拖放而它的类中没有定义图标，应用程序能 
-                                                //返回一个图标或光标的句柄，当用户拖放图标时系统显示这个图标或光标 
+
+    //返回一个图标或光标的句柄，当用户拖放图标时系统显示这个图标或光标 
     public const int WM_COMPAREITEM = 0x0039; //发送此消息来判定combobox或listbox新增加的项的相对位置 
     public const int WM_GETOBJECT = 0x003D; //WM_COMPACTING = 0x0041; //显示内存已经很少了 
     public const int WM_WINDOWPOSCHANGING = 0x0046; //发送此消息给那个窗口的大小和位置将要被改变时，来调用setwindowpos函数或其它窗口管理函数 
@@ -1070,12 +1285,16 @@ public class WindowsMessage
     public const int WM_INPUTLANGCHANGEREQUEST = 0x0050; //当用户选择某种输入语言，或输入语言的热键改变 
     public const int WM_INPUTLANGCHANGE = 0x0051; //当平台现场已经被改变后发送此消息给受影响的最顶级窗口 
     public const int WM_TCARD = 0x0052; //当程序已经初始化windows帮助例程时发送此消息给应用程序 
+
     public const int WM_HELP = 0x0053; //此消息显示用户按下了F1，如果某个菜单是激活的，就发送此消息个此窗口关联的菜单，否则就 
-                                       //发送给有焦点的窗口，如果当前都没有焦点，就把此消息发送给当前激活的窗口 
+
+    //发送给有焦点的窗口，如果当前都没有焦点，就把此消息发送给当前激活的窗口 
     public const int WM_USERCHANGED = 0x0054; //当用户已经登入或退出后发送此消息给所有的窗口，当用户登入或退出时系统更新用户的具体 
-                                              //设置信息，在用户更新设置时系统马上发送此消息； 
+
+    //设置信息，在用户更新设置时系统马上发送此消息； 
     public const int WM_NOTIFYformAT = 0x0055; //公用控件，自定义控件和他们的父窗口通过此消息来判断控件是使用ANSI还是UNICODE结构 
-                                               //在WM_NOTIFY消息，使用此控件能使某个控件与它的父控件之间进行相互通信 
+
+    //在WM_NOTIFY消息，使用此控件能使某个控件与它的父控件之间进行相互通信 
     public const int WM_CONTEXTMENU = 0x007B; //当用户某个窗口中点击了一下右键就发送此消息给这个窗口 
     public const int WM_styleCHANGING = 0x007C; //当调用SETWINDOWLONG函数将要改变一个或多个窗口的风格时发送此消息给那个窗口 
     public const int WM_styleCHANGED = 0x007D; //当调用SETWINDOWLONG函数一个或多个窗口的风格后发送此消息给那个窗口 
@@ -1088,11 +1307,15 @@ public class WindowsMessage
     public const int WM_NCHITTEST = 0x0084; //移动鼠标，按住或释放鼠标时发生 
     public const int WM_NCPAINT = 0x0085; //程序发送此消息给某个窗口当它（窗口）的框架必须被绘制时； 
     public const int WM_NCACTIVATE = 0x0086; //此消息发送给某个窗口仅当它的非客户区需要被改变来显示是激活还是非激活状态； 
+
     public const int WM_GETDLGCODE = 0x0087; //发送此消息给某个与对话框程序关联的控件，widdows控制方位键和TAB键使输入进入此控件 
-                                             //通过响应WM_GETDLGCODE消息，应用程序可以把他当成一个特殊的输入控件并能处理它 
+
+    //通过响应WM_GETDLGCODE消息，应用程序可以把他当成一个特殊的输入控件并能处理它 
     public const int WM_NCMOUSEMOVE = 0x00A0; //当光标在一个窗口的非客户区内移动时发送此消息给这个窗口//非客户区为：窗体的标题栏及窗的边框体 
+
     public const int WM_NCLBUTTONDOWN = 0x00A1; // 
-                                                //当光标在一个窗口的非客户区同时按下鼠标左键时提交此消息 
+
+    //当光标在一个窗口的非客户区同时按下鼠标左键时提交此消息 
     public const int WM_NCLBUTTONUP = 0x00A2; //当用户释放鼠标左键同时光标某个窗口在非客户区十发送此消息； 
     public const int WM_NCLBUTTONDBLCLK = 0x00A3; //当用户双击鼠标左键同时光标某个窗口在非客户区十发送此消息 
     public const int WM_NCRBUTTONDOWN = 0x00A4; //当用户按下鼠标右键同时光标又在窗口的非客户区时发送此消息 
@@ -1102,24 +1325,30 @@ public class WindowsMessage
     public const int WM_NCMBUTTONUP = 0x00A8; //当用户释放鼠标中键同时光标又在窗口的非客户区时发送此消息 
     public const int WM_NCMBUTTONDBLCLK = 0x00A9; //当用户双击鼠标中键同时光标又在窗口的非客户区时发送此消息 
     public const int WM_KEYFIRST = 0x0100; // 
+
     /// <summary>
     /// 按下一个键 
     /// </summary>
     public const int WM_KEYDOWN = 0x0100;
+
     /// <summary>
     /// 释放一个键 
     /// </summary>
     public const int WM_KEYUP = 0x0101;
+
     public const int WM_CHAR = 0x0102; //按下某键，并已发出WM_KEYDOWN，WM_KEYUP消息 
     public const int WM_DEADCHAR = 0x0103; //当用translatemessage函数翻译WM_KEYUP消息时发送此消息给拥有焦点的窗口 
+
     /// <summary>
     /// 当用户按住ALT键同时按下其它键时提交此消息给拥有焦点的窗口； 
     /// </summary>
     public const int WM_SYSKEYDOWN = 0x0104;
+
     /// <summary>
     /// 当用户释放一个键同时ALT 键还按着时提交此消息给拥有焦点的窗口 
     /// </summary>
     public const int WM_SYSKEYUP = 0x0105;
+
     public const int WM_SYSCHAR = 0x0106; //当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后提交此消息给拥有焦点的窗口 
     public const int WM_SYSDEADCHAR = 0x0107; //当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后发送此消息给拥有焦点的窗口 
     public const int WM_KEYLAST = 0x0108; // 
@@ -1128,14 +1357,20 @@ public class WindowsMessage
     public const int WM_SYSCOMMAND = 0x0112; //当用户选择窗口菜单的一条命令或当用户选择最大化或最小化时那个窗口会收到此消息 
     public const int WM_TIMER = 0x0113; //发生了定时器事件 
     public const int WM_HSCROLL = 0x0114; //当一个窗口标准水平滚动条产生一个滚动事件时发送此消息给那个窗口，也发送给拥有它的控件 
+
     public const int WM_VSCROLL = 0x0115; //当一个窗口标准垂直滚动条产生一个滚动事件时发送此消息给那个窗口也，发送给拥有它的控件WM_INITMENU = 0x0116; // 
-                                          //当一个菜单将要被激活时发送此消息，它发生在用户菜单条中的某项或按下某个菜单键，它允许 
-                                          //程序在显示前更改菜单 
+
+    //当一个菜单将要被激活时发送此消息，它发生在用户菜单条中的某项或按下某个菜单键，它允许 
+    //程序在显示前更改菜单 
     public const int WM_INITMENUPOPUP = 0x0117; //当一个下拉菜单或子菜单将要被激活时发送此消息，它允许程序在它显示前更改菜单，而不要 
-                                                // 改变全部 
+
+    // 改变全部 
     public const int WM_MENUSELECT = 0x011F; //当用户选择一条菜单项时发送此消息给菜单的所有者（一般是窗口） 
     public const int WM_MENUCHAR = 0x0120; //当菜单已被激活用户按下了某个键（不同于加速键），发送此消息给菜单的所有者； 
-    public const int WM_ENTERIDLE = 0x0121; //当一个模态对话框或菜单进入空载状态时发送此消息给它的所有者，一个模态对话框或菜单进入空载状态就是在处理完一条或几条先前的消息后没有消息它的列队中等待 
+
+    public const int
+        WM_ENTERIDLE = 0x0121; //当一个模态对话框或菜单进入空载状态时发送此消息给它的所有者，一个模态对话框或菜单进入空载状态就是在处理完一条或几条先前的消息后没有消息它的列队中等待 
+
     public const int WM_MENURBUTTONUP = 0x0122; // 
     public const int WM_MENUDRAG = 0x0123; // 
     public const int WM_MENUGETOBJECT = 0x0124; // 
@@ -1144,20 +1379,28 @@ public class WindowsMessage
     public const int WM_CHANGEUISTATE = 0x0127; // 
     public const int WM_UPDATEUISTATE = 0x0128; // 
     public const int WM_QUERYUISTATE = 0x0129; // 
+
     public const int WM_CTLCOLORMSGBOX = 0x0132; //在windows绘制消息框前发送此消息给消息框的所有者窗口，通过响应这条消息，所有者窗口可以 
-                                                 //通过使用给定的相关显示设备的句柄来设置消息框的文本和背景颜色 
+
+    //通过使用给定的相关显示设备的句柄来设置消息框的文本和背景颜色 
     public const int WM_CTLCOLOREDIT = 0x0133; //当一个编辑型控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以 
-                                               //通过使用给定的相关显示设备的句柄来设置编辑框的文本和背景颜色 
+
+    //通过使用给定的相关显示设备的句柄来设置编辑框的文本和背景颜色 
     public const int WM_CTLCOLORLISTBOX = 0x0134; //当一个列表框控件将要被绘制前发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以 
-                                                  //通过使用给定的相关显示设备的句柄来设置列表框的文本和背景颜色 
+
+    //通过使用给定的相关显示设备的句柄来设置列表框的文本和背景颜色 
     public const int WM_CTLCOLORBTN = 0x0135; //当一个按钮控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以 
-                                              //通过使用给定的相关显示设备的句柄来设置按纽的文本和背景颜色 
+
+    //通过使用给定的相关显示设备的句柄来设置按纽的文本和背景颜色 
     public const int WM_CTLCOLORDLG = 0x0136; //当一个对话框控件将要被绘制前发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以 
-                                              //通过使用给定的相关显示设备的句柄来设置对话框的文本背景颜色 
+
+    //通过使用给定的相关显示设备的句柄来设置对话框的文本背景颜色 
     public const int WM_CTLCOLORSCROLLBAR = 0x0137; //当一个滚动条控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以 
-                                                    //通过使用给定的相关显示设备的句柄来设置滚动条的背景颜色 
+
+    //通过使用给定的相关显示设备的句柄来设置滚动条的背景颜色 
     public const int WM_CTLCOLORSTATIC = 0x0138; //当一个静态控件将要被绘制时发送此消息给它的父窗口；通过响应这条消息，所有者窗口可以 
-                                                 //通过使用给定的相关显示设备的句柄来设置静态控件的文本和背景颜色 
+
+    //通过使用给定的相关显示设备的句柄来设置静态控件的文本和背景颜色 
     public const int WM_MOUSEFIRST = 0x0200; // 
     public const int WM_MOUSEMOVE = 0x0200; //移动鼠标 
     public const int WM_LBUTTONDOWN = 0x0201; //按下鼠标左键 
@@ -1171,39 +1414,50 @@ public class WindowsMessage
     public const int WM_MBUTTONDBLCLK = 0x0209; //双击鼠标中键 
     public const int WM_MOUSEWHEEL = 0x020A; //当鼠标轮子转动时发送此消息个当前有焦点的控件 
     public const int WM_MOUSELAST = 0x020A; // 
+
     /// <summary>
     /// 当光标位于窗口工作区中并且用户按下第一个或第二个 X 按钮时发布。 如果未捕获鼠标，则消息将发布到光标下方的窗口。 否则，消息将发布到捕获了鼠标的窗口。
     /// </summary>
     public const int WM_XBUTTONDOWN = 0x020B;
+
     /// <summary>
     /// 当光标位于窗口工作区中并且用户释放第一个或第二个 X 按钮时发布。 如果未捕获鼠标，则消息将发布到光标下方的窗口。 否则，消息将发布到捕获了鼠标的窗口。
     /// </summary>
     public const int WM_XBUTTONUP = 0x020C;
+
     /// <summary>
     /// 当光标位于窗口客户端区中并且用户双击第一个或第二个 X 按钮时发布。 如果未捕获鼠标，则消息将发布到光标下方的窗口。 否则，消息将发布到捕获了鼠标的窗口。
     /// </summary>
     public const int WM_XBUTTONDBLCLK = 0x020D;
+
     /// <summary>
     ///当光标位于窗口非工作区中并且用户按下第一个或第二个 X 按钮时发布。 此消息将发布到包含光标的窗口。 如果窗口捕获了鼠标，则不会发布此消息。
     /// </summary>
     public const int WM_NCXBUTTONDOWN = 0x00AB;
+
     /// <summary>
     /// 当光标位于窗口非工作区中并且用户释放第一个或第二个 X 按钮时发布。 此消息将发布到包含光标的窗口。 如果窗口捕获了鼠标，则不会发布此消息。
     /// </summary>
     public const int WM_NCXBUTTONUP = 0x00AC;
+
     /// <summary>
     /// 当光标位于窗口非工作区中并且用户双击第一个或第二个 X 按钮时发布。 此消息将发布到包含光标的窗口。 如果窗口捕获了鼠标，则不会发布此消息。
     /// </summary>
     public const int WM_NCXBUTTONDBLCLK = 0x00AD;
+
     public const int WM_PARENTNOTIFY = 0x0210; //当MDI子窗口被创建或被销毁，或用户按了一下鼠标键而光标在子窗口上时发送此消息给它的父窗口 
     public const int WM_ENTERMENULOOP = 0x0211; //发送此消息通知应用程序的主窗口that已经进入了菜单循环模式 
     public const int WM_EXITMENULOOP = 0x0212; //发送此消息通知应用程序的主窗口that已退出了菜单循环模式 
     public const int WM_NEXTMENU = 0x0213; // 
+
     public const int WM_SIZING = 532; //当用户正在调整窗口大小时发送此消息给窗口；通过此消息应用程序可以监视窗口大小和位置
-                                      //也可以修改他们 
+
+    //也可以修改他们 
     public const int WM_CAPTURECHANGED = 533; //发送此消息给窗口当它失去捕获的鼠标时； 
+
     public const int WM_MOVING = 534; //当用户在移动窗口时发送此消息，通过此消息应用程序可以监视窗口大小和位置 
-                                      //也可以修改他们； 
+
+    //也可以修改他们； 
     public const int WM_POWERBROADCAST = 536; //此消息发送给应用程序来通知它有关电源管理事件； 
     public const int WM_DEVICECHANGE = 537; //当设备的硬件配置改变时发送此消息给应用程序或设备驱动程序 
     public const int WM_IME_STARTCOMPOSITION = 0x010D; // 
@@ -1221,8 +1475,10 @@ public class WindowsMessage
     public const int WM_IME_KEYUP = 0x0291; // 
     public const int WM_MDICREATE = 0x0220; //应用程序发送此消息给多文档的客户窗口来创建一个MDI 子窗口 
     public const int WM_MDIDESTROY = 0x0221; //应用程序发送此消息给多文档的客户窗口来关闭一个MDI 子窗口 
+
     public const int WM_MDIACTIVATE = 0x0222; //应用程序发送此消息给多文档的客户窗口通知客户窗口激活另一个MDI子窗口，当客户窗口收到 
-                                              //此消息后，它发出WM_MDIACTIVE消息给MDI子窗口（未激活）激活它； 
+
+    //此消息后，它发出WM_MDIACTIVE消息给MDI子窗口（未激活）激活它； 
     public const int WM_MDIRESTORE = 0x0223; //程序发送此消息给MDI客户窗口让子窗口从最大最小化恢复到原来大小 
     public const int WM_MDINEXT = 0x0224; //程序发送此消息给MDI客户窗口激活下一个或前一个窗口 
     public const int WM_MDIMAXIMIZE = 0x0225; //程序发送此消息给MDI客户窗口来最大化一个MDI子窗口； 
@@ -1245,19 +1501,28 @@ public class WindowsMessage
     public const int WM_RENDERformAT = 0x0305; // 
     public const int WM_RENDERALLformATS = 0x0306; // 
     public const int WM_DESTROYCLIPBOARD = 0x0307; //当调用ENPTYCLIPBOARD函数时发送此消息给剪贴板的所有者 
+
     public const int WM_DRAWCLIPBOARD = 0x0308; //当剪贴板的内容变化时发送此消息给剪贴板观察链的第一个窗口；它允许用剪贴板观察窗口来 
-                                                //显示剪贴板的新内容； 
+
+    //显示剪贴板的新内容； 
     public const int WM_PAINTCLIPBOARD = 0x0309; //当剪贴板包含CF_OWNERDIPLAY格式的数据并且剪贴板观察窗口的客户区需要重画； 
     public const int WM_VSCROLLCLIPBOARD = 0x030A; // 
-    public const int WM_SIZECLIPBOARD = 0x030B; //当剪贴板包含CF_OWNERDIPLAY格式的数据并且剪贴板观察窗口的客户区域的大小已经改变是此消息通过剪贴板观察窗口发送给剪贴板的所有者； 
+
+    public const int
+        WM_SIZECLIPBOARD = 0x030B; //当剪贴板包含CF_OWNERDIPLAY格式的数据并且剪贴板观察窗口的客户区域的大小已经改变是此消息通过剪贴板观察窗口发送给剪贴板的所有者； 
+
     public const int WM_ASKCBformATNAME = 0x030C; //通过剪贴板观察窗口发送此消息给剪贴板的所有者来请求一个CF_OWNERDISPLAY格式的剪贴板的名字 
     public const int WM_CHANGECBCHAIN = 0x030D; //当一个窗口从剪贴板观察链中移去时发送此消息给剪贴板观察链的第一个窗口； 
+
     public const int WM_HSCROLLCLIPBOARD = 0x030E; // 
-                                                   //此消息通过一个剪贴板观察窗口发送给剪贴板的所有者；它发生在当剪贴板包含CFOWNERDISPALY格式的数据并且有个事件在剪贴板观察窗的水平滚动条上；所有者应滚动剪贴板图象并更新滚动条的值； 
+
+    //此消息通过一个剪贴板观察窗口发送给剪贴板的所有者；它发生在当剪贴板包含CFOWNERDISPALY格式的数据并且有个事件在剪贴板观察窗的水平滚动条上；所有者应滚动剪贴板图象并更新滚动条的值； 
     public const int WM_QUERYNEWPALETTE = 0x030F; //此消息发送给将要收到焦点的窗口，此消息能使窗口在收到焦点时同时有机会实现他的逻辑调色板 
     public const int WM_PALETTEISCHANGING = 0x0310; //当一个应用程序正要实现它的逻辑调色板时发此消息通知所有的应用程序 
+
     public const int WM_PALETTECHANGED = 0x0311; //此消息在一个拥有焦点的窗口实现它的逻辑调色板后发送此消息给所有顶级并重叠的窗口，以此 
-                                                 //来改变系统调色板 
+
+    //来改变系统调色板 
     public const int WM_HOTKEY = 0x0312; //当用户按下由REGISTERHOTKEY函数注册的热键时提交此消息 
     public const int WM_PRINT = 791; //应用程序发送此消息仅当WINDOWS或其它应用程序发出一个请求要求绘制一个应用程序的一部分； 
     public const int WM_PRINTCLIENT = 792; // 
@@ -1272,11 +1537,22 @@ public class WindowsMessage
     public const int WM_DDE_TERMINATE = WM_DDE_FIRST + 1; //一个DDE应用程序（无论是客户还是服务器）提交此消息来终止一个会话； 
     public const int WM_DDE_ADVISE = WM_DDE_FIRST + 2; //一个DDE客户程序提交此消息给一个DDE服务程序来请求服务器每当数据项改变时更新它 
     public const int WM_DDE_UNADVISE = WM_DDE_FIRST + 3; //一个DDE客户程序通过此消息通知一个DDE服务程序不更新指定的项或一个特殊的剪贴板格式的项 
-    public const int WM_DDE_ACK = WM_DDE_FIRST + 4; //此消息通知一个DDE（动态数据交换）程序已收到并正在处理WM_DDE_POKE, WM_DDE_EXECUTE, WM_DDE_DATA, WM_DDE_ADVISE, WM_DDE_UNADVISE, or WM_DDE_INITIAT消息 
+
+    public const int
+        WM_DDE_ACK =
+            WM_DDE_FIRST +
+            4; //此消息通知一个DDE（动态数据交换）程序已收到并正在处理WM_DDE_POKE, WM_DDE_EXECUTE, WM_DDE_DATA, WM_DDE_ADVISE, WM_DDE_UNADVISE, or WM_DDE_INITIAT消息 
+
     public const int WM_DDE_DATA = WM_DDE_FIRST + 5; //一个DDE服务程序提交此消息给DDE客户程序来传递个一数据项给客户或通知客户的一条可用数据项 
     public const int WM_DDE_REQUEST = WM_DDE_FIRST + 6; //一个DDE客户程序提交此消息给一个DDE服务程序来请求一个数据项的值； 
-    public const int WM_DDE_POKE = WM_DDE_FIRST + 7; //一个DDE客户程序提交此消息给一个DDE服务程序，客户使用此消息来请求服务器接收一个未经同意的数据项；服务器通过答复WM_DDE_ACK消息提示是否它接收这个数据项； 
-    public const int WM_DDE_EXECUTE = WM_DDE_FIRST + 8; //一个DDE客户程序提交此消息给一个DDE服务程序来发送一个字符串给服务器让它象串行命令一样被处理，服务器通过提交WM_DDE_ACK消息来作回应； 
+
+    public const int
+        WM_DDE_POKE =
+            WM_DDE_FIRST + 7; //一个DDE客户程序提交此消息给一个DDE服务程序，客户使用此消息来请求服务器接收一个未经同意的数据项；服务器通过答复WM_DDE_ACK消息提示是否它接收这个数据项； 
+
+    public const int
+        WM_DDE_EXECUTE = WM_DDE_FIRST + 8; //一个DDE客户程序提交此消息给一个DDE服务程序来发送一个字符串给服务器让它象串行命令一样被处理，服务器通过提交WM_DDE_ACK消息来作回应； 
+
     public const int WM_DDE_LAST = WM_DDE_FIRST + 8; // 
     public const int WM_APP = 0x8000; // 
     public const int WM_USER = 0x0400; //此消息能帮助应用程序自定义私有消息；
@@ -1306,9 +1582,6 @@ public class WindowsMessage
     public const int OF_READWRITE = 2;
     public const int OF_SHARE_DENY_NONE = 0x40;
     public readonly IntPtr HFILE_ERROR = new IntPtr(-1);
-
-
-
 
 
     ///////////////////////////////////////////////////////////////////// 
@@ -1354,6 +1627,7 @@ public class WindowsMessage
     //public const int LBN_SELCHANGE //选择了另一项 
     //public const int LBN_SETFOCUS //列表框获得输入焦点
 }
+
 /// <summary>
 /// 消息键
 /// </summary>
@@ -1363,31 +1637,38 @@ public class MessageKey
     /// 按下了 CTRL 键。
     /// </summary>
     public const int MK_CONTROL = 0x0008;
+
     /// <summary>
     /// 按下了鼠标左键。
     /// </summary>
     public const int MK_LBUTTON = 0x0001;
+
     /// <summary>
     /// 按下了鼠标中键。
     /// </summary>
     public const int MK_MBUTTON = 0x0010;
+
     /// <summary>
     /// 按下了鼠标右键。
     /// </summary>
     public const int MK_RBUTTON = 0x0002;
+
     /// <summary>
     /// 按下了 SHIFT 键。
     /// </summary>
     public const int MK_SHIFT = 0x0004;
+
     /// <summary>
     /// 按下了第一个 X 按钮。(通常是鼠标上的第四个按钮)
     /// </summary>
     public const int MK_XBUTTON1 = 0x0020;
+
     /// <summary>
     /// 按下了第二个 X 按钮。(通常是鼠标上的第五个按钮)
     /// </summary>
     public const int MK_XBUTTON2 = 0x0040;
 }
+
 /// <summary>
 /// 鼠标键
 /// </summary>
@@ -1397,11 +1678,13 @@ public class MouseKey
     /// 单击了第一个 X 按钮。(通常是鼠标上的第四个按钮)
     /// </summary>
     public const int XBUTTON1 = 0x0001;
+
     /// <summary>
     /// 单击了第二个 X 按钮。(通常是鼠标上的第五个按钮)
     /// </summary>
     public const int XBUTTON2 = 0x0002;
 }
+
 /// <summary>
 /// 钩子类型
 /// </summary>
@@ -1411,30 +1694,37 @@ public enum HookType : int
     /// 安装一个挂钩过程，用于记录发布到系统消息队列的输入消息。 此挂钩可用于记录宏。 有关详细信息，请参阅 JournalRecordProc 挂钩过程。
     /// </summary>
     WH_JOURNALRECORD = 0,
+
     /// <summary>
     /// 安装一个挂钩过程，该过程发布以前由 WH_JOURNALRECORD 挂钩过程记录的消息。 有关详细信息，请参阅 JournalPlaybackProc 挂钩过程。
     /// </summary>
     WH_JOURNALPLAYBACK = 1,
+
     /// <summary>
     /// 安装监视击键消息的挂钩过程。 有关详细信息，请参阅 KeyboardProc 挂钩过程。
     /// </summary>
     WH_KEYBOARD = 2,
+
     /// <summary>
     /// 安装用于监视发布到消息队列的消息的挂钩过程。 有关详细信息，请参阅 GetMsgProc 挂钩过程。
     /// </summary>
     WH_GETMESSAGE = 3,
+
     /// <summary>
     /// 安装一个挂钩过程，用于在系统将消息发送到目标窗口过程之前监视消息。 有关详细信息，请参阅 CallWndProc 挂钩过程。
     /// </summary>
     WH_CALLWNDPROC = 4,
+
     /// <summary>
     /// 安装用于接收对 CBT 应用程序有用的通知的挂钩过程。 有关详细信息，请参阅 CBTProc 挂钩过程。
     /// </summary>
     WH_CBT = 5,
+
     /// <summary>
     /// 安装挂钩过程，用于监视由于对话框、消息框、菜单或滚动条中的输入事件而生成的消息。 挂钩过程监视与调用线程位于同一桌面中的所有应用程序的消息。 有关详细信息，请参阅 SysMsgProc 挂钩过程。
     /// </summary>
     WH_SYSMSGFILTER = 6,
+
     /// <summary>
     /// 安装监视鼠标消息的挂钩过程。 有关详细信息，请参阅 MouseProc 挂钩过程。
     /// </summary>
@@ -1444,10 +1734,12 @@ public enum HookType : int
     WH_SHELL = 10,
     WH_FOREGROUNDIDLE = 11,
     WH_CALLWNDPROCRET = 12,
+
     /// <summary>
     /// 安装监视低级别键盘输入事件的挂钩过程。 有关详细信息，请参阅 LowLevelKeyboardProc 挂钩过程。
     /// </summary>
     WH_KEYBOARD_LL = 13,
+
     /// <summary>
     /// 安装用于监视低级别鼠标输入事件的挂钩过程。 有关详细信息，请参阅 LowLevelMouseProc 挂钩过程。
     /// </summary>

@@ -100,7 +100,7 @@ public static class ByteArrayExtension
     /// <exception cref="ArgumentException"></exception>
     public static long ToLong(this byte[] value, int startIndex = 0, bool reverse = false)
     {
-        return BitConverter.ToInt64(value.SubBytes(startIndex, targetLength: 8, reverse: reverse), startIndex);
+        return BitConverter.ToInt64(value.SubBytes(startIndex, targetLength: 8, reverse: reverse),0);
     }
 
     /// <summary>
@@ -121,7 +121,7 @@ public static class ByteArrayExtension
     public static float ToFloat(this byte[] value, int startIndex = 0, bool reverse = false)
     {
         value = value.SubBytes(startIndex, targetLength: 4, reverse: reverse);
-        return BitConverter.ToSingle(value, startIndex);
+        return BitConverter.ToSingle(value, 0);
     }
 
     /// <summary>
@@ -143,7 +143,7 @@ public static class ByteArrayExtension
     {
         value = value.SubBytes(startIndex, targetLength: 8, reverse: reverse);
 
-        return BitConverter.ToDouble(value, startIndex);
+        return BitConverter.ToDouble(value, 0);
     }
 
     /// <summary>
@@ -164,7 +164,7 @@ public static class ByteArrayExtension
     public static ushort ToUShort(this byte[] value, int startIndex = 0, bool reverse = false)
     {
         value = value.SubBytes(startIndex, targetLength: 2, reverse: reverse);
-        return BitConverter.ToUInt16(value, startIndex);
+        return BitConverter.ToUInt16(value,0);
     }
 
     /// <summary>
@@ -186,7 +186,7 @@ public static class ByteArrayExtension
     {
         value = value.SubBytes(startIndex, targetLength: 4, reverse: reverse);
 
-        return BitConverter.ToUInt32(value, startIndex);
+        return BitConverter.ToUInt32(value, 0);
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ public static class ByteArrayExtension
     {
         value = value.SubBytes(startIndex, targetLength: 8, reverse: reverse);
 
-        return BitConverter.ToUInt64(value, startIndex);
+        return BitConverter.ToUInt64(value, 0);
     }
 
     /// <summary>

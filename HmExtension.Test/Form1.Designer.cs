@@ -28,15 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.qrContent = new AntdUI.Input();
             this.button1 = new AntdUI.Button();
             this.image3D1 = new AntdUI.Image3D();
             this.tabs1 = new AntdUI.Tabs();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel3 = new AntdUI.Panel();
+            this.label1 = new AntdUI.Label();
+            this.iconSizePercentTb = new AntdUI.Slider();
             this.panel2 = new AntdUI.Panel();
             this.label3 = new AntdUI.Label();
             this.lightColorCp = new AntdUI.ColorPicker();
+            this.panel4 = new AntdUI.Panel();
+            this.label4 = new AntdUI.Label();
+            this.iconBackgroundColorCp = new AntdUI.ColorPicker();
             this.panel1 = new AntdUI.Panel();
             this.label2 = new AntdUI.Label();
             this.darkColorCp = new AntdUI.ColorPicker();
@@ -44,22 +51,28 @@
             this.levelSelect = new AntdUI.Select();
             this.drawQuietZonesSelect = new AntdUI.Select();
             this.imageSizeLabel = new AntdUI.Label();
+            this.iconBorderWidthTb = new AntdUI.InputNumber();
             this.qrModelSizeTb = new AntdUI.InputNumber();
             this.iconPathTb = new AntdUI.Input();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.iconSizePercentTb = new AntdUI.Slider();
-            this.panel3 = new AntdUI.Panel();
-            this.label1 = new AntdUI.Label();
-            this.panel4 = new AntdUI.Panel();
-            this.label4 = new AntdUI.Label();
-            this.iconBackgroundColorCp = new AntdUI.ColorPicker();
-            this.iconBorderWidthTb = new AntdUI.InputNumber();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button5 = new AntdUI.Button();
+            this.cameraList = new AntdUI.Select();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button6 = new AntdUI.Button();
+            this.button7 = new AntdUI.Button();
             this.tabs1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // qrContent
@@ -89,7 +102,7 @@
             this.image3D1.BackColor = System.Drawing.Color.Gainsboro;
             this.image3D1.Location = new System.Drawing.Point(348, 49);
             this.image3D1.Name = "image3D1";
-            this.image3D1.Size = new System.Drawing.Size(770, 573);
+            this.image3D1.Size = new System.Drawing.Size(770, 572);
             this.image3D1.TabIndex = 2;
             this.image3D1.Text = "image3D1";
             // 
@@ -97,6 +110,7 @@
             // 
             this.tabs1.Controls.Add(this.tabPage1);
             this.tabs1.Controls.Add(this.tabPage2);
+            this.tabs1.Controls.Add(this.tabPage3);
             this.tabs1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabs1.Location = new System.Drawing.Point(0, 0);
             this.tabs1.Name = "tabs1";
@@ -127,6 +141,34 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "二维码";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.iconSizePercentTb);
+            this.panel3.Location = new System.Drawing.Point(8, 317);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(333, 39);
+            this.panel3.TabIndex = 11;
+            this.panel3.Text = "panel3";
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(6, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 36);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "水印比例:";
+            // 
+            // iconSizePercentTb
+            // 
+            this.iconSizePercentTb.Location = new System.Drawing.Point(75, 3);
+            this.iconSizePercentTb.Name = "iconSizePercentTb";
+            this.iconSizePercentTb.ShowValue = true;
+            this.iconSizePercentTb.Size = new System.Drawing.Size(207, 36);
+            this.iconSizePercentTb.TabIndex = 10;
+            this.iconSizePercentTb.Text = "slider1";
+            this.iconSizePercentTb.Value = 15;
             // 
             // panel2
             // 
@@ -160,6 +202,39 @@
             this.lightColorCp.TabIndex = 5;
             this.lightColorCp.Text = "colorPicker1";
             this.lightColorCp.Value = System.Drawing.Color.White;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.iconBackgroundColorCp);
+            this.panel4.Location = new System.Drawing.Point(6, 351);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(332, 46);
+            this.panel4.TabIndex = 9;
+            this.panel4.Text = "panel1";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(6, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(79, 36);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "水印背景色:";
+            // 
+            // iconBackgroundColorCp
+            // 
+            this.iconBackgroundColorCp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconBackgroundColorCp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.iconBackgroundColorCp.Location = new System.Drawing.Point(77, 7);
+            this.iconBackgroundColorCp.Name = "iconBackgroundColorCp";
+            this.iconBackgroundColorCp.Round = true;
+            this.iconBackgroundColorCp.ShowText = true;
+            this.iconBackgroundColorCp.Size = new System.Drawing.Size(252, 36);
+            this.iconBackgroundColorCp.TabIndex = 5;
+            this.iconBackgroundColorCp.Text = "colorPicker1";
+            this.iconBackgroundColorCp.Value = System.Drawing.Color.Black;
             // 
             // panel1
             // 
@@ -232,6 +307,26 @@
             this.imageSizeLabel.Text = "";
             this.imageSizeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // iconBorderWidthTb
+            // 
+            this.iconBorderWidthTb.Font = new System.Drawing.Font("宋体", 12F);
+            this.iconBorderWidthTb.Location = new System.Drawing.Point(6, 404);
+            this.iconBorderWidthTb.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.iconBorderWidthTb.Name = "iconBorderWidthTb";
+            this.iconBorderWidthTb.PrefixText = "水印边框大小";
+            this.iconBorderWidthTb.Size = new System.Drawing.Size(334, 36);
+            this.iconBorderWidthTb.TabIndex = 3;
+            this.iconBorderWidthTb.Text = "1";
+            this.iconBorderWidthTb.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // qrModelSizeTb
             // 
             this.qrModelSizeTb.Font = new System.Drawing.Font("宋体", 12F);
@@ -268,6 +363,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -276,86 +373,96 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // iconSizePercentTb
+            // button4
             // 
-            this.iconSizePercentTb.Location = new System.Drawing.Point(75, 3);
-            this.iconSizePercentTb.Name = "iconSizePercentTb";
-            this.iconSizePercentTb.ShowValue = true;
-            this.iconSizePercentTb.Size = new System.Drawing.Size(207, 36);
-            this.iconSizePercentTb.TabIndex = 10;
-            this.iconSizePercentTb.Text = "slider1";
-            this.iconSizePercentTb.Value = 15;
+            this.button4.Location = new System.Drawing.Point(183, 25);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(76, 41);
+            this.button4.TabIndex = 0;
+            this.button4.Text = "button3";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button3_MouseDown);
             // 
-            // panel3
+            // button3
             // 
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.iconSizePercentTb);
-            this.panel3.Location = new System.Drawing.Point(8, 317);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(333, 39);
-            this.panel3.TabIndex = 11;
-            this.panel3.Text = "panel3";
+            this.button3.Location = new System.Drawing.Point(26, 25);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(76, 41);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button3_MouseDown);
+            this.button3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button3_MouseUp);
             // 
-            // label1
+            // tabPage3
             // 
-            this.label1.Location = new System.Drawing.Point(6, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 36);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "水印比例:";
+            this.tabPage3.Controls.Add(this.pictureBox1);
+            this.tabPage3.Controls.Add(this.button7);
+            this.tabPage3.Controls.Add(this.button6);
+            this.tabPage3.Controls.Add(this.button5);
+            this.tabPage3.Controls.Add(this.cameraList);
+            this.tabPage3.Location = new System.Drawing.Point(4, 26);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage3.Size = new System.Drawing.Size(1126, 630);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Camera";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // panel4
+            // pictureBox1
             // 
-            this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.iconBackgroundColorCp);
-            this.panel4.Location = new System.Drawing.Point(6, 351);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(332, 46);
-            this.panel4.TabIndex = 9;
-            this.panel4.Text = "panel1";
+            this.pictureBox1.Location = new System.Drawing.Point(41, 110);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1042, 475);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
-            // label4
+            // button5
             // 
-            this.label4.Location = new System.Drawing.Point(6, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 36);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "水印背景色:";
+            this.button5.Location = new System.Drawing.Point(280, 21);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(136, 46);
+            this.button5.TabIndex = 2;
+            this.button5.Text = "打开摄像头";
+            this.button5.Type = AntdUI.TTypeMini.Primary;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // iconBackgroundColorCp
+            // cameraList
             // 
-            this.iconBackgroundColorCp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconBackgroundColorCp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.iconBackgroundColorCp.Location = new System.Drawing.Point(77, 7);
-            this.iconBackgroundColorCp.Name = "iconBackgroundColorCp";
-            this.iconBackgroundColorCp.Round = true;
-            this.iconBackgroundColorCp.ShowText = true;
-            this.iconBackgroundColorCp.Size = new System.Drawing.Size(252, 36);
-            this.iconBackgroundColorCp.TabIndex = 5;
-            this.iconBackgroundColorCp.Text = "colorPicker1";
-            this.iconBackgroundColorCp.Value = System.Drawing.Color.Black;
+            this.cameraList.Location = new System.Drawing.Point(29, 21);
+            this.cameraList.Margin = new System.Windows.Forms.Padding(2);
+            this.cameraList.Name = "cameraList";
+            this.cameraList.Size = new System.Drawing.Size(227, 47);
+            this.cameraList.TabIndex = 0;
             // 
-            // iconBorderWidthTb
+            // timer1
             // 
-            this.iconBorderWidthTb.Font = new System.Drawing.Font("宋体", 12F);
-            this.iconBorderWidthTb.Location = new System.Drawing.Point(6, 404);
-            this.iconBorderWidthTb.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.iconBorderWidthTb.Name = "iconBorderWidthTb";
-            this.iconBorderWidthTb.PrefixText = "水印边框大小";
-            this.iconBorderWidthTb.Size = new System.Drawing.Size(334, 36);
-            this.iconBorderWidthTb.TabIndex = 3;
-            this.iconBorderWidthTb.Text = "1";
-            this.iconBorderWidthTb.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(450, 22);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(136, 46);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "注册人脸";
+            this.button6.Type = AntdUI.TTypeMini.Primary;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(605, 21);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(136, 46);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "识别人脸";
+            this.button7.Type = AntdUI.TTypeMini.Primary;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Form1
             // 
@@ -365,13 +472,17 @@
             this.Controls.Add(this.tabs1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabs1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -402,6 +513,15 @@
         private AntdUI.Label label4;
         private AntdUI.ColorPicker iconBackgroundColorCp;
         private AntdUI.InputNumber iconBorderWidthTb;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TabPage tabPage3;
+        private AntdUI.Select cameraList;
+        private AntdUI.Button button5;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private AntdUI.Button button6;
+        private AntdUI.Button button7;
     }
 }
 

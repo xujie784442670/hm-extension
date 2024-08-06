@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HmExtension.Face</RootNamespace>
+    <AssemblyName>HmExtension.Face</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+    <DocumentationFile>bin\Release\HmExtension.Face.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ViewFaceCore, Version=0.3.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ViewFaceCore.0.3.8\lib\net461\ViewFaceCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ViewFaceCore.Extension.SystemDrawing, Version=0.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ViewFaceCore.Extension.SystemDrawing.0.3.7\lib\net461\ViewFaceCore.Extension.SystemDrawing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FaceHelper.cs" />
+    <Compile Include="IFacePersistence.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HmExtension.Bitmap\HmExtension.Drawing.csproj">
+      <Project>{ada46e78-b1d5-49c2-8626-92873217e677}</Project>
+      <Name>HmExtension.Drawing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HmExtension.Commons\HmExtension.Commons.csproj">
+      <Project>{92157dc8-6144-4143-8052-301f7ebfd386}</Project>
+      <Name>HmExtension.Commons</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Readme.md" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets" Condition="Exists('..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets'))" />
+  </Target>
+  <Import Project="..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets" Condition="Exists('..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets')" />
+</Project>

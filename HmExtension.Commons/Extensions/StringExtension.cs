@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace HmExtension.Commons.Extensions;
@@ -199,7 +200,7 @@ public static class StringExtension
     public static byte[] FromHex(this string value)
     {
         // 将字符串中所有的非16进制字符替换为空
-        value = value.Replace(@"[^0-9a-fA-F]", "");
+        value = Regex.Replace(value,@"[^0-9a-fA-F]", "");
         var bytes = new byte[value.Length / 2];
         for (var i = 0; i < bytes.Length; i++)
         {

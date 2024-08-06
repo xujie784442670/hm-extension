@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
 using HmExtension.Commons.Commons;
-using static HmExtension.Commons.WindowApi.MouseHook;
+using static HmExtension.WindowApi.MouseHook;
 
-namespace HmExtension.Commons.Events;
+namespace HmExtension.WindowApi.Events;
 
 /// <summary>
 /// 鼠标事件参数

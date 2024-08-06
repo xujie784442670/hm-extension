@@ -1,4 +1,4 @@
-﻿using HmExtension.Commons.WindowApi;
+﻿using HmExtension.WindowApi;
 
 namespace HmExtension.Commons.Events;
 /// <summary>

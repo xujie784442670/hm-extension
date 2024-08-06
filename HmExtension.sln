@@ -19,6 +19,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.QRCode", "HmExt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.JavaScript", "HmExtension.JavaScript\HmExtension.JavaScript.csproj", "{C7C29A52-8165-41A5-889A-56BCD7141209}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.WindowApi", "HmExtension.WindowApi\HmExtension.WindowApi.csproj", "{1C4AAE11-B320-4BAC-9567-666414A3D366}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Face", "HmExtension.Face\HmExtension.Face.csproj", "{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Camera", "HmExtension.Camera\HmExtension.Camera.csproj", "{2590CDBB-7E6C-44FD-94D3-390DDDBFACB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Drawing", "HmExtension.Bitmap\HmExtension.Drawing.csproj", "{ADA46E78-B1D5-49C2-8626-92873217E677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +65,22 @@ Global
 		{C7C29A52-8165-41A5-889A-56BCD7141209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7C29A52-8165-41A5-889A-56BCD7141209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7C29A52-8165-41A5-889A-56BCD7141209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C4AAE11-B320-4BAC-9567-666414A3D366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C4AAE11-B320-4BAC-9567-666414A3D366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C4AAE11-B320-4BAC-9567-666414A3D366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C4AAE11-B320-4BAC-9567-666414A3D366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2590CDBB-7E6C-44FD-94D3-390DDDBFACB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2590CDBB-7E6C-44FD-94D3-390DDDBFACB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2590CDBB-7E6C-44FD-94D3-390DDDBFACB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2590CDBB-7E6C-44FD-94D3-390DDDBFACB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADA46E78-B1D5-49C2-8626-92873217E677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADA46E78-B1D5-49C2-8626-92873217E677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADA46E78-B1D5-49C2-8626-92873217E677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADA46E78-B1D5-49C2-8626-92873217E677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,13 +1,13 @@
-﻿using HmExtension.Commons.Events;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
-using static HmExtension.Commons.WindowApi.MessageHook;
+using HmExtension.Commons;
+using HmExtension.Commons.Events;
 
-namespace HmExtension.Commons.WindowApi;
+namespace HmExtension.WindowApi;
 /// <summary>
 /// 系统消息钩子
 /// </summary>
-public class MessageHook:AbstractHook<MessageHookType>
+public class MessageHook:AbstractHook<MessageHook.MessageHookType>
 {
     /// <summary>
     /// 消息事件参数

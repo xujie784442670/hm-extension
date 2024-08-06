@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using Keys = HmExtension.Commons.Commons.Keys;
+using HmExtension.Commons.Commons;
 
-namespace HmExtension.Commons.utils;
+namespace HmExtension.WindowApi;
 
 /// <summary>
 /// 热键辅助类

@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,19 +24,25 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AntdUI, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AntdUI.1.4.3\lib\net46\AntdUI.dll</HintPath>
+    </Reference>
+    <Reference Include="ArcFaceProSDK4net, Version=4.0.390.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ArcFaceProSDK4net.4.0.390.2\lib\net452\ArcFaceProSDK4net.dll</HintPath>
     </Reference>
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
@@ -51,11 +59,20 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ViewFaceCore, Version=0.3.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ViewFaceCore.0.3.8\lib\net461\ViewFaceCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ViewFaceCore.Extension.SystemDrawing, Version=0.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ViewFaceCore.Extension.SystemDrawing.0.3.7\lib\net461\ViewFaceCore.Extension.SystemDrawing.dll</HintPath>
+    </Reference>
     <Reference Include="zxing, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.16.9\lib\net47\zxing.dll</HintPath>
     </Reference>
     <Reference Include="zxing.presentation, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.16.9\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="摄像头枚举工具, Version=4.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\摄像头枚举工具.4.6.0\lib\net46\摄像头枚举工具.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +111,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HmExtension.Bitmap\HmExtension.Drawing.csproj">
+      <Project>{ada46e78-b1d5-49c2-8626-92873217e677}</Project>
+      <Name>HmExtension.Drawing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HmExtension.Camera\HmExtension.Camera.csproj">
+      <Project>{2590cdbb-7e6c-44fd-94d3-390dddbfacb8}</Project>
+      <Name>HmExtension.Camera</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HmExtension.Commons\HmExtension.Commons.csproj">
       <Project>{92157dc8-6144-4143-8052-301f7ebfd386}</Project>
       <Name>HmExtension.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HmExtension.Face\HmExtension.Face.csproj">
+      <Project>{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}</Project>
+      <Name>HmExtension.Face</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HmExtension.QRCode\HmExtension.QRCode.csproj">
+      <Project>{3ecc0e14-4cc0-4221-8df6-61a19998ae3d}</Project>
+      <Name>HmExtension.QRCode</Name>
     </ProjectReference>
     <ProjectReference Include="..\HmExtension\HmExtension.csproj">
       <Project>{6caee561-9b16-4e70-9ac8-e3e3984c3444}</Project>
@@ -104,4 +137,43 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets" Condition="Exists('..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.runtime.win.x64.6.0.7\build\ViewFaceCore.runtime.win.x64.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.age_predictor.6.0.7\build\ViewFaceCore.model.age_predictor.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.age_predictor.6.0.7\build\ViewFaceCore.model.age_predictor.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.eye_state.6.0.7\build\ViewFaceCore.model.eye_state.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.eye_state.6.0.7\build\ViewFaceCore.model.eye_state.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_recognizer.6.0.7\build\ViewFaceCore.model.face_recognizer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_recognizer.6.0.7\build\ViewFaceCore.model.face_recognizer.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.face_recognizer_mask.6.0.7\build\ViewFaceCore.model.face_recognizer_mask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.face_recognizer_mask.6.0.7\build\ViewFaceCore.model.face_recognizer_mask.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.fas_first.6.0.7\build\ViewFaceCore.model.fas_first.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.fas_first.6.0.7\build\ViewFaceCore.model.fas_first.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.fas_second.6.0.7\build\ViewFaceCore.model.fas_second.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.fas_second.6.0.7\build\ViewFaceCore.model.fas_second.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.gender_predictor.6.0.7\build\ViewFaceCore.model.gender_predictor.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.gender_predictor.6.0.7\build\ViewFaceCore.model.gender_predictor.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.mask_detector.6.0.7\build\ViewFaceCore.model.mask_detector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.mask_detector.6.0.7\build\ViewFaceCore.model.mask_detector.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.pose_estimation.6.0.7\build\ViewFaceCore.model.pose_estimation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.pose_estimation.6.0.7\build\ViewFaceCore.model.pose_estimation.targets'))" />
+    <Error Condition="!Exists('..\packages\ViewFaceCore.model.quality_lbn.6.0.7\build\ViewFaceCore.model.quality_lbn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ViewFaceCore.model.quality_lbn.6.0.7\build\ViewFaceCore.model.quality_lbn.targets'))" />
+  </Target>
+  <Import Project="..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets" Condition="Exists('..\packages\ViewFaceCore.runtime.win.x86.6.0.7\build\ViewFaceCore.runtime.win.x86.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_recognizer_light.6.0.7\build\ViewFaceCore.model.face_recognizer_light.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.age_predictor.6.0.7\build\ViewFaceCore.model.age_predictor.targets" Condition="Exists('..\packages\ViewFaceCore.model.age_predictor.6.0.7\build\ViewFaceCore.model.age_predictor.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.eye_state.6.0.7\build\ViewFaceCore.model.eye_state.targets" Condition="Exists('..\packages\ViewFaceCore.model.eye_state.6.0.7\build\ViewFaceCore.model.eye_state.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_detector.6.0.7\build\ViewFaceCore.model.face_detector.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_landmarker_mask_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_mask_pts5.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_landmarker_pts5.6.0.7\build\ViewFaceCore.model.face_landmarker_pts5.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_landmarker_pts68.6.0.7\build\ViewFaceCore.model.face_landmarker_pts68.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_recognizer.6.0.7\build\ViewFaceCore.model.face_recognizer.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_recognizer.6.0.7\build\ViewFaceCore.model.face_recognizer.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.face_recognizer_mask.6.0.7\build\ViewFaceCore.model.face_recognizer_mask.targets" Condition="Exists('..\packages\ViewFaceCore.model.face_recognizer_mask.6.0.7\build\ViewFaceCore.model.face_recognizer_mask.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.fas_first.6.0.7\build\ViewFaceCore.model.fas_first.targets" Condition="Exists('..\packages\ViewFaceCore.model.fas_first.6.0.7\build\ViewFaceCore.model.fas_first.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.fas_second.6.0.7\build\ViewFaceCore.model.fas_second.targets" Condition="Exists('..\packages\ViewFaceCore.model.fas_second.6.0.7\build\ViewFaceCore.model.fas_second.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.gender_predictor.6.0.7\build\ViewFaceCore.model.gender_predictor.targets" Condition="Exists('..\packages\ViewFaceCore.model.gender_predictor.6.0.7\build\ViewFaceCore.model.gender_predictor.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.mask_detector.6.0.7\build\ViewFaceCore.model.mask_detector.targets" Condition="Exists('..\packages\ViewFaceCore.model.mask_detector.6.0.7\build\ViewFaceCore.model.mask_detector.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.pose_estimation.6.0.7\build\ViewFaceCore.model.pose_estimation.targets" Condition="Exists('..\packages\ViewFaceCore.model.pose_estimation.6.0.7\build\ViewFaceCore.model.pose_estimation.targets')" />
+  <Import Project="..\packages\ViewFaceCore.model.quality_lbn.6.0.7\build\ViewFaceCore.model.quality_lbn.targets" Condition="Exists('..\packages\ViewFaceCore.model.quality_lbn.6.0.7\build\ViewFaceCore.model.quality_lbn.targets')" />
 </Project>

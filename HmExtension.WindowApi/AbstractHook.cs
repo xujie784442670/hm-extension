@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static HmExtension.Commons.WinApi;
+using HmExtension.Commons;
+using static HmExtension.WindowApi.WinApi;
 
-namespace HmExtension.Commons.WindowApi;
+namespace HmExtension.WindowApi;
 
 /// <summary>
 /// 钩子基类类型

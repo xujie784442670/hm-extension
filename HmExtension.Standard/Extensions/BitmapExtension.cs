@@ -2,8 +2,6 @@
 using System.Drawing.Imaging;
 using System.IO;
 using HmExtension.Commons.Extensions;
-using ZXing;
-using ZXing.QrCode;
 
 namespace HmExtension.Standard.Extensions;
 /// <summary>
