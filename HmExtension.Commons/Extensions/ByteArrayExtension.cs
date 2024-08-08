@@ -13,6 +13,17 @@ namespace HmExtension.Commons.Extensions;
 public static class ByteArrayExtension
 {
     /// <summary>
+    /// 将字节数组转换为二进制字符串
+    /// </summary>
+    /// <param name="value">目标字节数组</param>
+    /// <param name="separator">分隔符</param>
+    /// <returns></returns>
+    public static string ToBinary(this byte[] value,string separator=" ")
+    {
+        return string.Join(separator, value.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')));
+    }
+
+    /// <summary>
     /// 截取字节数组
     /// </summary>
     /// <param name="value"></param>
