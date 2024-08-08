@@ -14,14 +14,13 @@ public class TypeHelper
     /// </summary>
     /// <param name="type">待获取属性的类型</param>
     /// <param name="isPrivate">是否包含私有属性</param>
+    /// <param name="isStatic">是否包含静态属性</param>
+    /// <param name="bindingFlags">决定查找属性的标志</param>
     /// <returns></returns>
-    public static PropertyInfo[] GetProperties(Type type, bool isPrivate = false)
+    public static PropertyInfo[] GetProperties(Type type, bool isPrivate = false,bool isStatic=false, BindingFlags bindingFlags = BindingFlags.Instance)
     {
-        BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance;
-        if (isPrivate)
-        {
-            bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance;
-        }
+        bindingFlags |= isPrivate ? BindingFlags.NonPublic : BindingFlags.Public;
+        bindingFlags |= isStatic ? BindingFlags.Static : BindingFlags.Instance;
 
         var propertyInfos = type.GetProperties(bindingFlags).ToList();
         // 检查是否有父类
@@ -38,15 +37,13 @@ public class TypeHelper
     /// </summary>
     /// <param name="type">待获取字段的类型</param>
     /// <param name="isPrivate">是否包含私有属性</param>
+    /// <param name="isStatic">是否包含静态属性</param>
+    /// <param name="bindingFlags">决定查找属性的标志</param>
     /// <returns></returns>
-    public static FieldInfo[] GetFields(Type type, bool isPrivate = false)
+    public static FieldInfo[] GetFields(Type type, bool isPrivate = false, bool isStatic = false, BindingFlags bindingFlags = BindingFlags.Instance)
     {
-        BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance;
-        if (isPrivate)
-        {
-            bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance;
-        }
-
+        bindingFlags |= isPrivate ? BindingFlags.NonPublic : BindingFlags.Public;
+        bindingFlags |= isStatic ? BindingFlags.Static : BindingFlags.Instance;
         var fieldInfos = type.GetFields(bindingFlags).ToList();
         // 检查是否有父类
         if (type.BaseType != null)
