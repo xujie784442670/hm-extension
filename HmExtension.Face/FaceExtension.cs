@@ -226,4 +226,18 @@ public static class FaceExtension
     {
         return await FaceHelper.EyeStateDetector(bitmap,fdc,flc);
     }
+
+    /// <summary>
+    /// 性别预测
+    /// </summary>
+    /// <param name="bitmap"></param>
+    /// <param name="fdc">人脸检测配置</param>
+    /// <param name="flc">人脸标记配置</param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    public static async Task<Gender> GenderPredictor(Bitmap bitmap, FaceDetectConfig fdc = null,
+        FaceLandmarkConfig flc = null)
+    {
+        return await FaceHelper.GenderPredictor(bitmap, fdc, flc);
+    }
 }

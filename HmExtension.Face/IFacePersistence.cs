@@ -75,7 +75,7 @@ public class LocalFacePersistence : IFacePersistence
     {
         foreach (var kv in _faces)
         {
-            if (FaceHelper.IsSelf(kv.Value, features, fdc, flc, frc))
+            if (FaceHelper.IsSelf(kv.Value, features, frc))
             {
                 return kv.Key;
             }
