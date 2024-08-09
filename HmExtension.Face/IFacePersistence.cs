@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using HmExtension.Commons.Extensions;
+using ViewFaceCore.Configs;
 using ViewFaceCore.Model;
 
 namespace HmExtension.Face;
@@ -25,11 +26,11 @@ public interface IFacePersistence
     /// 匹配人脸特征,返回匹配的人脸特征唯一标识
     /// </summary>
     /// <param name="features"></param>
-    /// <param name="faceType"></param>
-    /// <param name="threshold"></param>
+    /// <param name="fdc">人脸检测配置</param>
+    /// <param name="flc">人脸标记配置</param>
+    /// <param name="frc">特征提取配置</param>
     /// <returns></returns>
-    public string Match(float[] features, FaceType faceType = FaceType.Normal,
-        float threshold = 0);
+    public string Match(float[] features, FaceDetectConfig fdc = null, FaceLandmarkConfig flc = null, FaceRecognizeConfig frc = null);
 }
 
 /// <summary>
@@ -69,12 +70,12 @@ public class LocalFacePersistence : IFacePersistence
         Store();
     }
 
-    public string Match(float[] features, FaceType faceType = FaceType.Normal,
-        float threshold = 0)
+    public string Match(float[] features, FaceDetectConfig fdc = null, FaceLandmarkConfig flc = null,
+        FaceRecognizeConfig frc = null)
     {
         foreach (var kv in _faces)
         {
-            if (FaceHelper.IsSelf(kv.Value, features, faceType, threshold))
+            if (FaceHelper.IsSelf(kv.Value, features, fdc, flc, frc))
             {
                 return kv.Key;
             }
