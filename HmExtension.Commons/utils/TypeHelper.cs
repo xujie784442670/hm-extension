@@ -212,4 +212,26 @@ public class TypeHelper
         }
         field.SetValue(o, value);
     }
+
+    /// <summary>
+    /// 获取类型的方法
+    /// </summary>
+    /// <param name="type">类型</param>
+    /// <param name="isPrivate">是否包含私有方法</param>
+    /// <param name="isStatic">是否包含静态方法</param>
+    /// <param name="bindingFlags">决定查找方法的标志</param>
+    /// <returns></returns>
+    public static MethodInfo[] GetMethods(Type type, bool isPrivate = false, bool isStatic = false, BindingFlags bindingFlags = BindingFlags.Instance)
+    {
+        bindingFlags |= BindingFlags.Public;
+        bindingFlags |= isPrivate ? BindingFlags.NonPublic : BindingFlags.Public;
+        bindingFlags |= isStatic ? BindingFlags.Static : BindingFlags.Instance;
+        var methodInfos = type.GetMethods(bindingFlags).ToList();
+        // 检查是否有父类
+        if (type.BaseType != null)
+        {
+            methodInfos.AddRange(GetMethods(type.BaseType, isPrivate));
+        }
+        return methodInfos.ToArray();
+    }
 }

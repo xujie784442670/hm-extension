@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using ViewFaceCore;
 using ViewFaceCore.Configs;
@@ -109,9 +110,9 @@ public class FaceHelper
             };
         }
 
-        var faceRecognizeConfig = new FaceRecognizeConfig();
-        faceRecognizeConfig.SetThreshold(faceType, threshold);
-        using var recognizer = new FaceRecognizer(faceRecognizeConfig);
+        // var faceRecognizeConfig = new FaceRecognizeConfig();
+        // faceRecognizeConfig.SetThreshold(faceType, threshold);
+        using var recognizer = new FaceRecognizer();
         return recognizer.Extract(bitmap, markPoints);
     }
 
@@ -218,5 +219,26 @@ public class FaceHelper
         faceRecognizeConfig.SetThreshold(faceType, threshold);
         using var recognizer = new FaceRecognizer(faceRecognizeConfig);
         return recognizer.IsSelf(face1, face2);
+    }
+
+   /// <summary>
+   /// 活体检测
+   /// </summary>
+   /// <param name="bitmap">待检测图片</param>
+   /// <returns></returns>
+   /// <exception cref="Exception"></exception>
+    public static async Task<AntiSpoofingResult> LiveDetection(Bitmap bitmap)
+    {
+        var faceInfo =await Detect(bitmap);
+        // 检查是否有人脸
+        if (faceInfo == null || !faceInfo.Any()) throw new Exception("未检测到人脸");
+        // 检查是否有多张人脸
+        if (faceInfo.Length > 1) throw new Exception("检测到多张人脸");
+        // 人脸关键点标记
+        var markPoints = FaceMark(bitmap, faceInfo[0]);
+        // 活体检查
+        using FaceAntiSpoofing faceAntiSpoofing = new FaceAntiSpoofing();
+        var result = faceAntiSpoofing.AntiSpoofing(bitmap, faceInfo[0], markPoints);
+        return result;
     }
 }

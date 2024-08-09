@@ -205,11 +205,11 @@ namespace HmExtension.Test
 
         private async void button7_Click(object sender, EventArgs e)
         {
-            var bitmap = new Bitmap("test.jpg");
-            var faceInfos =await FaceHelper.Detect(bitmap);
-            var faceMarkPoints = FaceHelper.FaceMark(bitmap, faceInfos[0]);
-            var extract = FaceHelper.Extract(bitmap, faceMarkPoints);
-            var findFaceInfo = FaceHelper.FindFaceInfo((Image)pictureBox1.Image.Clone());
+            // var bitmap = new Bitmap("test.jpg");
+            // var faceInfos =await FaceHelper.Detect(bitmap);
+            // var faceMarkPoints = FaceHelper.FaceMark(bitmap, faceInfos[0]);
+            // var extract = FaceHelper.Extract(bitmap, faceMarkPoints);
+            var findFaceInfo = FaceHelper.Match((Image)pictureBox1.Image.Clone());
             var stop = new Stopwatch();
             stop.Start();
             findFaceInfo.ContinueWith(t =>

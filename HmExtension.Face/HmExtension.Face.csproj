@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FaceExtension.cs" />
     <Compile Include="FaceHelper.cs" />
     <Compile Include="IFacePersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
