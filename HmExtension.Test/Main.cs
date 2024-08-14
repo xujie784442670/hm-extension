@@ -41,5 +41,10 @@ namespace HmExtension.Test
         {
             new FormWebSocketClientTest().Show();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            new FormMqttTest().Show();
+        }
     }
 }

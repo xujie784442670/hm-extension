@@ -47,6 +47,9 @@
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
+    <Reference Include="MQTTnet, Version=4.3.6.1152, Culture=neutral, PublicKeyToken=fdb7629f2e364a63, processorArchitecture=MSIL">
+      <HintPath>..\packages\MQTTnet.4.3.6.1152\lib\net461\MQTTnet.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -101,6 +104,12 @@
     <Compile Include="FormFaceTest.Designer.cs">
       <DependentUpon>FormFaceTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMqttTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMqttTest.Designer.cs">
+      <DependentUpon>FormMqttTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormQrCodeTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormFaceTest.resx">
       <DependentUpon>FormFaceTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMqttTest.resx">
+      <DependentUpon>FormMqttTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormQrCodeTest.resx">
       <DependentUpon>FormQrCodeTest.cs</DependentUpon>
@@ -184,6 +196,10 @@
     <ProjectReference Include="..\HmExtension.Face\HmExtension.Face.csproj">
       <Project>{08134B92-F2E2-4EC7-ADB0-4AB105042FB6}</Project>
       <Name>HmExtension.Face</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HmExtension.Mqtt\HmExtension.Mqtt.csproj">
+      <Project>{c004eb53-54a4-4760-8941-9d4d8b0d52f5}</Project>
+      <Name>HmExtension.Mqtt</Name>
     </ProjectReference>
     <ProjectReference Include="..\HmExtension.QRCode\HmExtension.QRCode.csproj">
       <Project>{3ecc0e14-4cc0-4221-8df6-61a19998ae3d}</Project>
