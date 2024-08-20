@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.ImChat", "HmExt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Mqtt", "HmExtension.Mqtt\HmExtension.Mqtt.csproj", "{C004EB53-54A4-4760-8941-9D4D8B0D52F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Opc", "HmExtension.Opc\HmExtension.Opc.csproj", "{F69E9B08-8402-4536-8165-8E51560C3634}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{C004EB53-54A4-4760-8941-9D4D8B0D52F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C004EB53-54A4-4760-8941-9D4D8B0D52F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C004EB53-54A4-4760-8941-9D4D8B0D52F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69E9B08-8402-4536-8165-8E51560C3634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69E9B08-8402-4536-8165-8E51560C3634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69E9B08-8402-4536-8165-8E51560C3634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69E9B08-8402-4536-8165-8E51560C3634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
