@@ -19,10 +19,50 @@ public class HmOpcDaClient : IClient, IDisposable
     private readonly OpcAutomationClient _client;
 
     /// <summary>
+    /// 主机地址
+    /// </summary>
+    public string Host { get; set; }
+    /// <summary>
+    /// 服务名称
+    /// </summary>
+    public string Server { get; set; }
+
+    private bool isConnected
+    {
+        get => _client.Connected;
+        set => OnConnectChanged?.Invoke(value);// 触发事件
+    }
+
+    /// <summary>
+    /// 连接状态
+    /// </summary>
+    public bool IsConnected
+    {
+        get => isConnected;
+        set
+        {
+        }
+    }
+    /// <summary>
+    /// 连接状态变化事件
+    /// </summary>
+    public event Action<bool> OnConnectChanged;
+    /// <summary>
+    /// 数据变化事件
+    /// <para>
+    ///     Action&lt;组名, 节点名, 旧值, 新值&gt;
+    /// </para>
+    /// </summary>
+    public event Action<string, string, TagValue, TagValue> OnDataChange;
+
+    /// <summary>
     /// TagValue缓存
     /// </summary>
     private readonly Dictionary<string, TagValue> _tagValues = new();
 
+    /// <summary>
+    /// 创建OpcDa客户端
+    /// </summary>
     public HmOpcDaClient() : this(options => { })
     {
     }
@@ -56,15 +96,7 @@ public class HmOpcDaClient : IClient, IDisposable
         });
     }
 
-    /// <summary>
-    /// 主机地址
-    /// </summary>
-    public string Host { get; set; }
-
-    /// <summary>
-    /// 服务名称
-    /// </summary>
-    public string Server { get; set; }
+    
 
     /// <summary>
     /// 得到服务列表
@@ -77,13 +109,7 @@ public class HmOpcDaClient : IClient, IDisposable
         return discovery.GetServers(host: host);
     }
 
-    /// <summary>
-    /// 数据变化事件
-    /// <para>
-    ///     Action&lt;组名, 节点名, 旧值, 新值&gt;
-    /// </para>
-    /// </summary>
-    public event Action<string, string, TagValue, TagValue> OnDataChange;
+  
 
     /// <summary>
     /// 连接
@@ -95,8 +121,23 @@ public class HmOpcDaClient : IClient, IDisposable
         {
             _client.Server.Host = Host;
             _client.Server.ProgId = Server;
-            _client.Connect();
+            isConnected = _client.Connect();
         });
+    }
+    /// <summary>
+    /// 将节点添加到分组
+    /// </summary>
+    /// <param name="itemName">节点名称</param>
+    /// <param name="group">分组名称</param>
+    public void AppendToGroup(string itemName, string group = "default")
+    {
+        if (!_client.Groups.TryGetValue(group,out var g))
+        {
+            AddGroup(group);
+            g = _client.Change(group);
+        }
+        if(g.Values.ContainsKey(itemName)) return;
+        g.Add(new Tag(itemName, g.Values.Count + 1));
     }
 
     /// <summary>
@@ -157,9 +198,9 @@ public class HmOpcDaClient : IClient, IDisposable
         {
             nodes.Add(new OpcDaNode(this, browseNode));
         }
-
         return nodes;
     }
+
     /// <summary>
     /// 得到Opc节点
     /// </summary>
@@ -176,78 +217,101 @@ public class HmOpcDaClient : IClient, IDisposable
     public void Disconnect()
     {
         _client?.Disconnect();
+        isConnected = false;
     }
+
     /// <summary>
     /// 读取节点
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="group"></param>
-    /// <param name="itemName"></param>
+    /// <param name="group">分组名称</param>
+    /// <param name="itemName">节点名称</param>
+    /// <returns></returns>
+    public TagValue ReadNode(string group, string itemName)
+    {
+        AppendToGroup(itemName,group);
+        return _client.Read(group, itemName)?.Result;
+    }
+
+    /// <summary>
+    /// 读取节点
+    /// </summary>
+    /// <param name="group">分组名称</param>
+    /// <param name="itemName">节点名称</param>
+    /// <returns></returns>
+    public Task<TagValue> ReadNodeAsync(string group, string itemName)
+    {
+        return Task.Run(() =>
+        {
+            AppendToGroup(itemName, group);
+            ActionResult<Tag> rs = _client.ReadAsync(group, itemName);
+            return (TagValue)rs?.Result;
+        });
+    }
+
+    /// <summary>
+    /// 读取节点
+    /// </summary>
+    /// <typeparam name="T">结果类型</typeparam>
+    /// <param name="group">分组名称</param>
+    /// <param name="itemName">节点名称</param>
     /// <returns></returns>
     public T ReadNode<T>(string group, string itemName)
     {
-        var gs = _client.Change(group);
-        if (gs == null)
-        {
-            AddGroup(group);
-            gs = _client.Change(group);
-        }
-
-        if (!gs.Values.ContainsKey(itemName))
-        {
-            gs.Add(new Tag(itemName, gs.Values.Count + 1));
-        }
-
+        AppendToGroup(itemName, group);
         var actionResult = _client.Read(group, itemName);
-        return (T)actionResult.Result.Value;
+        return (T)actionResult?.Result?.Value ?? default;
     }
+
+   
+
     /// <summary>
     /// 异步读取节点
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="group"></param>
-    /// <param name="itemName"></param>
+    /// <typeparam name="T">结果类型</typeparam>
+    /// <param name="group">分组名称</param>
+    /// <param name="itemName">节点名称</param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     public Task<T> ReadNodeAsync<T>(string group, string itemName)
     {
         return Task.Run(() =>
         {
+            AppendToGroup(itemName, group);
             ActionResult<Tag> rs = _client.ReadAsync(group, itemName);
-            if (rs.Result is TagValue tv)
+            if (rs?.Result is TagValue tv)
             {
                 return (T)tv.Value;
             }
+
             return default;
         });
     }
+
     /// <summary>
     /// 写入节点
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="group"></param>
-    /// <param name="itemName"></param>
-    /// <param name="value"></param>
+    /// <param name="group">分组名称</param>
+    /// <param name="itemName">节点名称</param>
+    /// <param name="value">节点值</param>
     public void WriteNode(string group, string itemName, object value)
     {
+        AppendToGroup(itemName, group);
         _client.Write(group, itemName, value);
     }
 
     /// <summary>
     /// 异步写入节点
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="group"></param>
-    /// <param name="itemName"></param>
-    /// <param name="value"></param>
+    /// <param name="group">分组名称</param>
+    /// <param name="itemName">节点名称</param>
+    /// <param name="value">节点值</param>
     /// <returns></returns>
     public Task WriteNodeAsync(string group, string itemName, object value)
     {
-        return Task.Run(() =>
-        {
-            _client.WriteAsync(group, itemName, value);
-        });
+        AppendToGroup(itemName, group);
+        return Task.Run(() => { _client.WriteAsync(group, itemName, value); });
     }
+
     /// <summary>
     /// 数据变化处理
     /// </summary>
@@ -259,6 +323,7 @@ public class HmOpcDaClient : IClient, IDisposable
         OnDataChange?.Invoke(output.Group.Name, itemName, oldValue, output.Data);
         _tagValues[itemName] = output.Data;
     }
+
     /// <summary>
     /// 添加组
     /// </summary>
@@ -274,6 +339,7 @@ public class HmOpcDaClient : IClient, IDisposable
             UpdateRate = updateRate,
         });
     }
+
     /// <summary>
     /// 添加组
     /// </summary>
@@ -285,9 +351,11 @@ public class HmOpcDaClient : IClient, IDisposable
         {
             return;
         }
+
         _client.Add(group);
         group.DataChangedHandler += OnDataChangeHandler;
     }
+
     /// <summary>
     /// 移除组
     /// </summary>
@@ -295,7 +363,7 @@ public class HmOpcDaClient : IClient, IDisposable
     public void RemoveGroup(string groupName)
     {
         var gs = _client.Change(groupName);
-        if(gs == null) return;
+        if (gs == null) return;
         gs.Group.DataChangedHandler -= OnDataChangeHandler;
         _client.Remove(groupName);
     }
@@ -327,6 +395,7 @@ public class HmOpcDaClient : IClient, IDisposable
 
         return true;
     }
+
     /// <summary>
     /// 取消订阅
     /// </summary>
@@ -337,6 +406,7 @@ public class HmOpcDaClient : IClient, IDisposable
         var gs = _client.Change(group);
         gs?.Remove(itemNames);
     }
+
     /// <summary>
     /// 释放资源
     /// </summary>

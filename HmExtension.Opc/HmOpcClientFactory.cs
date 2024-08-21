@@ -17,4 +17,14 @@ public static class HmOpcClientFactory
     {
         return new HmOpcDaClient(initHandler ?? (options => { }));
     }
+
+    /// <summary>
+    /// 创建OpcUa客户端(未实现)
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public static IClient CreateOpcUaClient()
+    {
+        throw new NotImplementedException();
+    }
 }
