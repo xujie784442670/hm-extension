@@ -299,6 +299,12 @@
     <Compile Include="FormOpcTest.Designer.cs">
       <DependentUpon>FormOpcTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormXingHuoTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormXingHuoTest.Designer.cs">
+      <DependentUpon>FormXingHuoTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormQrCodeTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +343,9 @@
     <EmbeddedResource Include="FormOpcTest.resx">
       <DependentUpon>FormOpcTest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormXingHuoTest.resx">
+      <DependentUpon>FormXingHuoTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormQrCodeTest.resx">
       <DependentUpon>FormQrCodeTest.cs</DependentUpon>
     </EmbeddedResource>
@@ -373,6 +382,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HmExtension.AIChat\HmExtension.AIChat.csproj">
+      <Project>{c035cd43-432a-4f3f-ad64-b15b00245332}</Project>
+      <Name>HmExtension.AIChat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HmExtension.Bitmap\HmExtension.Drawing.csproj">
       <Project>{ada46e78-b1d5-49c2-8626-92873217e677}</Project>
       <Name>HmExtension.Drawing</Name>

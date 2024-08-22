@@ -51,5 +51,10 @@ namespace HmExtension.Test
         {
             new FormOpcTest().Show();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            new FormXingHuoTest().Show();
+        }
     }
 }

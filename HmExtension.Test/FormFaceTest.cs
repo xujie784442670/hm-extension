@@ -36,6 +36,7 @@ namespace HmExtension.Test
 
         private void button5_Click(object sender, EventArgs e)
         {
+            CameraHelper.CloseCamera();
             CameraHelper.OpenCamera(cameraList.SelectedIndex);
             timer1.Enabled = true;
             timer1.Interval = 1000 / 30;
