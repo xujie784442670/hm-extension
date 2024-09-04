@@ -312,8 +312,14 @@ public class HmOpcUaClient:IClient
     bool IClient.IsConnected { get; set; }
 
     public event Action<bool> OnConnectChanged;
+    public event Action<string, string, bool> OnSubscriptionChanged;
 
     public string[] GetServers(string host = "localhost")
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool CheckSubscription(string group, string itemName)
     {
         throw new NotImplementedException();
     }
@@ -329,7 +335,8 @@ public class HmOpcUaClient:IClient
         throw new NotImplementedException();
     }
 
-    public List<IOpcNode> Browses(string itemName, bool includeChild = true, bool isLeaf = false)
+    public List<IOpcNode> Browses(string itemName, bool includeChild = true, bool isLeaf = false,
+        bool includeParent = false)
     {
         throw new NotImplementedException();
     }

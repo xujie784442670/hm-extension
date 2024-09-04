@@ -47,6 +47,15 @@ public class HmOpcDaClient : IClient, IDisposable
     /// 连接状态变化事件
     /// </summary>
     public event Action<bool> OnConnectChanged;
+
+    /// <summary>
+    /// 订阅状态变化事件
+    /// <para>
+    ///     Action&lt;分组名称, 节点名称,是否订阅&gt;
+    /// </para>
+    /// </summary>
+    public event Action<string, string, bool> OnSubscriptionChanged;
+
     /// <summary>
     /// 数据变化事件
     /// <para>
@@ -108,8 +117,18 @@ public class HmOpcDaClient : IClient, IDisposable
         var discovery = DaClientFactory.Instance.CreateOpcAutomationServerDiscovery();
         return discovery.GetServers(host: host);
     }
+    /// <summary>
+    /// 检查节点是否订阅
+    /// </summary>
+    /// <param name="group"></param>
+    /// <param name="itemName"></param>
+    /// <returns></returns>
+    public bool CheckSubscription(string group, string itemName)
+    {
+        var groupSubscription = _client.Change(group);
+        return groupSubscription?.Tags?.ContainsKey(itemName) ?? false;
+    }
 
-  
 
     /// <summary>
     /// 连接
@@ -147,7 +166,7 @@ public class HmOpcDaClient : IClient, IDisposable
     /// <param name="includeChild">是否包含子节点</param>
     /// <param name="isLeaf">是否是叶子节点</param>
     /// <returns></returns>
-    public List<IOpcNode> Browses(string itemName = null, bool includeChild = true, bool isLeaf = false)
+    public List<IOpcNode> Browses(string itemName = null, bool includeChild = true, bool isLeaf = false,bool includeParent=false)
     {
         var browseNodes = _client.BrowseNodes(itemName, true);
         var nodes = new List<IOpcNode>();
@@ -171,17 +190,27 @@ public class HmOpcDaClient : IClient, IDisposable
                 }
             }
             // 2. ItemName不为空
-            else if (full.StartsWith(itemName) && full != itemName)
+            else if (full.StartsWith(itemName))
             {
-                full = full.Replace(itemName, "");
-                if (full.IndexOf(".", StringComparison.Ordinal) == full.LastIndexOf(".", StringComparison.Ordinal))
+                if (includeParent && full == itemName)
                 {
                     // 则获取所有节点
                     nodes.Add(new OpcDaNode(this, browseNode));
                 }
+
+                if (full != itemName)
+                {
+                    full = full.Replace(itemName, "");
+                    if (full.IndexOf(".", StringComparison.Ordinal) == full.LastIndexOf(".", StringComparison.Ordinal))
+                    {
+                        // 则获取所有节点
+                        nodes.Add(new OpcDaNode(this, browseNode));
+                    }
+                }
+
+               
             }
         }
-
         return nodes;
     }
 
@@ -208,7 +237,7 @@ public class HmOpcDaClient : IClient, IDisposable
     /// <returns></returns>
     public IOpcNode GetOpcNode(string itemName)
     {
-        return Browses(itemName, false).FirstOrDefault();
+        return Browses(itemName, false,includeParent:true).FirstOrDefault();
     }
 
     /// <summary>
@@ -391,6 +420,7 @@ public class HmOpcDaClient : IClient, IDisposable
             }
 
             gs.Add(new Tag(itemName, gs.Values.Count + 1));
+            OnSubscriptionChanged?.Invoke(group, itemName, true);
         }
 
         return true;
@@ -405,6 +435,10 @@ public class HmOpcDaClient : IClient, IDisposable
     {
         var gs = _client.Change(group);
         gs?.Remove(itemNames);
+        foreach (var itemName in itemNames)
+        {
+            OnSubscriptionChanged?.Invoke(group, itemName, false);
+        }
     }
 
     /// <summary>

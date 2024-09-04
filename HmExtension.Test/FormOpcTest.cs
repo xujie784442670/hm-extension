@@ -80,8 +80,16 @@ namespace HmExtension.Test
         {
             client.Host = Host;
             client.Server = Server;
+            client.OnSubscriptionChanged += (group, itemName, status) =>
+            {
+                Console.WriteLine($"分组: {group} 节点: {itemName} 状态: {status}");
+            };
             await client.Connect();
             Message.success(this, "连接成功");
+            
+
+            client.AddGroup("果园");
+            client.Subscription("果园", "果园.001PLC.BCQ_Close");
             InitTreeView();
         }
 
@@ -110,9 +118,9 @@ namespace HmExtension.Test
         {
             var node = new TreeNode(opcNode.Name)
             {
-                Tag = opcNode
+                Tag = opcNode,
+                Checked = client.CheckSubscription("果园",opcNode.ItemName)
             };
-            node.Checked = true;
             foreach (var childNode in opcNode)
             {
                 node.Nodes.Add(CreateNode(childNode));

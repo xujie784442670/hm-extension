@@ -86,10 +86,12 @@ public class OpcDaNode : IOpcNode
     /// </summary>
     /// <param name="client"></param>
     /// <param name="browseNode"></param>
-    public OpcDaNode(HmOpcDaClient client, BrowseNode browseNode)
+    /// <param name="group">默认所属分组</param>
+    public OpcDaNode(HmOpcDaClient client, BrowseNode browseNode,string group="default")
     {
         Client = client;
         BrowseNode = browseNode;
+        IsSubscription = client.CheckSubscription(group, ItemName);
         InitChildes();
     }
 

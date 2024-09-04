@@ -38,6 +38,13 @@ public interface IClient
     /// 连接状态变化事件
     /// </summary>
     public event Action<bool> OnConnectChanged;
+    /// <summary>
+    /// 订阅状态变化事件
+    /// <para>
+    ///     Action&lt;分组名称, 节点名称,是否订阅&gt;
+    /// </para>
+    /// </summary>
+    public event Action<string, string,bool> OnSubscriptionChanged;
 
     #endregion
 
@@ -49,6 +56,13 @@ public interface IClient
     /// <param name="host">主机地址</param>
     /// <returns></returns>
     public string[] GetServers(string host = "localhost");
+    /// <summary>
+    /// 检查节点是否订阅
+    /// </summary>
+    /// <param name="group"></param>
+    /// <param name="itemName"></param>
+    /// <returns></returns>
+    public bool CheckSubscription(string group, string itemName);
 
     /// <summary>
     /// 连接
@@ -68,8 +82,9 @@ public interface IClient
     /// <param name="itemName">根节点名称</param>
     /// <param name="includeChild">是否包含子节点</param>
     /// <param name="isLeaf">是否是叶子节点</param>
+    /// <param name="includeParent">是否包含父节点</param>
     /// <returns></returns>
-    public List<IOpcNode> Browses(string itemName = null, bool includeChild = true, bool isLeaf = false);
+    public List<IOpcNode> Browses(string itemName = null, bool includeChild = true, bool isLeaf = false,bool includeParent=false);
 
     /// <summary>
     /// 浏览节点树
