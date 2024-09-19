@@ -18,10 +18,33 @@ public static class ByteArrayExtension
     /// <param name="value">目标字节数组</param>
     /// <param name="separator">分隔符</param>
     /// <returns></returns>
-    public static string ToBinary(this byte[] value,string separator=" ")
+    public static string ToBinary(this byte[] value, string separator = " ")
     {
         return string.Join(separator, value.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')));
     }
+
+    /// <summary>
+    /// 将字节添加到字节数组中
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="b">待添加字节</param>
+    /// <returns></returns>
+    public static byte[] Add(this byte[] value, byte b)
+    {
+        return value.Concat([b]).ToArray();
+    }
+
+    /// <summary>
+    /// 将字节添加到字节数组中
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="b">待添加字节</param>
+    /// <returns></returns>
+    public static byte[] Add(this byte[] value, int b)
+    {
+        return value.Concat([(byte)b]).ToArray();
+    }
+
 
     /// <summary>
     /// 截取字节数组
@@ -32,7 +55,8 @@ public static class ByteArrayExtension
     /// <param name="targetLength">目标数组长度,如果为0,则表示不作处理,如果大于0,则会将目标数组进行剪裁或扩充</param>
     /// <param name="reverse">数组内容是否反转</param>
     /// <returns></returns>
-    public static byte[] SubBytes(this byte[] value, int startIndex = 0, int endIndex = 0,int targetLength=0, bool reverse = false)
+    public static byte[] SubBytes(this byte[] value, int startIndex = 0, int endIndex = 0, int targetLength = 0,
+        bool reverse = false)
     {
         if (endIndex == 0 || endIndex > value.Length)
         {
@@ -40,7 +64,6 @@ public static class ByteArrayExtension
         }
 
         byte[] result = value.Skip(startIndex).Take(endIndex - startIndex).ToArray();
-        result = reverse ? result.Reverse().ToArray() : result;
         if (targetLength > 0)
         {
             if (result.Length < targetLength)
@@ -52,6 +75,8 @@ public static class ByteArrayExtension
                 result = result.Take(targetLength).ToArray();
             }
         }
+
+        result = reverse ? result.Reverse().ToArray() : result;
         return result;
     }
 
@@ -71,7 +96,7 @@ public static class ByteArrayExtension
     /// <returns>short</returns>
     public static short ToShort(this byte[] value, int startIndex = 0, bool reverse = false)
     {
-        return BitConverter.ToInt16(value.SubBytes(startIndex,targetLength:2,reverse:reverse), startIndex);
+        return BitConverter.ToInt16(value.SubBytes(startIndex, targetLength: 2, reverse: reverse), startIndex);
     }
 
     /// <summary>
@@ -111,7 +136,7 @@ public static class ByteArrayExtension
     /// <exception cref="ArgumentException"></exception>
     public static long ToLong(this byte[] value, int startIndex = 0, bool reverse = false)
     {
-        return BitConverter.ToInt64(value.SubBytes(startIndex, targetLength: 8, reverse: reverse),0);
+        return BitConverter.ToInt64(value.SubBytes(startIndex, targetLength: 8, reverse: reverse), 0);
     }
 
     /// <summary>
@@ -175,7 +200,7 @@ public static class ByteArrayExtension
     public static ushort ToUShort(this byte[] value, int startIndex = 0, bool reverse = false)
     {
         value = value.SubBytes(startIndex, targetLength: 2, reverse: reverse);
-        return BitConverter.ToUInt16(value,0);
+        return BitConverter.ToUInt16(value, 0);
     }
 
     /// <summary>
