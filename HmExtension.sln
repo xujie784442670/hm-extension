@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.DbHelper.Test",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.DataSimulation", "HmExtension.DataSimulation\HmExtension.DataSimulation.csproj", "{4F8D9139-E55E-4E30-8092-ABA63145E6C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmExtension.Netty", "HmExtension.Netty\HmExtension.Netty.csproj", "{6B2088BB-ADED-4223-B184-97E6F3FCDE81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{4F8D9139-E55E-4E30-8092-ABA63145E6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F8D9139-E55E-4E30-8092-ABA63145E6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F8D9139-E55E-4E30-8092-ABA63145E6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B2088BB-ADED-4223-B184-97E6F3FCDE81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B2088BB-ADED-4223-B184-97E6F3FCDE81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B2088BB-ADED-4223-B184-97E6F3FCDE81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B2088BB-ADED-4223-B184-97E6F3FCDE81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
